@@ -1,0 +1,12 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="container" id="container">
+  <div class="form-container sign-in-container">
+    <form action="#">
+      <img class="mb-3" src="../../../assets/logo.png" width="300" alt="" />
+      <input type="text" name="user" placeholder="Email" [(ngModel)]="user" />
+      <input type="password" name="password" placeholder="Password" [(ngModel)]="pass" />
+      <button class="my-button" (click)="login()">Sign In</button>
+    </form>
+  </div>
+
+</div>

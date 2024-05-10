@@ -1,0 +1,49 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="mx-3">
+  <div class="d-flex pb-3 pt-2">
+    <div class="col-10">
+      <h1>Listado Carritos de compras</h1>
+    </div>
+  </div>
+  <p-table
+    [value]="list"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>Nombres Cliente</th>
+        <th>Nombre Producto</th>
+        <th>Unidades</th>
+        <th>Valor Unidad</th>
+        <th>Valor Total</th>
+        <th>Costos</th>
+        <th>Fecha Creacion</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td class="text-uppercase">{{ item.id }}</td>
+        <td class="text-uppercase">{{ item.namcli }}</td>
+        <td class="text-uppercase">{{ item.name }}</td>
+        <td class="text-uppercase">{{ item.und }}</td>
+        <td class="text-uppercase">
+          {{ item.amount_u | currency : "USD" : "symbol" : "1.0-0" }}
+        </td>
+        <td class="text-uppercase">
+          {{ item.amount_t | currency : "USD" : "symbol" : "1.0-0" }}
+        </td>
+        <td class="text-uppercase">
+          {{ item.cost | currency : "USD" : "symbol" : "1.0-0" }}
+        </td>
+        <td>{{ item.datecreate | date : "dd/MM/yyyy hh:mm:ss" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

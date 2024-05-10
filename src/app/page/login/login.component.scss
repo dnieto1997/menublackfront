@@ -1,0 +1,136 @@
+h1 {
+  font-weight: bold;
+  margin: 0;
+}
+h1.text-signin {
+  font-weight: bold;
+  margin: 0;
+  color: #df0c0f;
+}
+a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+button {
+  border-radius: 20px;
+  border: 1px solid #0d0d0d;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+button:hover {
+  border: 1px solid #7f76e7;
+  background-color: #7f76e7;
+}
+
+form {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}
+
+input {
+  border: none;
+  padding: 12px 15px;
+  margin: 15px 0;
+  width: 50%;
+  border-radius: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 3px rgba(0, 0, 0, 0.22);
+}
+
+.container {
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  padding: 0;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  transition: all 0.6s ease-in-out;
+}
+
+.form-container {
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+  width: 50%;
+  z-index: 2;
+}
+
+.overlay-container {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.overlay {
+  background: #df0c0f;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+  color: #ffffff;
+  height: 100%;
+}
+
+.overlay-panel {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  padding-top: 100px;
+}
+.forgotPass {
+  font-weight: bold;
+}
+
+.slider img {
+  width: 100%;
+  height: auto; /* Ajusta esto según tus necesidades */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin perder su aspecto */
+}
+::ng-deep .p-carousel .p-carousel-prev,
+::ng-deep .p-carousel .p-carousel-next,
+.p-carousel-page {
+  display: none;
+}
+@media (max-width: 767px) {
+  .container {
+    display: block;
+  }
+  .sign-in-container {
+    width: 100%;
+  }
+  input {
+    width: 100%;
+  }
+  button {
+    width: 100%;
+  }
+  .overlay-container {
+    display: none;
+  }
+}

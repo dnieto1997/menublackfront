@@ -1,0 +1,344 @@
+
+<div class="mx-3">
+  <div class="d-flex pb-3 pt-2">
+    <div class="col-10">
+      <h1>List Group</h1>
+    </div>
+    <div class="col-2 text-end">
+        <button class="btn-create" (click)="openModal()">Create Group</button>
+      </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-borderless" >
+      <thead>
+        <tr>
+          <th class="text-center">Id</th>
+          <th class="text-center">Img</th>
+          <th class="text-center">Code</th>
+          <th class="text-center">Order</th>
+          <th class="text-center">Name</th>
+          <th class="text-center">Days</th>
+          <th class="text-center">Hours</th>
+          <th class="text-center">Observations</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Editar</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="showTable">
+        <tr *ngFor="let item of list">
+          <td class="text-center">{{ item.id }}</td>
+          <td class="text-center">
+          <img src="{{ verificarURLImagen(item.img) }}" class="imagen">
+        
+          </td>
+          <td class="text-center">
+           {{ item.code }}
+          </td>
+          <td class="text-center" >
+            {{ item.order }}
+          </td>
+          <td class="text-center" >
+           {{ item.name }}
+          </td>
+          <td class="text-center" >
+           {{ convertirDia(item.days) }}
+          </td>
+          <td class="text-center" >
+            {{ eliminar(item.hours) }}
+          </td>
+          <td class="text-center" >
+           {{ item.observations }}
+          </td>
+          <td class="text-center">
+            <button class="btn" (click)="toggleUserStatus(item.id, item.status)">
+              {{ item.status ? 'Activate' : 'Desactivate' }}
+            </button>
+            <td class="text-center">
+              <button class="btn"  (click)="openEditDialog(item.id)">
+               Edit
+              </button>
+            </td>
+         
+        </tr>
+      </tbody>
+      
+      <tbody *ngIf="squeleto">
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+
+        </tr>
+        <tr class="ng-star-inserted">
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+            <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<p-dialog
+  header="Create Group"
+  [(visible)]="display"
+  [style]="{ width: '50vw' }"
+>
+  <div class="row">
+    <form action="">
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">IMG</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.img"
+            name="img"
+            required
+          />
+        </div>
+        <div class="col-6 mb-3">
+            <label for="" class="w-100 fw-bold mb-1">Code</label>
+            <input
+              type="text"
+              class="w-100"
+              [(ngModel)]="data.code"
+              name="code"
+              required
+            />
+          </div>
+          <div class="col-6 mb-3">
+            <label for="" class="w-100 fw-bold mb-1">Order</label>
+            <input
+              type="text"
+              class="w-100"
+              [(ngModel)]="data.order"
+              name="order"
+              required
+            />
+          </div>
+          <div class="col-6 mb-3">
+            <label for="" class="w-100 fw-bold mb-1">Names</label>
+            <input
+              type="text"
+              class="w-100"
+              [(ngModel)]="data.name"
+              name="name"
+              required
+            />
+          </div>
+   
+          <div class="col-12 mb-3">
+            <label class="w-100 fw-bold mb-1">Days</label>
+            <div class="days-checkboxes">
+              <label *ngFor="let day of days" class="day-checkbox">
+                <input type="checkbox" [value]="day.value" (change)="toggleDay(day)" [checked]="day.selected" />
+                <span class="checkmark" [class.checked]="day.selected"></span>
+                {{ day.label }}
+              </label>
+            </div>
+          </div>
+          
+         
+          <div class="col-12 mb-3">
+            <label class="w-100 fw-bold mb-1">Hours</label>
+            <select class="form-select" #hourSelect>
+              <option value="">Select an hour</option>
+              <option *ngFor="let hour of filteredHours" [value]="hour">{{ hour }}</option>
+            </select>
+            <button class="btn btn-primary mt-2" (click)="addHour(hourSelect.value)">Add Hour</button>
+          </div>
+          
+          <div *ngIf="hours.length > 0" class="mb-3">
+            <p class="fw-bold">Selected Hours:</p>
+            <div class="selected-hours">
+              <span *ngFor="let hour of hours" class="hour">
+                {{ hour }}
+                <button class="btn btn-danger btn-sm remove-button" (click)="removeHour(hour)">X</button>
+              </span>
+            </div>
+          </div>
+          <div class="col-6 mb-3">
+            <label for="" class="w-100 fw-bold mb-1">Observations</label>
+            <textarea class="w-100 textarea-styling" required
+            [(ngModel)]="data.observations"
+            name="observations" 
+            placeholder="Write your observations here..."
+            > </textarea>
+          
+          </div>
+
+      </div>
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+    <button class="btn-modal" (click)="createGroup()">  Create User</button>
+  </ng-template>
+</p-dialog>
+
+
+ <p-dialog
+  header="Edit Group"
+  [(visible)]="display2"
+  [style]="{ width: '50vw' }"
+>
+  <div class="row">
+    <form action="">
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">IMG</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data2.img"
+            name="img"
+   
+          />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Code</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data2.code"
+            name="code"
+ 
+          />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Order</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data2.order"
+            name="order"
+     
+          />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Names</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data2.name"
+            name="name"
+      
+          />
+        </div>
+
+        <div class="col-12 mb-3">
+          <label class="w-100 fw-bold mb-1">Days</label>
+          <div class="days-checkboxes">
+            <label *ngFor="let day of days" class="day-checkbox">
+              <input
+                type="checkbox"
+                [value]="day?.value"
+                (change)="toggleDay2(day)"
+                [checked]="data2.days.includes(day.value)"
+              />
+              <span class="checkmark"></span>
+              {{ day.label }}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <label class="w-100 fw-bold mb-1">Hours</label>
+          <select class="form-select" #hourSelect2>
+            <option value="">Select an hour</option>
+            <option *ngFor="let hour of filteredHours2" [value]="hour">{{ hour }}</option>
+          </select>
+          <button class="btn btn-primary mt-2" (click)="addHour2(hourSelect2.value)">Add Hour</button>
+        </div>
+        
+        <div *ngIf="data2.hours.length > 0" class="mb-3">
+          <p class="fw-bold">Selected Hours:</p>
+          <div class="selected-hours">
+            <span *ngFor="let hour of data2.hours" class="hour">
+              {{ hour }}
+              <button class="btn btn-danger btn-sm remove-button" (click)="removeHour2(hour)">X</button>
+            </span>
+          </div>
+        </div>
+        
+        
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Observations</label>
+          <textarea class="w-100 textarea-styling" required
+            [(ngModel)]="data2.observations"
+            name="observations"
+            placeholder="Write your observations here..."
+          ></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+    <button class="btn-modal" (click)="EditGroup(data2.id)" >Edit Group</button>
+  </ng-template>
+</p-dialog> 

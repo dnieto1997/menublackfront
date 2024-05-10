@@ -1,0 +1,14 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="container-banner">
+  <h1>Banner</h1>
+  <app-upload (datSent)="start()"></app-upload>
+  <div class="row mt-3">
+    <div *ngFor="let item of list" class="p-2 col-3">
+      <div class="card p-3">
+        <label class="title-card">{{ item.descripcion }}</label>
+        <img src="{{ item.img }}" alt="" class="w-100" />
+        <button class="btn-delete" (click)="delete(item.id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

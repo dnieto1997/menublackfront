@@ -1,0 +1,186 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="mx-3">
+  <div class="d-flex pb-3 pt-2">
+    <div class="col-10">
+      <h1>Listado Ordenes</h1>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-3">
+      <label> Nombre del cliente </label>
+      <input type="text" class="w-100" [(ngModel)]="nameCli" />
+    </div>
+    <div class="col-3">
+      <label> Orden </label>
+      <input type="text" class="w-100" [(ngModel)]="idorder" />
+    </div>
+    <div class="col-3">
+      <label>Estado</label>
+      <select class="w-100" [(ngModel)]="status">
+        <option value="">Todos</option>
+        <option value="SUCCESS">Exitosa</option>
+        <option value="PENDDING">Pendiente</option>
+        <option value="DECLINED">Rechazada</option>
+        <option value="CANCEL">Cancelada</option>
+      </select>
+    </div>
+    <div class="col-3">
+      <label> ‎ </label>
+      <button class="btn-search" (click)="search()">Buscar</button>
+    </div>
+  </div>
+  <p-table
+    [value]="list"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>Nombres Cliente</th>
+        <th class="col-2">Dirección</th>
+        <th>Metodo de pago</th>
+        <th>Valor Subtotal</th>
+        <th>Valor Total</th>
+        <th>Estado</th>
+        <th>Fecha Creacion</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td class="text-uppercase">{{ item.id }}</td>
+        <td class="text-uppercase">{{ item.namcli }}</td>
+        <td class="text-uppercase">{{ item.direccion }}</td>
+        <td class="text-uppercase">{{ item.mediopago }}</td>
+        <td class="text-uppercase">
+          {{ item.subtotal | currency : "USD" : "symbol" : "1.0-0" }}
+        </td>
+        <td class="text-uppercase">
+          {{ item.total | currency : "USD" : "symbol" : "1.0-0" }}
+        </td>
+        <td class="text-uppercase">
+          {{ item.status }}
+        </td>
+        <td>{{ item.datecreate | date : "dd/MM/yyyy hh:mm:ss" }}</td>
+        <td class="col-1 text-center">
+          <i class="ti ti-search tree-dots" (click)="openModal(item)"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="fw-bold display-7 col">Total</div>
+        <div class="fw-bold display-7 col">
+          {{ subtotal | currency : "USD" : "symbol" : "1.0-0" }}
+        </div>
+        <div class="fw-bold display-7 col">
+          {{ totalTable | currency : "USD" : "symbol" : "1.0-0" }}
+        </div>
+        <div class="col-3"></div>
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog
+  header="Factura #{{ data.id }}"
+  [(visible)]="display"
+  [style]="{ width: '50vw' }"
+>
+  <div>
+    <h3 class="text-center mb-5">Detalle Orden</h3>
+    <div class="row">
+      <div class="d-grid col-6">
+        <label class="fw-bold">Nombre Cliente</label>
+        <label>{{ data.namcli }}</label>
+      </div>
+      <div class="d-grid col-6">
+        <label class="fw-bold">Dirección</label>
+        <label>{{ data.direccion }}</label>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="d-grid col-6">
+        <label class="fw-bold">Medio de pago</label>
+        <label>{{ data.mediopago }}</label>
+      </div>
+      <div class="d-grid col-6">
+        <label class="fw-bold">Fecha de pedido</label>
+        <label>{{ data.datecreate | date : "dd/MM/yyyy hh:mm:ss" }}</label>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <label class="fw-bold">Producto(s)</label>
+      <div class="row py-3">
+        <div class="col-3 p-2" *ngFor="let pr of data.detail">
+          <div class="produt-detail">
+            <label>{{ pr.name }}</label>
+            <img src="{{ pr.p_img1 }}" alt="" srcset="" width="50px" />
+            <label>Cant. ({{ pr.und }})</label>
+            <label>{{
+              pr.amount_u | currency : "USD" : "symbol" : "1.0-0"
+            }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="d-grid col-4">
+        <label class="fw-bold">Subtotal</label>
+        <label>{{
+          data.subtotal | currency : "USD" : "symbol" : "1.0-0"
+        }}</label>
+      </div>
+      <div class="d-grid col-4">
+        <label class="fw-bold">Total</label>
+        <label>{{ data.total | currency : "USD" : "symbol" : "1.0-0" }}</label>
+      </div>
+      <div class="d-grid col-4">
+        <label class="fw-bold">Domicilio</label>
+
+        <label>{{
+          data.domicilio | currency : "USD" : "symbol" : "1.0-0"
+        }}</label>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <label class="fw-bold">Estado</label>
+      <div
+        class="statusOrder"
+        [ngClass]="data.status == 'Pendiente' ? 'btnStatusSelect' : ''"
+        (click)="data.status = 'Pendiente'"
+      >
+        Pendiente
+      </div>
+      <div
+        class="statusOrder"
+        [ngClass]="data.status == 'Preparacion' ? 'btnStatusSelect' : ''"
+        (click)="data.status = 'Preparacion'"
+      >
+        Preparacion
+      </div>
+      <div
+        class="statusOrder"
+        [ngClass]="data.status == 'En Camino' ? 'btnStatusSelect' : ''"
+        (click)="data.status = 'En Camino'"
+      >
+        En Camino
+      </div>
+      <div
+        class="statusOrder"
+        [ngClass]="data.status == 'SUCCESS' ? 'btnStatusSelect' : ''"
+        (click)="data.status = 'Entregado'"
+      >
+        Entregado
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button class="btn-modal" (click)="changeStatus()">Editar</button>
+  </ng-template>
+</p-dialog>

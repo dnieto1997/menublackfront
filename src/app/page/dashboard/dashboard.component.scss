@@ -1,0 +1,29 @@
+.container-dash {
+  margin: 20px 30px;
+}
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1b1564;
+}
+.vlr-total {
+  font-size: 24px;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #1b1564;
+}
+.card-dash {
+  padding: 20px 15px;
+  background: #fff;
+  box-shadow: 1px 1px 5px 1px rgba(173, 173, 173, 1);
+  border: none;
+  border-radius: 6px;
+}
+.content-icon {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  span {
+    font-size: 70px;
+  }
+}

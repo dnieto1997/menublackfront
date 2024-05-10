@@ -1,0 +1,92 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="mx-3">
+  <div class="d-flex pb-3 pt-2">
+    <div class="col-10">
+      <h1>Listado Cliente</h1>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-borderless" aria-describedby="">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nombres</th>
+          <th>Correo</th>
+          <th>Celular</th>
+          <th>Tipo Usuario</th>
+          <th>Registro</th>
+          <th class="text-center">Estado</th>
+          <th>Fecha Creacion</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="showTable">
+        <tr class="ng-star-inserted" *ngFor="let item of list">
+          <td><img src="{{ item.img1 }}" width="30px" alt="" srcset="" /></td>
+          <td class="text-uppercase">{{ item.names }}</td>
+          <td class="text-uppercase">{{ item.email }}</td>
+          <td class="text-uppercase">{{ item.phone }}</td>
+          <td class="text-uppercase">{{ item.type }}</td>
+          <td class="text-uppercase">{{ item.medio }}</td>
+          <td>
+            <div
+              [ngClass]="item.status ? 'statusActive' : 'statusDesactive'"
+            ></div>
+          </td>
+          <!-- <td><img src="{{ item.img2 }}" width="30px" alt="" srcset="" /></td> -->
+          <td>{{ item.datecreate }}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="squeleto">
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

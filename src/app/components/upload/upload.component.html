@@ -1,0 +1,36 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="d-flex">
+  <div class="">
+    <div class="wrap-custom-file">
+      <input
+        type="file"
+        name="image"
+        id="image"
+        accept=".jpg, .png"
+        (change)="onChange($event)"
+        #fileUpload
+        hidden
+      />
+      <label
+        for="image"
+        [class.file-ok]="fileSelect"
+        [style.background-image]="'url(' + fileSelect + ')'"
+      >
+        <span *ngIf="!fileSelect; else uploaded">Agregar nueva imagen</span>
+        <ng-template #uploaded><i class="fa fa-check-circle"></i></ng-template>
+      </label>
+    </div>
+  </div>
+
+  <div class="pt-3" *ngIf="file">
+    <section class="file-info">
+      <h2>Detalle imagen:</h2>
+      <ul>
+        <li>Nombre: {{ file.name }}</li>
+        <li>Tipo: {{ file.type }}</li>
+        <li>Tamaño: {{ file.size | number }} bytes</li>
+      </ul>
+    </section>
+    <button (click)="onUpload()">Upload the file</button>
+  </div>
+</div>

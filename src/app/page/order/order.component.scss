@@ -1,0 +1,102 @@
+.statusActive {
+  background-color: green;
+  width: 15px;
+  height: 15px;
+  border-radius: 10px;
+  margin: auto;
+}
+.statusDesactive {
+  background-color: #aa080b;
+  width: 15px;
+  height: 15px;
+  border-radius: 10px;
+  margin: auto;
+}
+td {
+  font-weight: bold;
+  vertical-align: middle;
+}
+th {
+  background-color: #1b1564;
+  color: #fff;
+}
+.btn-modal {
+  background-color: #df0c0f;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+}
+input {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  height: 40px;
+  padding: 0px 10px;
+}
+select {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  height: 40px;
+  padding: 0px 10px;
+}
+.btn-create {
+  background-color: #df0c0f;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+}
+.display-7 {
+  font-size: 22px;
+}
+.statusOrder {
+  margin-top: 10px;
+  box-shadow: 1px 1px 5px 0px rgba(177, 177, 177, 0.75);
+  border-radius: 20px;
+  width: max-content;
+  margin-left: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.btnStatusSelect {
+  background-color: #df0c0f;
+  color: #fff;
+}
+td {
+  i {
+    font-size: 20px;
+  }
+}
+.produt-detail {
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  display: grid;
+  padding: 10px;
+  text-align: center;
+  justify-items: center;
+  height: 100%;
+  label {
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+label {
+  font-size: 20px;
+  width: 100%;
+  font-weight: bold;
+  color: #1b1564;
+}
+.btn-search {
+  height: 100%;
+  max-height: 40px;
+  background-color: #df0c0f;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  width: 100px;
+}

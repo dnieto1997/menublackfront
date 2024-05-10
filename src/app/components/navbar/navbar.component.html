@@ -1,0 +1,90 @@
+<nav *ngIf="showNavbar" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="d-flex">
+    <a class="navbar-brand m-0 p-0">
+      <img src="../../../assets/logo.png" alt="Logo" width="50" />
+    </a>
+    <div class="icon-menu">
+      <a (click)="toggleMenu()">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="ml-auto">
+    <div class="profile-section" (click)="toggleProfileOptions()">
+      <img
+        src="../../../assets/logo.png"
+        alt="Foto de perfil"
+        class="profile-photo"
+      />
+      <div class="d-grid">
+        <span class="profile-name">{{name}}</span>
+        <span class="profile-rol">Admin</span>
+      </div>
+
+      <div class="profile-options" *ngIf="showProfileOptions">
+        <a>Ver Perfil</a>
+        <a (click)="logout()">Cerrar Sesión</a>
+
+        <span class="titleLeng">idioma</span>
+        <div class="d-flex">
+          <a class="imgflag w-100">
+            <img
+              (click)="changeLanguage('en')"
+              src="../../../assets/en.png"
+              width="30px"
+              class=""
+            />
+          </a>
+          <a class="imgflag w-100">
+            <img
+              (click)="changeLanguage('es')"
+              src="../../../assets/es.png"
+              width="30px"
+              class="mx-2"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- SIDEBAR -->
+<div id="sidebar" [ngClass]="{ open: isMenuOpen }">
+  <ul>
+    <ng-container *ngFor="let option of menuOptions; let i = index">
+      <li (click)="toggleSubmenu(i)" *ngIf="option.isSubmenu">
+        <a
+          [ngClass]="{ 'selected-option': isOptionActive(option) }"
+          [routerLink]="option.url"
+        >
+          <i class="{{ option.icon }} icon-item-menu"></i>
+          {{ option.name }}
+        </a>
+        <i class="ti ti-chevron-right"></i>
+        <ul class="submenu" [ngClass]="{ open: isSubmenuOpen[i] }">
+          <li *ngFor="let subOption of option.subOptions">
+            <a
+              [ngClass]="{
+                'selected-option': isOptionActive({ url: subOption })
+              }"
+              [routerLink]="subOption"
+              >{{ subOption }}</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="!option.isSubmenu">
+        <a
+          [ngClass]="{ 'selected-option': isOptionActive(option) }"
+          [routerLink]="option.url"
+          (click)="toggleMenu()"
+        >
+          <i class="{{ option.icon }} icon-item-menu"></i>
+          {{ option.name }}
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+</div>
+<p-toast [life]="9000"></p-toast>
