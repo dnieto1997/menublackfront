@@ -195,6 +195,8 @@ export class GroupComponent {
       return; // Evitar que se envíe el formulario
     }
 
+    console.log('aqui', this.data);
+
     try {
       const res = await this.auth.createGroup(this.data).toPromise();
 
@@ -206,7 +208,7 @@ export class GroupComponent {
         });
 
         // Llamar a findAll después de crear el grupo con éxito para actualizar la lista de grupos
-        this.findAll();
+        await this.findAll();
         this.data = {
           img: '',
           code: '',
@@ -217,7 +219,9 @@ export class GroupComponent {
           observations: '',
         };
         this.display = false; // Cerrar el modal
-        this.cdr.detectChanges(); // Forzar la actualización de la interfaz de usuario
+
+        // Forzar la actualización de la interfaz de usuario después de que se actualice la lista de grupos
+        this.cdr.detectChanges();
       }
     } catch (error: any) {
       console.log(error.error.statusText);
