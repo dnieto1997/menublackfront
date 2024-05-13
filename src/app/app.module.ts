@@ -36,6 +36,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { EditorModule } from 'primeng/editor';
 import { GroupComponent } from './page/group/group.component';
+import { LineComponent } from './page/line/line.component';
+
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { GroupComponent } from './page/group/group.component';
     UploadComponent,
     RatesComponent,
     GroupComponent,
+    LineComponent
   ],
   imports: [
     BrowserModule,

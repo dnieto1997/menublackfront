@@ -35,9 +35,12 @@ export class AuthService {
     return this.httpService.post(`group`, postDate);
   }
 
+
   findAllGroup(postDate: any): Observable<any> {
     return this.httpService.get(`group`, postDate);
   }
+
+
 
   findgroup(postDate: any): Observable<any> {
     return this.httpService.get(`group/${postDate}`, postDate);
@@ -50,6 +53,27 @@ export class AuthService {
   updateGroup(postDate: any, postDate2: any): Observable<any> {
     return this.httpService.put(`group/${postDate}`, postDate2);
   }
+
+  findAllLine(postDate: any): Observable<any> {
+    return this.httpService.get(`lines`, postDate);
+  }
+
+  createLine(postDate: any): Observable<any> {
+    return this.httpService.post(`lines`, postDate);
+  }
+
+  updateLineStatus(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`lines/status/${postDate}`, postDate2);
+  }
+
+  findline(postDate: any): Observable<any> {
+    return this.httpService.get(`lines/${postDate}`, postDate);
+  }
+
+  updateLine(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`lines/${postDate}`, postDate2);
+  }
+
   close() {
     this.storageService.removeItem(AuthConfi.AUTH);
     this.storageService.removeItem('profile');

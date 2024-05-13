@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
-import { compileNgModule } from '@angular/compiler';
+
 
 interface Group {
   id: number;

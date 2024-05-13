@@ -3,8 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './page/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { DashboardComponent } from './page/dashboard/dashboard.component';
-import { ProfileComponent } from './page/profile/profile.component';
-import { CategoryComponent } from './page/category/category.component';
 import { ProductComponent } from './page/product/product.component';
 import { UserComponent } from './page/user/user.component';
 import { ClientComponent } from './page/client/client.component';
@@ -13,6 +11,8 @@ import { OrderComponent } from './page/order/order.component';
 import { BannerComponent } from './page/banner/banner.component';
 import { RatesComponent } from './page/rates/rates.component';
 import { GroupComponent } from './page/group/group.component';
+import { LineComponent } from './page/line/line.component';
+
 
 const routes: Routes = [
   {
@@ -34,7 +34,19 @@ const routes: Routes = [
   {
     path: 'group',
     component: GroupComponent,
-    //canActivate: [AuthGuard],
+/*     canActivate: [AuthGuard], */
+  },
+
+  {
+    path: 'line',
+    component: LineComponent,
+/*     canActivate: [AuthGuard], */
+  },
+
+  {
+    path: 'product',
+    component: ProductComponent,
+   /*   canActivate:[AuthGuard], */
   },
   /*  {
     path: 'profile',

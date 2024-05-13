@@ -31,17 +31,31 @@ export class NavbarComponent implements OnInit {
     },
 
     {
+
+      
       name: 'Group',
       icon: 'ti ti-filter',
       isSubmenu: false,
       url: 'group',
     },
+
+    {
+      name: 'Lines',
+      icon: 'ti ti-check',
+      isSubmenu: false,
+      url: 'line',
+    },
+
+    {
+      name: 'Products',
+      icon: 'ti ti-shopping-cart',
+      isSubmenu: false,
+      url: 'product',
+    },
   ];
   public countries: any[] | undefined;
   public name: any;
   public selectedCountry: any;
-  private socket: Socket | any;
-  private audio = new Audio();
 
   voices: SpeechSynthesisVoice[] = [];
   constructor(

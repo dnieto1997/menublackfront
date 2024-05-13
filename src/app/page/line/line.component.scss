@@ -1,0 +1,195 @@
+.statusActive {
+    background-color: green;
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    margin: auto;
+  }
+  .statusDesactive {
+    background-color: green;
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    margin: auto;
+  }
+  th {
+    background: transparent;
+    color: #fff;
+  }
+  thead {
+    background-color: #1b1564;
+    border-radius: 10px 10px 0px 0px;
+  }
+  .btn-modal {
+    background-color: #df0c0f;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+  }
+  input {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    height: 40px;
+    padding: 0px 10px;
+  }
+  .btn-create {
+    background-color: #df0c0f;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+  }
+  
+ /* Estilos para el contenedor de las casillas de verificación */
+.days-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Estilos para cada casilla de verificación */
+.day-checkbox {
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* Espacio entre las casillas de verificación */
+  margin-bottom: 10px; /* Margen inferior para separar las casillas */
+}
+
+.day-checkbox input {
+  margin-right: 5px; /* Espacio entre el input y el texto */
+  display: none; /* Ocultar el input */
+}
+
+/* Estilo del checkmark */
+.checkmark {
+  width: 25px;
+  height: 25px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+}
+
+/* Estilo del checkmark cuando está marcado */
+.checkmark.checked:after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 8px;
+  height: 16px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.day-checkbox input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Estilos para el contenedor de las casillas de verificación de horas */
+.hours-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Estilos para cada casilla de verificación de horas */
+.hour-checkbox {
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* Espacio entre las casillas de verificación de horas */
+  margin-bottom: 10px; /* Margen inferior para separar las casillas de verificación de horas */
+}
+
+.hour-checkbox input {
+  margin-right: 5px; /* Espacio entre el input y el texto */
+  display: none; /* Ocultar el input */
+}
+
+/* Estilo del checkmark */
+.checkmark {
+  width: 25px;
+  height: 25px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+}
+
+/* Estilo del checkmark cuando está marcado */
+.checkmark.checked:after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 8px;
+  height: 16px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.remove-button {
+  font-size: 12px; /* Tamaño de la fuente más pequeño */
+  padding: 0 4px; /* Ajustar el padding */
+  margin-left: 4px; /* Espacio a la izquierda de la hora */
+  vertical-align: top; /* Colocar el botón encima de la hora */
+}
+
+.selected-hours {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hour {
+  margin-right: 8px; /* Espacio entre las horas */
+}
+
+.btn{
+  background-color: #360cdf;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.textarea-styling {
+  height: 150px; 
+  width: 150px;/* Altura deseada */
+  padding: 10px; /* Espaciado interior */
+  border: 1px solid #ccc; /* Borde */
+  border-radius: 5px; /* Borde redondeado */
+  font-size: 16px; /* Tamaño de fuente */
+  resize: vertical; /* Permitir ajuste vertical */
+  box-sizing: border-box; /* Incluir el borde y el padding en el tamaño total */
+}
+
+.imagen{
+  width: 100px; /* Ancho deseado */
+  height: auto; /* Altura automática para mantener la proporción */
+}
+
+
+/* item-list.component.css */
+
+.select-container {
+  margin-bottom: 20px;
+}
+
+.custom-select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
