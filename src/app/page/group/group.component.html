@@ -231,19 +231,20 @@
               </span>
             </div>
           </div>
-          <div class="col-6 mb-3">
+        </div>
+      </form>
+    </div>
+          <div class="col-12 mb-3">
             <label for="" class="w-100 fw-bold mb-1">Observations</label>
-            <textarea class="w-100 textarea-styling" required
-            [(ngModel)]="data.observations"
-            name="observations" 
-            placeholder="Write your observations here..."
-            > </textarea>
-          
+            <p-editor
+              [(ngModel)]="data.observations"
+              [style]="{ height: '200px' }"
+            ></p-editor>
           </div>
 
-      </div>
-    </form>
-  </div>
+      
+
+  
   <ng-template pTemplate="footer">
     <button class="btn-modal" (click)="createGroup()">  Create User</button>
   </ng-template>
@@ -333,18 +334,19 @@
           </div>
         </div>
         
-        
-        <div class="col-6 mb-3">
-          <label for="" class="w-100 fw-bold mb-1">Observations</label>
-          <textarea class="w-100 textarea-styling" required
-            [(ngModel)]="data2.observations"
-            name="observations"
-            placeholder="Write your observations here..."
-          ></textarea>
-        </div>
       </div>
     </form>
   </div>
+        <div class="col-12 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Observations</label>
+          <p-editor
+            [(ngModel)]="data2.observations"
+            [style]="{ height: '200px' }"
+          ></p-editor>
+        </div>
+
+     
+ 
   <ng-template pTemplate="footer">
     <button class="btn-modal" (click)="EditGroup(data2.id)" >Edit Group</button>
   </ng-template>

@@ -73,7 +73,7 @@
     <form action="">
       <div class="row">
         <div class="col-6 mb-3">
-          <label for="" class="w-100 fw-bold mb-1">Nombre Producto</label>
+          <label for="" class="w-100 fw-bold mb-1">Product Name</label>
           <input
             type="text"
             class="w-100"
@@ -81,21 +81,32 @@
             name="name"
           />
         </div>
+
         <div class="col-6 mb-3">
-          <label for="" class="w-100 fw-bold mb-1">Categoria</label>
+          <label for="" class="w-100 fw-bold mb-1">Product Code</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.code"
+            name="name"
+          />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Group</label>
           <p-dropdown
-            name="category"
-            [options]="categorys"
-            [(ngModel)]="category"
+            name="groups"
+            [options]="group"
+            [(ngModel)]="data.group"
             optionLabel="name"
-            placeholder="Selecciona Categoria"
+            optionValue="id"
+            placeholder="Select Group"
             class="w-100"
             [filter]="true"
             filterBy="name"
           >
-            <ng-template pTemplate="selectedItem">
-              <div class="flex align-items-center gap-2" *ngIf="category">
-                <div>{{ category.name }}</div>
+            <ng-template pTemplate="selectedItem" let-item pTemplate="item">
+              <div class="flex align-items-center gap-2" *ngIf="data.group">
+                <div>{{ item.name  }}</div>
               </div>
             </ng-template>
             <ng-template let-item pTemplate="item">
@@ -105,56 +116,86 @@
             </ng-template>
           </p-dropdown>
         </div>
+        
+
         <div class="col-6 mb-3">
-          <label for="" class="w-100 fw-bold mb-1">Valor</label>
+          <label for="" class="w-100 fw-bold mb-1">Group</label>
+          <p-dropdown
+            name="groups"
+            [options]="line"
+            [(ngModel)]="data.line"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Select Line"
+            class="w-100"
+            [filter]="true"
+            filterBy="name"
+          >
+            <ng-template pTemplate="selectedItem" let-item pTemplate="item">
+              <div class="flex align-items-center gap-2" *ngIf="data.line">
+                <div>{{ item.name  }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <div>{{ item.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+
+        
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">IMG</label>
           <input
             type="text"
             class="w-100"
-            [(ngModel)]="data.amount1"
+            [(ngModel)]="data.img"
             name="amount1"
           />
         </div>
         <div class="col-6 mb-3">
-          <label for="" class="w-100 fw-bold mb-1">Costo</label>
+          <label for="" class="w-100 fw-bold mb-1">Price</label>
           <input
             type="text"
             class="w-100"
-            [(ngModel)]="data.cost"
+            [(ngModel)]="data.price"
             name="cost"
           />
         </div>
+
         <div class="col-6 mb-3">
-          <label for="" class="w-100 fw-bold mb-1">Imagen</label>
-          <div class="wrap-custom-file">
-            <input
-              type="file"
-              name="image"
-              id="image"
-              accept=".jpg, .png"
-              (change)="onChange($event)"
-              #fileUpload
-              hidden
-            />
-            <label
-              for="image"
-              [class.file-ok]="fileSelect"
-              [style.background-image]="'url(' + fileSelect + ')'"
-            >
-              <span *ngIf="!fileSelect; else uploaded"
-                >Agregar nueva imagen</span
-              >
-              <ng-template #uploaded
-                ><i class="fa fa-check-circle"></i
-              ></ng-template>
-            </label>
-          </div>
+          <label for="" class="w-100 fw-bold mb-1">Stars</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.stars"
+            name="cost"
+          />
         </div>
+       
       </div>
+      <div class="select-container">
+        <label>Promotion</label>
+        <select name="aliado" class="form-control" [(ngModel)]="data.promotion" >
+        <option  value={{true}} >SI</option>
+        <option  value={{false}} >NO</option>
+    </select>
+      </div> 
+
+      <div class="select-container">
+        <label>NEW</label>
+        <select name="aliado" class="form-control" [(ngModel)]="data.new" >
+        <option  value={{true}} >SI</option>
+        <option  value={{false}} >NO</option>
+    </select>
+      </div> 
+
     </form>
     <div class="col-12 mb-3">
-      <label for="" class="w-100 fw-bold mb-1">Descripción Producto</label>
+      <label for="" class="w-100 fw-bold mb-1">Observations</label>
       <p-editor
-        [(ngModel)]="data.description"
+        [(ngModel)]="data.observations"
         [style]="{ height: '200px' }"
       ></p-editor>
     </div>

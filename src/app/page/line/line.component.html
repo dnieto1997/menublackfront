@@ -179,12 +179,33 @@
                 required
               />
             </div>
-            <div class="select-container">
-              <label>Group</label>
-              <select name="aliado" class="form-control" [(ngModel)]="data.group" >
-              <option *ngFor="let al of groups" value={{al.id}} >{{al.id}}</option>
-          </select>
-            </div>
+
+
+ <div class="col-6 mb-3">
+  <label for="" class="w-100 fw-bold mb-1">Group</label>
+  <p-dropdown
+    name="groups"
+    [options]="groups"
+    [(ngModel)]="data.group"
+    optionLabel="name"
+    optionValue="id"
+    placeholder="Select Group"
+    class="w-100"
+    [filter]="true"
+    filterBy="name"
+  >
+    <ng-template pTemplate="selectedItem" let-item pTemplate="item">
+      <div class="flex align-items-center gap-2" *ngIf="data.group">
+        <div>{{ item.name  }}</div>
+      </div>
+    </ng-template>
+    <ng-template let-item pTemplate="item">
+      <div class="flex align-items-center gap-2">
+        <div>{{ item.name }}</div>
+      </div>
+    </ng-template>
+  </p-dropdown>
+</div>
           
             <div class="col-6 mb-3">
                 <label for="" class="w-100 fw-bold mb-1">Name</label>
@@ -196,19 +217,20 @@
                   required
                 />
               </div>
-            <div class="col-6 mb-3">
-              <label for="" class="w-100 fw-bold mb-1">Observations</label>
-              <textarea class="w-100 textarea-styling" required
-              [(ngModel)]="data.observations"
-              name="observations" 
-              placeholder="Write your observations here..."
-              > </textarea>
-            
             </div>
-  
+          </form>
         </div>
-      </form>
-    </div>
+
+              <div class="col-12 mb-3">
+                <label for="" class="w-100 fw-bold mb-1">Observations</label>
+                <p-editor
+                  [(ngModel)]="data.observations"
+                  [style]="{ height: '200px' }"
+                ></p-editor>
+              </div>
+
+       
+   
     <ng-template pTemplate="footer">
       <button class="btn-modal" (click)="createGroup()">  Create User</button>
     </ng-template>
@@ -257,7 +279,7 @@
           <div class="select-container">
             <label>Group</label>
             <select name="aliado" class="form-control" [(ngModel)]="data2.group" >
-            <option *ngFor="let al of groups" [value]="al.id" >{{al.id}}</option>
+            <option *ngFor="let al of groups" [value]="al.id" >{{al.name}}</option>
         </select>
           </div>
         
@@ -274,18 +296,20 @@
   
 
 
-          
-          <div class="col-6 mb-3">
-            <label for="" class="w-100 fw-bold mb-1">Observations</label>
-            <textarea class="w-100 textarea-styling" required
-              [(ngModel)]="data2.observation"
-              name="observations"
-              placeholder="Write your observations here..."
-            ></textarea>
-          </div>
         </div>
       </form>
     </div>
+
+          <div class="col-12 mb-3">
+            <label for="" class="w-100 fw-bold mb-1"></label>
+            <p-editor
+              [(ngModel)]="data2.observation"
+              [style]="{ height: '200px' }"
+            ></p-editor>
+          </div>
+
+     
+     
     <ng-template pTemplate="footer">
       <button class="btn-modal" (click)="EditGroup(data2.id)" >Edit Line</button>
     </ng-template>

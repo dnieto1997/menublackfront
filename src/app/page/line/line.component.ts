@@ -15,7 +15,7 @@ export class LineComponent {
   public squeleto: boolean = true;
   public list: any[] = [];
   public data: any = {
-    group:''
+   
   };
   public data2: any = {};
   public groups: any = {};
@@ -29,7 +29,7 @@ export class LineComponent {
 
   findAll() {
     this.auth.findAllLine({}).subscribe((res: any) => {
-      console.log(res);
+    
       this.list = res;
       this.loading = false;
       this.showTable = true;
@@ -48,6 +48,7 @@ export class LineComponent {
   }
 
   async createGroup() {
+ 
     console.log(this.data)
 
     if (
@@ -121,7 +122,6 @@ export class LineComponent {
   openEditDialog(item: any) {
     this.display2=true
     this.auth.findline(item).subscribe((res: any) => {
-      console.log(res)
       this.data2 = res;
     });
   }

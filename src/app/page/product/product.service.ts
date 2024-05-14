@@ -9,8 +9,20 @@ export class ProductService {
   constructor(private httpService: HttpService) { }
 
   getProduct(postDate: any): Observable<any> {
-    return this.httpService.get(`products/table${postDate ? '?name=' + postDate : ''}`, postDate);
+    return this.httpService.get(`products`, postDate);
   }
+  updateLineStatus(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`products/status/${postDate}`, postDate2);
+  }
+
+  findline(postDate: any): Observable<any> {
+    return this.httpService.get(`products/${postDate}`, postDate);
+  }
+
+  updateLine(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`products/${postDate}`, postDate2);
+  }
+
   postProduct(postDate: any): Observable<any> {
     return this.httpService.post('products', postDate);
   }
