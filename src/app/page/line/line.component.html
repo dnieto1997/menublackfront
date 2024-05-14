@@ -37,7 +37,7 @@
              {{ item.code }}
             </td>
             <td class="text-center" >
-              {{ item.group }}
+              {{ getGroupNameById(item.group)  }}
             </td>
             <td class="text-center" >
              {{ item.name }}
@@ -238,7 +238,7 @@
   
   
    <p-dialog
-    header="Edit Group"
+    header="Edit Line"
     [(visible)]="display2"
     [style]="{ width: '50vw' }"
   >

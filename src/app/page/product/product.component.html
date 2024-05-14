@@ -8,16 +8,6 @@
       <button class="btn-create" (click)="openModal()">Crear Producto</button>
     </div>
   </div>
-  <div class="row mb-4">
-    <div class="col-3">
-      <label> Nombre de producto </label>
-      <input type="text" class="w-100" [(ngModel)]="name" />
-    </div>
-    <div class="col-3">
-      <label> ‎ </label>
-      <button class="btn-search" (click)="search()">Buscar</button>
-    </div>
-  </div>
   <p-table
     [value]="list"
     [paginator]="true"
@@ -29,26 +19,41 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th></th>
-        <th>Nombre</th>
-        <th>Descripcion</th>
-        <th>Valor</th>
-        <th>Costo</th>
+        <th>ID</th>
+        <th>IMG</th>
+        <th>Products Name</th>
+        <th>Code</th>
+        <th>Group</th>
+        <th>Line</th>
+        <th>Stars</th>
+        <th>Price</th>
+        <th>New</th>
+        <th>Promotion</th>
+        <th>Observations</th>
         <th class="text-center">Estado</th>
         <th class="text-center">Acciones</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item>
       <tr>
-        <td><img src="{{ item.img1 }}" width="80px" alt="" srcset="" /></td>
+        <td class="text-uppercase">{{ item.id }}</td>
+        <td class="text-uppercase">
+          <img src="{{ verificarURLImagen(item.img) }}" class="imagen">
+        
+          </td>
         <td class="text-uppercase">{{ item.name }}</td>
-        <td class="text-uppercase">{{ item.description }}</td>
+        <td class="text-uppercase">{{ item.code }}</td>
+        <td class="text-uppercase">  {{ groupsbyuid(item.group)  }}</td>
+        <td class="text-uppercase">  {{ linesByuid(item.lines)  }}</td>
         <td class="text-uppercase">
-          {{ item.amount1 | currency : "USD" : "symbol" : "1.0-0" }}
+          <span *ngFor="let img of obtenerImagenEstrellasConDiseno(item.stars)" class="estrella-container">
+            <img [src]="img.src" [alt]="img.alt" class="estrella">
+          </span>
         </td>
-        <td class="text-uppercase">
-          {{ item.cost | currency : "USD" : "symbol" : "1.0-0" }}
-        </td>
+        <td class="text-uppercase">{{ item.price }}</td>
+        <td class="text-uppercase">{{ (item.new==true)?'SI':'NO' }}</td>
+        <td class="text-uppercase">{{ (item.promotion==true)?'SI':'NO' }}</td>
+        <td class="text-uppercase">{{ item.observation }}</td>
         <td>
           <div
             [ngClass]="item.status ? 'statusActive' : 'statusDesactive'"
@@ -79,6 +84,7 @@
             class="w-100"
             [(ngModel)]="data.name"
             name="name"
+            required
           />
         </div>
 
@@ -89,6 +95,7 @@
             class="w-100"
             [(ngModel)]="data.code"
             name="name"
+            required
           />
         </div>
         <div class="col-6 mb-3">
@@ -103,6 +110,7 @@
             class="w-100"
             [filter]="true"
             filterBy="name"
+            
           >
             <ng-template pTemplate="selectedItem" let-item pTemplate="item">
               <div class="flex align-items-center gap-2" *ngIf="data.group">
@@ -119,7 +127,7 @@
         
 
         <div class="col-6 mb-3">
-          <label for="" class="w-100 fw-bold mb-1">Group</label>
+          <label for="" class="w-100 fw-bold mb-1">Line</label>
           <p-dropdown
             name="groups"
             [options]="line"
@@ -151,7 +159,8 @@
             type="text"
             class="w-100"
             [(ngModel)]="data.img"
-            name="amount1"
+            name="img"
+            required
           />
         </div>
         <div class="col-6 mb-3">
@@ -160,7 +169,8 @@
             type="text"
             class="w-100"
             [(ngModel)]="data.price"
-            name="cost"
+            name="price"
+            required
           />
         </div>
 
@@ -170,7 +180,8 @@
             type="text"
             class="w-100"
             [(ngModel)]="data.stars"
-            name="cost"
+            name="stars"
+            required
           />
         </div>
        

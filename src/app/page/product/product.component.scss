@@ -197,3 +197,13 @@ label {
   background-color: #007b9a;
   border: 2px solid #005f73;
 }
+
+.imagen{
+  width: 100px; /* Ancho deseado */
+  height: auto; /* Altura automática para mantener la proporción */
+}
+.estrella {
+  width: 20px; /* Tamaño de la estrella */
+  height: auto; /* Ajuste automático de la altura para mantener la proporción */
+  margin-right: 2px; /* Espaciado entre las estrellas */
+}

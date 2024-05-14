@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-line',
   templateUrl: './line.component.html',
-  styleUrls: ['./line.component.scss']
+  styleUrls: ['./line.component.scss'],
 })
 export class LineComponent {
   public loading: boolean = true;
@@ -14,9 +14,7 @@ export class LineComponent {
   public display2: boolean = false;
   public squeleto: boolean = true;
   public list: any[] = [];
-  public data: any = {
-   
-  };
+  public data: any = {};
   public data2: any = {};
   public groups: any = {};
 
@@ -29,7 +27,6 @@ export class LineComponent {
 
   findAll() {
     this.auth.findAllLine({}).subscribe((res: any) => {
-    
       this.list = res;
       this.loading = false;
       this.showTable = true;
@@ -47,9 +44,14 @@ export class LineComponent {
     this.display = true;
   }
 
+  getGroupNameById(groupId: number): string {
+    console.log(groupId);
+    const group = this.groups.find((g: { id: number }) => g.id === groupId);
+    return group ? group.name : 'Grupo no encontrado';
+  }
+
   async createGroup() {
- 
-    console.log(this.data)
+    console.log(this.data);
 
     if (
       !this.data.img ||
@@ -72,12 +74,12 @@ export class LineComponent {
             Swal.fire({
               title: 'Creacion Exitosa',
               text: res.message,
-              icon: 'success'
+              icon: 'success',
             }).then(() => {
               this.findAll();
             });
             this.display = false;
-            this.data={}
+            this.data = {};
           }
         },
         (error: any) => {
@@ -96,8 +98,9 @@ export class LineComponent {
       (res: any) => {
         Swal.fire({
           title: 'Status Changed',
-          text: 'User status Was Changed: ' + (status ? 'Desactivate' : 'Activate'),
-          icon: 'success'
+          text:
+            'User status Was Changed: ' + (status ? 'Desactivate' : 'Activate'),
+          icon: 'success',
         });
         this.findAll();
       },
@@ -120,7 +123,7 @@ export class LineComponent {
   }
 
   openEditDialog(item: any) {
-    this.display2=true
+    this.display2 = true;
     this.auth.findline(item).subscribe((res: any) => {
       this.data2 = res;
     });
@@ -134,30 +137,30 @@ export class LineComponent {
         console.error('Error al convertir el string en array:', error);
       }
     }
-    this.auth.updateLine(id, {
-      img:this.data2.img,
-      position:this.data2.position,
-      code:this.data2.code,
-       group:this.data2.group,
-       name:this.data2.name,
-       observations:this.data2.observation
-
-      
-    }).subscribe(
-      (res: any) => {
-        if (res.status == 201) {
-          Swal.fire({
-            title: 'Success',
-            text: res.message,
-            icon: 'success',
-          });
-          this.findAll();
-          this.display2 = false;
+    this.auth
+      .updateLine(id, {
+        img: this.data2.img,
+        position: this.data2.position,
+        code: this.data2.code,
+        group: this.data2.group,
+        name: this.data2.name,
+        observations: this.data2.observation,
+      })
+      .subscribe(
+        (res: any) => {
+          if (res.status == 201) {
+            Swal.fire({
+              title: 'Success',
+              text: res.message,
+              icon: 'success',
+            });
+            this.findAll();
+            this.display2 = false;
+          }
+        },
+        (error: any) => {
+          console.log(error);
         }
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+      );
   }
 }

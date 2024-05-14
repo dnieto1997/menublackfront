@@ -6,12 +6,12 @@ import { HttpService } from 'src/app/services/http.service';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   getProduct(postDate: any): Observable<any> {
     return this.httpService.get(`products`, postDate);
   }
-  updateLineStatus(postDate: any, postDate2: any): Observable<any> {
+  updateStatus(postDate: any, postDate2: any): Observable<any> {
     return this.httpService.put(`products/status/${postDate}`, postDate2);
   }
 
@@ -26,7 +26,7 @@ export class ProductService {
   postProduct(postDate: any): Observable<any> {
     return this.httpService.post('products', postDate);
   }
-  updateProduct(data: any, id: any): Observable<any> {
-    return this.httpService.patch(`products/${id}`, data)
+  updateProduct(id: any, data: any): Observable<any> {
+    return this.httpService.patch(`products/${id}`, data);
   }
 }

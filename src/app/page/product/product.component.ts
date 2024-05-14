@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent {
-
   @ViewChild('overlayPanel') overlayPanel!: OverlayPanel;
   public loading: boolean = true;
   public showTable: boolean = false;
@@ -22,21 +21,22 @@ export class ProductComponent {
   public line: any;
   public group: any;
   public panelVisible: boolean = false;
-  public name: string = ''
+  public name: string = '';
   public isEdit: boolean = false;
   public fileSelect?: string | ArrayBuffer | null = null;
-  public text: string | undefined = '<p>Aquí tu contenido inicial para el editor.</p>';
+  public text: string | undefined =
+    '<p>Aquí tu contenido inicial para el editor.</p>';
   constructor(
     private productService: ProductService,
     private auth: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.start();
   }
   start() {
     this.productService.getProduct({}).subscribe((res: any) => {
-      console.log(res)
+      console.log(res);
       this.list = res;
       this.loading = false;
       this.showTable = true;
@@ -49,7 +49,6 @@ export class ProductComponent {
     this.auth.findAllLine({}).subscribe((res: any) => {
       this.line = res;
     });
-
   }
   openModal(param?: boolean) {
     if (param) {
@@ -60,19 +59,33 @@ export class ProductComponent {
     }
     this.display = true;
   }
+
+  groupsbyuid(groupId: number): string {
+    const group = this.group.find((g: { id: number }) => g.id === groupId);
+    return group ? group.name : 'Grupo no encontrado';
+  }
+
+  linesByuid(lineId: number): string {
+    const group = this.line.find((g: { id: number }) => g.id === lineId);
+    return group ? group.name : 'Grupo no encontrado';
+  }
+
+  verificarURLImagen(url: string): string {
+    if (url.startsWith('https://')) {
+      return url; // Si la URL comienza con "https://", es válida
+    } else {
+      return '../../../assets/noimage.jpg'; // Si la URL no es válida, devuelve la ruta de la imagen "No imagen"
+    }
+  }
   createProduct() {
-
-
-    
-
-    if (!this.data.name) {
+    if (this.data.img.length >= 255) {
       Swal.fire({
         title: 'Warning',
-        text: 'campo nombre de categoria vacio',
+        text: 'Campo de imagen es muy grande',
         icon: 'warning',
       });
     } else {
-      this.loading = true
+      this.loading = true;
       const formData = new FormData();
 
       const datas = {
@@ -87,17 +100,17 @@ export class ProductComponent {
         promotion: this.data.promotion,
         observations: this.data.observations,
       };
- 
+
       this.productService.postProduct(datas).subscribe(
         (res: any) => {
           if (res) {
             this.display = false;
-            this.start();
             Swal.fire({
               title: 'Creacion Exitosa',
               text: 'Fue creada la categoria ' + this.data.name,
               icon: 'success',
             });
+            this.start();
           }
         },
         (error: any) => {
@@ -111,7 +124,6 @@ export class ProductComponent {
       this.overlayPanel.hide();
     }
     this.data = item;
-
 
     this.fileSelect = item.img1;
 
@@ -127,25 +139,91 @@ export class ProductComponent {
         icon: 'warning',
       });
     } else {
-      this.loading = true
-      const formData = new FormData();
+      this.loading = true;
 
-      formData.append('name', this.data.name);
-    
-      formData.append('amount1', this.data.amount1);
-      formData.append('cost', this.data.cost);
-      if (this.data.description) formData.append('description', this.data.description);
-      if (this.data.img1) formData.append('img1', this.data.img1);
-      if (this.data.img2) formData.append('img2', this.data.img2);
+      this.productService
+        .updateProduct(this.data.id, {
+          img: this.data.img,
+          code: this.data.code,
+          group: this.data.group,
+          line: this.data.line,
+          name: this.data.name,
+          price: this.data.price,
+          stars: this.data.stars,
+          new: this.data.new,
+          promotion: this.data.promotion,
+          observations: this.data.observations,
+        })
+        .subscribe(
+          (res: any) => {
+            if (res) {
+              this.display = false;
+              this.start();
+              this.loading = false;
+              Swal.fire({
+                title: 'Actualización Exitosa',
+                text: 'Categoria Actualizada Exitosamente ',
+                icon: 'success',
+              });
+            }
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+    }
+  }
 
-      this.productService.updateProduct(formData, this.data.id).subscribe(
+  obtenerImagenEstrellasConDiseno(
+    numeroEstrellas: number
+  ): { src: string; alt: string }[] {
+    const numeroEntero = Math.min(Math.floor(numeroEstrellas), 5); // Limita el número de estrellas a 5 como máximo
+    const decimal = numeroEstrellas - numeroEntero;
+    const estrellas: { src: string; alt: string }[] = [];
+
+    // Agregar estrellas llenas
+    for (let i = 0; i < numeroEntero; i++) {
+      estrellas.push({
+        src: '../../../assets/llena.png',
+        alt: 'Estrella llena',
+      });
+    }
+
+    // Agregar estrella parcial si hay decimal
+    if (decimal > 0) {
+      estrellas.push({
+        src: '../../../assets/media.png',
+        alt: 'Estrella media',
+      });
+    }
+
+    // Agregar estrellas vacías si es necesario
+    const estrellasRestantes = 5 - estrellas.length;
+    for (let i = 0; i < estrellasRestantes; i++) {
+      estrellas.push({
+        src: '../../../assets/vacia.png',
+        alt: 'Estrella vacía',
+      });
+    }
+
+    return estrellas;
+  }
+
+  changeStatus() {
+    this.loading = true;
+    console.log(this.data.id);
+    console.log(this.data.status);
+
+    this.productService
+      .updateStatus(this.data.id, { status: this.data.status })
+      .subscribe(
         (res: any) => {
           if (res) {
+            this.loading = false;
             this.display = false;
             this.start();
-            this.loading = false
             Swal.fire({
-              title: 'Actualización Exitosa',
+              title: 'Cambio de Estado Exitoso',
               text: 'Categoria Actualizada Exitosamente ',
               icon: 'success',
             });
@@ -155,33 +233,6 @@ export class ProductComponent {
           console.log(error);
         }
       );
-    }
-  }
-
-
-  changeStatus() {
-    this.loading = true
-    let preload = {
-      img2: this.data.img2,
-      status: !this.data.status,
-    };
-    this.productService.updateProduct(preload, this.data.id).subscribe(
-      (res: any) => {
-        if (res) {
-          this.loading = false;
-          this.display = false;
-          this.start();
-          Swal.fire({
-            title: 'Cambio de Estado Exitoso',
-            text: 'Categoria Actualizada Exitosamente ',
-            icon: 'success',
-          });
-        }
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
   }
   search() {
     this.productService.getProduct(this.name).subscribe((res: any) => {
@@ -191,5 +242,4 @@ export class ProductComponent {
       this.squeleto = false;
     });
   }
- 
 }
