@@ -35,12 +35,9 @@ export class AuthService {
     return this.httpService.post(`group`, postDate);
   }
 
-
   findAllGroup(postDate: any): Observable<any> {
     return this.httpService.get(`group`, postDate);
   }
-
-
 
   findgroup(postDate: any): Observable<any> {
     return this.httpService.get(`group/${postDate}`, postDate);
@@ -72,6 +69,39 @@ export class AuthService {
 
   updateLine(postDate: any, postDate2: any): Observable<any> {
     return this.httpService.put(`lines/${postDate}`, postDate2);
+  }
+
+  getVariant(postDate: any): Observable<any> {
+    return this.httpService.get(`variantes`, postDate);
+  }
+
+  createVariant(postDate: any): Observable<any> {
+    return this.httpService.post('variantes', postDate);
+  }
+  updateStatusVariantes(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`variantes/status/${postDate}`, postDate2);
+  }
+
+  updateVariantes(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`variantes/${postDate}`, postDate2);
+  }
+
+  getProductVariant(postDate: any): Observable<any> {
+    return this.httpService.get(`productos-variantes`, postDate);
+  }
+
+  createProductVariant(postDate: any): Observable<any> {
+    return this.httpService.post('productos-variantes', postDate);
+  }
+  updateStatusProductVariantes(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(
+      `productos-variantes/status/${postDate}`,
+      postDate2
+    );
+  }
+
+  updateProductVariantes(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`productos-variantes/${postDate}`, postDate2);
   }
 
   close() {

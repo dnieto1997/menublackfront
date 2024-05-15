@@ -37,6 +37,8 @@ import { MessageService } from 'primeng/api';
 import { EditorModule } from 'primeng/editor';
 import { GroupComponent } from './page/group/group.component';
 import { LineComponent } from './page/line/line.component';
+import { VariantesComponent } from './page/variantes/variantes.component';
+import { ProductoVariantesComponent } from './page/producto-variantes/producto-variantes.component';
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { LineComponent } from './page/line/line.component';
     UploadComponent,
     RatesComponent,
     GroupComponent,
-    LineComponent
+    LineComponent,
+    VariantesComponent,
+    ProductoVariantesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { ProductService } from './product.service';
-import { CategoryService } from '../category/category.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -26,6 +25,7 @@ export class ProductComponent {
   public fileSelect?: string | ArrayBuffer | null = null;
   public text: string | undefined =
     '<p>Aquí tu contenido inicial para el editor.</p>';
+
   constructor(
     private productService: ProductService,
     private auth: AuthService
@@ -34,9 +34,9 @@ export class ProductComponent {
   ngOnInit(): void {
     this.start();
   }
-  start() {
+
+  async start() {
     this.productService.getProduct({}).subscribe((res: any) => {
-      console.log(res);
       this.list = res;
       this.loading = false;
       this.showTable = true;
@@ -46,7 +46,9 @@ export class ProductComponent {
     this.auth.findAllGroup({}).subscribe((res: any) => {
       this.group = res;
     });
+
     this.auth.findAllLine({}).subscribe((res: any) => {
+      console.log(res);
       this.line = res;
     });
   }
@@ -61,12 +63,12 @@ export class ProductComponent {
   }
 
   groupsbyuid(groupId: number): string {
-    const group = this.group.find((g: { id: number }) => g.id === groupId);
+    const group = this.group?.find((g: { id: number }) => g.id === groupId);
     return group ? group.name : 'Grupo no encontrado';
   }
 
   linesByuid(lineId: number): string {
-    const group = this.line.find((g: { id: number }) => g.id === lineId);
+    const group: any = this.line?.find((g: { id: number }) => g.id === lineId);
     return group ? group.name : 'Grupo no encontrado';
   }
 
@@ -125,7 +127,7 @@ export class ProductComponent {
     }
     this.data = item;
 
-    this.fileSelect = item.img1;
+    console.log(item);
 
     setTimeout(() => {
       this.overlayPanel.toggle(event);
@@ -146,13 +148,13 @@ export class ProductComponent {
           img: this.data.img,
           code: this.data.code,
           group: this.data.group,
-          line: this.data.line,
+          line: this.data.lines,
           name: this.data.name,
           price: this.data.price,
           stars: this.data.stars,
           new: this.data.new,
           promotion: this.data.promotion,
-          observations: this.data.observations,
+          observations: this.data.observation,
         })
         .subscribe(
           (res: any) => {
@@ -233,13 +235,5 @@ export class ProductComponent {
           console.log(error);
         }
       );
-  }
-  search() {
-    this.productService.getProduct(this.name).subscribe((res: any) => {
-      this.list = res;
-      this.loading = false;
-      this.showTable = true;
-      this.squeleto = false;
-    });
   }
 }

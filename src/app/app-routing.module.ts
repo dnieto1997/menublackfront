@@ -12,7 +12,8 @@ import { BannerComponent } from './page/banner/banner.component';
 import { RatesComponent } from './page/rates/rates.component';
 import { GroupComponent } from './page/group/group.component';
 import { LineComponent } from './page/line/line.component';
-
+import { VariantesComponent } from './page/variantes/variantes.component';
+import { ProductoVariantesComponent } from './page/producto-variantes/producto-variantes.component';
 
 const routes: Routes = [
   {
@@ -34,19 +35,31 @@ const routes: Routes = [
   {
     path: 'group',
     component: GroupComponent,
-/*     canActivate: [AuthGuard], */
+    /*     canActivate: [AuthGuard], */
   },
 
   {
     path: 'line',
     component: LineComponent,
-/*     canActivate: [AuthGuard], */
+    /*     canActivate: [AuthGuard], */
   },
 
   {
     path: 'product',
     component: ProductComponent,
-   /*   canActivate:[AuthGuard], */
+    /*   canActivate:[AuthGuard], */
+  },
+
+  {
+    path: 'variantes',
+    component: VariantesComponent,
+    /*   canActivate:[AuthGuard], */
+  },
+
+  {
+    path: 'producto_variantes',
+    component: ProductoVariantesComponent,
+    /*   canActivate:[AuthGuard], */
   },
   /*  {
     path: 'profile',

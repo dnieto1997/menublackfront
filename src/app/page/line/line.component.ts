@@ -46,7 +46,7 @@ export class LineComponent {
 
   getGroupNameById(groupId: number): string {
     console.log(groupId);
-    const group = this.groups.find((g: { id: number }) => g.id === groupId);
+    const group = this.groups?.find((g: { id: number }) => g.id === groupId);
     return group ? group.name : 'Grupo no encontrado';
   }
 

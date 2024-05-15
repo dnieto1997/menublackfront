@@ -1,0 +1,101 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="mx-3">
+  <div class="d-flex pb-3 pt-2">
+    <div class="col-10">
+      <h1>Listado Productos</h1>
+    </div>
+    <div class="col-2 text-end">
+      <button class="btn-create" (click)="openModal()">Create Variant</button>
+    </div>
+  </div>
+  <p-table
+    [value]="list"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Cost</th>
+        <th class="text-center">Status</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td class="text-uppercase">{{ item.id }}</td>
+        <td class="text-uppercase">{{ item.name }}</td>
+        <td class="text-uppercase">{{ item.cost }}</td>
+        <td>
+          <div
+            [ngClass]="item.status ? 'statusActive' : 'statusDesactive'"
+          ></div>
+        </td>
+        <td class="col-1 text-center">
+          <i
+            class="ti ti-dots-vertical tree-dots"
+            (click)="showOverlayPanel($event, item)"
+          ></i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog
+  header="  {{ isEdit ? 'Editar' : 'Crear' }}"
+  [(visible)]="display"
+  [style]="{ width: '20vw', height: '40vh' }"
+>
+  <div class="row">
+    <form action="">
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Variant Name</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.name"
+            name="name"
+            required
+          />
+        </div>
+
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Variant Cost</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.cost"
+            name="cost"
+            required
+          />
+        </div>
+       
+      </div>
+    </form>
+
+  </div>
+  <button class="btn-modal" (click)="isEdit ? edit() : createProduct()">
+    {{ isEdit ? "Editar" : "Crear" }}
+  </button>
+</p-dialog>
+<p-overlayPanel #overlayPanel>
+  <ng-template pTemplate>
+    <div class="d-grid">
+      <button class="btn-list" (click)="openModal(true)">
+        <i class="ti ti-edit"></i> Editar
+      </button>
+      <button class="btn-list" (click)="changeStatus()">
+        <div
+          [ngClass]="!data.status ? 'statusActive' : 'statusDesactive'"
+        ></div>
+        {{ data.status ? "Deshabilitar" : "Habilitar" }}
+      </button>
+    </div>
+  </ng-template>
+</p-overlayPanel>

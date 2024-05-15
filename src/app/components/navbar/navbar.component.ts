@@ -31,8 +31,6 @@ export class NavbarComponent implements OnInit {
     },
 
     {
-
-      
       name: 'Group',
       icon: 'ti ti-filter',
       isSubmenu: false,
@@ -51,6 +49,20 @@ export class NavbarComponent implements OnInit {
       icon: 'ti ti-shopping-cart',
       isSubmenu: false,
       url: 'product',
+    },
+
+    {
+      name: 'Variantes',
+      icon: 'ti ti-shopping-cart',
+      isSubmenu: false,
+      url: 'variantes',
+    },
+
+    {
+      name: 'Variantes de Productos ',
+      icon: 'ti ti-shopping-cart',
+      isSubmenu: false,
+      url: 'producto_variantes',
     },
   ];
   public countries: any[] | undefined;

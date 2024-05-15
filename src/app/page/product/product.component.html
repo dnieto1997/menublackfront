@@ -98,6 +98,8 @@
             required
           />
         </div>
+   
+
         <div class="col-6 mb-3">
           <label for="" class="w-100 fw-bold mb-1">Group</label>
           <p-dropdown
@@ -129,9 +131,9 @@
         <div class="col-6 mb-3">
           <label for="" class="w-100 fw-bold mb-1">Line</label>
           <p-dropdown
-            name="groups"
+            name="lines"
             [options]="line"
-            [(ngModel)]="data.line"
+            [(ngModel)]="data.lines"
             optionLabel="name"
             optionValue="id"
             placeholder="Select Line"
@@ -151,6 +153,7 @@
             </ng-template>
           </p-dropdown>
         </div>
+
 
         
         <div class="col-6 mb-3">
@@ -206,7 +209,7 @@
     <div class="col-12 mb-3">
       <label for="" class="w-100 fw-bold mb-1">Observations</label>
       <p-editor
-        [(ngModel)]="data.observations"
+        [(ngModel)]="data.observation"
         [style]="{ height: '200px' }"
       ></p-editor>
     </div>
