@@ -141,7 +141,20 @@ export class ClientComponent {
             }
           },
           (error: any) => {
-            console.log(error);
+            if (error.status == 401) {
+              Swal.fire({
+                title: 'Expired Token',
+                text: 'Your session has expired. Please log in again.',
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonText: 'Accept',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // Acción cuando se hace clic en el botón Aceptar
+                  this.auth.close();
+                }
+              });
+            }
           }
         );
     }
