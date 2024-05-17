@@ -36,21 +36,55 @@ export class ProductComponent {
   }
 
   async start() {
-    this.productService.getProduct({}).subscribe((res: any) => {
-      this.list = res;
-      this.loading = false;
-      this.showTable = true;
-      this.squeleto = false;
-    });
+    this.productService.getProduct({}).subscribe(
+      (res: any) => {
+        this.list = res;
+        this.loading = false;
+        this.showTable = true;
+        this.squeleto = false;
+      },
+      (error: any) => {
+        this.loading = false;
+        if (error.status == 401) {
+          Swal.fire({
+            title: 'Token Expirado',
+            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Acción cuando se hace clic en el botón Aceptar
+              this.auth.close();
+            }
+          });
+        }
+      }
+    );
 
-    this.auth.findAllGroup({}).subscribe((res: any) => {
-      this.group = res;
-    });
+    this.auth.findAllGroup({}).subscribe(
+      (res: any) => {
+        this.group = res;
+        console.log(res);
+      },
+      (error: any) => {
+        if (error.status == 401) {
+          this.auth.close();
+        }
+      }
+    );
 
-    this.auth.findAllLine({}).subscribe((res: any) => {
-      console.log(res);
-      this.line = res;
-    });
+    this.auth.findAllLine({}).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.line = res;
+      },
+      (error: any) => {
+        if (error.status == 401) {
+          this.auth.close();
+        }
+      }
+    );
   }
   openModal(param?: boolean) {
     if (param) {
@@ -116,7 +150,9 @@ export class ProductComponent {
           }
         },
         (error: any) => {
-          console.log(error);
+          if (error.status == 401) {
+            this.auth.close();
+          }
         }
       );
     }
@@ -158,6 +194,7 @@ export class ProductComponent {
         })
         .subscribe(
           (res: any) => {
+            console.log(res);
             if (res) {
               this.display = false;
               this.start();
@@ -170,6 +207,9 @@ export class ProductComponent {
             }
           },
           (error: any) => {
+            if (error.statusText == 'Unauthorized') {
+              this.auth.close();
+            }
             console.log(error);
           }
         );
@@ -232,7 +272,9 @@ export class ProductComponent {
           }
         },
         (error: any) => {
-          console.log(error);
+          if (error.status == 401) {
+            this.auth.close();
+          }
         }
       );
   }

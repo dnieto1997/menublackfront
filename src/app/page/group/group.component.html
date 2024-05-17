@@ -177,6 +177,7 @@
               class="w-100"
               [(ngModel)]="data.code"
               name="code"
+              (input)="validateNumberInput($event)"
               required
             />
           </div>
@@ -187,6 +188,7 @@
               class="w-100"
               [(ngModel)]="data.order"
               name="order"
+              (input)="validateNumberInput($event)"
               required
             />
           </div>
@@ -275,6 +277,7 @@
             type="text"
             class="w-100"
             [(ngModel)]="data2.code"
+            (input)="validateNumberInput($event)"
             name="code"
  
           />
@@ -285,6 +288,7 @@
             type="text"
             class="w-100"
             [(ngModel)]="data2.order"
+            (input)="validateNumberInput($event)"
             name="order"
      
           />

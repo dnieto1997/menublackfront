@@ -2,10 +2,10 @@
 <div class="mx-3">
   <div class="d-flex pb-3 pt-2">
     <div class="col-10">
-      <h1>Listado Productos</h1>
+      <h1>Products List</h1>
     </div>
     <div class="col-2 text-end">
-      <button class="btn-create" (click)="openModal()">Crear Producto</button>
+      <button class="btn-create" (click)="openModal()">Create Product</button>
     </div>
   </div>
   <p-table
@@ -30,8 +30,8 @@
         <th>New</th>
         <th>Promotion</th>
         <th>Observations</th>
-        <th class="text-center">Estado</th>
-        <th class="text-center">Acciones</th>
+        <th class="text-center">Status</th>
+        <th class="text-center">Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item>
@@ -215,7 +215,7 @@
     </div>
   </div>
   <button class="btn-modal" (click)="isEdit ? edit() : createProduct()">
-    {{ isEdit ? "Editar" : "Crear" }}
+    {{ isEdit ? "Edit" : "Create" }}
   </button>
 </p-dialog>
 <p-overlayPanel #overlayPanel>

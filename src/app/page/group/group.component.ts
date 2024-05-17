@@ -3,7 +3,6 @@ import { UserService } from '../user/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
-
 interface Group {
   id: number;
   img: string;
@@ -77,13 +76,32 @@ export class GroupComponent {
     this.findAll();
   }
   findAll() {
-    this.auth.findAllGroup({}).subscribe((res: any) => {
-      console.log(res);
-      this.list = res;
-      this.loading = false;
-      this.showTable = true;
-      this.squeleto = false;
-    });
+    this.auth.findAllGroup({}).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.list = res;
+        this.loading = false;
+        this.showTable = true;
+        this.squeleto = false;
+      },
+      (error: any) => {
+        this.loading = false;
+        if (error.status == 401) {
+          Swal.fire({
+            title: 'Token Expirado',
+            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Acción cuando se hace clic en el botón Aceptar
+              this.auth.close();
+            }
+          });
+        }
+      }
+    );
   }
   openModal() {
     /*     this.data = {
@@ -102,6 +120,12 @@ export class GroupComponent {
     this.hours = [];
     // Abrir el modal de creación de grupo
     this.display = true;
+  }
+
+  validateNumberInput(event: any) {
+    const input = event.target;
+    const value = input.value;
+    input.value = value.replace(/[^0-9]/g, ''); // Solo permite números
   }
 
   toggleDay(day: any) {
@@ -195,8 +219,6 @@ export class GroupComponent {
       return; // Evitar que se envíe el formulario
     }
 
-    console.log('aqui', this.data);
-
     try {
       const res = await this.auth.createGroup(this.data).toPromise();
 
@@ -224,11 +246,9 @@ export class GroupComponent {
         this.cdr.detectChanges();
       }
     } catch (error: any) {
-      console.log(error.error.statusText);
-      if (error.statusText == 'Unauthorized') {
+      if (error.status == 401) {
         this.auth.close();
       }
-      console.log(error);
     }
   }
 
@@ -280,7 +300,9 @@ export class GroupComponent {
         this.findAll();
       },
       (error: any) => {
-        console.log(error);
+        if (error.status == 401) {
+          this.auth.close();
+        }
       }
     );
   }
@@ -363,7 +385,9 @@ export class GroupComponent {
           this.display2 = false;
         },
         (error: any) => {
-          console.log(error);
+          if (error.status == 401) {
+            this.auth.close();
+          }
         }
       );
   }

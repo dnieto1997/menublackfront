@@ -5,6 +5,7 @@ import { Socket, io } from 'socket.io-client';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { TranslationService } from 'src/app/services/translation.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -16,55 +17,7 @@ export class NavbarComponent implements OnInit {
   public showProfileOptions: boolean = false;
   public isMenuOpen: boolean = false;
   public isSubmenuOpen: boolean[] = [false, false, false];
-  public menuOptions: any[] = [
-    {
-      name: 'Dashboard',
-      icon: 'ti ti-home',
-      isSubmenu: false,
-      url: 'dashboard',
-    },
-    {
-      name: 'Users',
-      icon: 'ti ti-user',
-      isSubmenu: false,
-      url: 'user',
-    },
-
-    {
-      name: 'Group',
-      icon: 'ti ti-filter',
-      isSubmenu: false,
-      url: 'group',
-    },
-
-    {
-      name: 'Lines',
-      icon: 'ti ti-check',
-      isSubmenu: false,
-      url: 'line',
-    },
-
-    {
-      name: 'Products',
-      icon: 'ti ti-shopping-cart',
-      isSubmenu: false,
-      url: 'product',
-    },
-
-    {
-      name: 'Variantes',
-      icon: 'ti ti-shopping-cart',
-      isSubmenu: false,
-      url: 'variantes',
-    },
-
-    {
-      name: 'Variantes de Productos ',
-      icon: 'ti ti-shopping-cart',
-      isSubmenu: false,
-      url: 'producto_variantes',
-    },
-  ];
+  public menuOptions: any[] = [];
   public countries: any[] | undefined;
   public name: any;
   public selectedCountry: any;
@@ -89,6 +42,7 @@ export class NavbarComponent implements OnInit {
       { name: 'Spain', code: 'es', img: '' },
       { name: 'United States', code: 'en' },
     ];
+    this.menu();
     this.obtenerNombre();
   }
 
@@ -97,6 +51,30 @@ export class NavbarComponent implements OnInit {
     setTimeout(() => {
       this.showProfileOptions = !this.showProfileOptions;
     }, 50000);
+  }
+
+  menu() {
+    this.authService.menu({}).subscribe(
+      (res: any) => {
+        this.menuOptions = res;
+      },
+      (error: any) => {
+        if (error.status == 401) {
+          Swal.fire({
+            title: 'Token Expirado',
+            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Acción cuando se hace clic en el botón Aceptar
+              this.authService.close();
+            }
+          });
+        }
+      }
+    );
   }
   logout() {
     this.authService.close();

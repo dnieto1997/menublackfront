@@ -26,18 +26,44 @@ export class LineComponent {
   }
 
   findAll() {
-    this.auth.findAllLine({}).subscribe((res: any) => {
-      this.list = res;
-      this.loading = false;
-      this.showTable = true;
-      this.squeleto = false;
-    });
+    this.auth.findAllLine({}).subscribe(
+      (res: any) => {
+        this.list = res;
+        this.loading = false;
+        this.showTable = true;
+        this.squeleto = false;
+      },
+      (error: any) => {
+        this.loading = false;
+        if (error.status == 401) {
+          Swal.fire({
+            title: 'Token Expirado',
+            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Acción cuando se hace clic en el botón Aceptar
+              this.auth.close();
+            }
+          });
+        }
+      }
+    );
   }
 
   findGroup() {
-    this.auth.findAllGroup({}).subscribe((res: any) => {
-      this.groups = res;
-    });
+    this.auth.findAllGroup({}).subscribe(
+      (res: any) => {
+        this.groups = res;
+      },
+      (error: any) => {
+        if (error.status == 401) {
+          this.auth.close();
+        }
+      }
+    );
   }
 
   openModal() {
@@ -51,8 +77,6 @@ export class LineComponent {
   }
 
   async createGroup() {
-    console.log(this.data);
-
     if (
       !this.data.img ||
       !this.data.code ||
@@ -68,6 +92,7 @@ export class LineComponent {
       });
       return;
     } else {
+      console.log(this.data);
       this.auth.createLine(this.data).subscribe(
         (res: any) => {
           if (res) {
@@ -83,7 +108,6 @@ export class LineComponent {
           }
         },
         (error: any) => {
-          console.log(error.error.statusText);
           if (error.statusText == 'Unauthorized') {
             this.auth.close();
           }
@@ -91,6 +115,12 @@ export class LineComponent {
         }
       );
     }
+  }
+
+  validateNumberInput(event: any) {
+    const input = event.target;
+    const value = input.value;
+    input.value = value.replace(/[^0-9]/g, ''); // Solo permite números
   }
 
   toggleUserStatus(id: any, status: any) {
@@ -105,7 +135,9 @@ export class LineComponent {
         this.findAll();
       },
       (error: any) => {
-        console.log(error);
+        if (error.status == 401) {
+          this.auth.close();
+        }
       }
     );
   }
@@ -124,9 +156,16 @@ export class LineComponent {
 
   openEditDialog(item: any) {
     this.display2 = true;
-    this.auth.findline(item).subscribe((res: any) => {
-      this.data2 = res;
-    });
+    this.auth.findline(item).subscribe(
+      (res: any) => {
+        this.data2 = res;
+      },
+      (error: any) => {
+        if (error.status == 401) {
+          this.auth.close();
+        }
+      }
+    );
   }
 
   EditGroup(id: any) {
@@ -159,7 +198,9 @@ export class LineComponent {
           }
         },
         (error: any) => {
-          console.log(error);
+          if (error.status == 401) {
+            this.auth.close();
+          }
         }
       );
   }

@@ -31,12 +31,31 @@ export class VariantesComponent {
     this.start();
   }
   start() {
-    this.auth.getVariant({}).subscribe((res: any) => {
-      this.list = res;
-      this.loading = false;
-      this.showTable = true;
-      this.squeleto = false;
-    });
+    this.auth.getVariant({}).subscribe(
+      (res: any) => {
+        this.list = res;
+        this.loading = false;
+        this.showTable = true;
+        this.squeleto = false;
+      },
+      (error: any) => {
+        this.loading = false;
+        if (error.status == 401) {
+          Swal.fire({
+            title: 'Token Expirado',
+            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Acción cuando se hace clic en el botón Aceptar
+              this.auth.close();
+            }
+          });
+        }
+      }
+    );
   }
   openModal(param?: boolean) {
     if (param) {
@@ -76,7 +95,9 @@ export class VariantesComponent {
           }
         },
         (error: any) => {
-          console.log(error);
+          if (error.status == 401) {
+            this.auth.close();
+          }
         }
       );
     }
@@ -122,7 +143,9 @@ export class VariantesComponent {
             }
           },
           (error: any) => {
-            console.log(error);
+            if (error.status == 401) {
+              this.auth.close();
+            }
           }
         );
     }

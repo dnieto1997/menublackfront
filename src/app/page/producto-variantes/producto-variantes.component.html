@@ -4,10 +4,10 @@
 <div class="mx-3">
   <div class="d-flex pb-3 pt-2">
     <div class="col-10">
-      <h1>Variantes de Productos</h1>
+      <h1>Product Variants</h1>
     </div>
     <div class="col-2 text-end">
-      <button class="btn-create" (click)="openModal()">Create Variant</button>
+      <button class="btn-create" (click)="openModal()">Create Product Variants</button>
     </div>
   </div>
   <p-table
@@ -22,8 +22,8 @@
     <ng-template pTemplate="header">
       <tr>
         <th>ID</th>
-        <th>Product_id </th>
-        <th>Product_variant</th>
+        <th>Product </th>
+        <th>Variant</th>
         <th class="text-center">Status</th>
         <th class="text-center">Actions</th>
       </tr>
@@ -63,7 +63,7 @@
           <p-dropdown
             name="Products_id"
             [options]="product"
-            [(ngModel)]="selectedProduct"
+            [(ngModel)]="data.product_id"
             optionLabel="name"
             optionValue="id"
             placeholder="Select Product Id"
@@ -71,8 +71,8 @@
             [filter]="true"
             filterBy="name"
           >
-            <ng-template pTemplate="selectedItem" let-item pTemplate="item">
-              <div class="flex align-items-center gap-2" *ngIf="selectedProduct">
+            <ng-template pTemplate="selectedItem" let-item>
+              <div class="flex align-items-center gap-2" *ngIf="data.product_id">
                 <div>{{ item.name }}</div>
               </div>
             </ng-template>
@@ -88,21 +88,21 @@
 
 
         <div class="col-6 mb-3">
-          <label for="" class="w-100 fw-bold mb-1">Products_Variants</label>
+          <label for="" class="w-100 fw-bold mb-1">Product Variant</label>
           <p-dropdown
             name="Products_id"
             [options]="variant"
             [(ngModel)]="data.product_variante"
-            optionLabel="product_id"
+            optionLabel="name"
             optionValue="id"
-            placeholder="Select Product Variante"
+            placeholder="Select Product Variant"
             class="w-100"
             [filter]="true"
             filterBy="name"
           >
-            <ng-template pTemplate="selectedItem" let-item pTemplate="item">
+            <ng-template pTemplate="selectedItem" let-item>
               <div class="flex align-items-center gap-2" *ngIf="data.product_variante">
-                <div>{{ item.name  }}</div>
+                <div>{{ item.name }}</div>
               </div>
             </ng-template>
             <ng-template let-item pTemplate="item">
@@ -119,14 +119,14 @@
 
   </div>
   <button class="btn-modal" (click)="isEdit ? edit() : createProduct()">
-    {{ isEdit ? "Editar" : "Crear" }}
+    {{ isEdit ? "Edit" : "Create" }}
   </button>
 </p-dialog>
 <p-overlayPanel #overlayPanel>
   <ng-template pTemplate>
     <div class="d-grid">
       <button class="btn-list" (click)="openModal(true)">
-        <i class="ti ti-edit"></i> Editar
+        <i class="ti ti-edit"></i> Edit
       </button>
       <button class="btn-list" (click)="changeStatus()">
         <div

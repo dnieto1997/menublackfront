@@ -35,32 +35,37 @@ const routes: Routes = [
   {
     path: 'group',
     component: GroupComponent,
-    /*     canActivate: [AuthGuard], */
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'line',
     component: LineComponent,
-    /*     canActivate: [AuthGuard], */
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'product',
     component: ProductComponent,
-    /*   canActivate:[AuthGuard], */
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'variantes',
     component: VariantesComponent,
-    /*   canActivate:[AuthGuard], */
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'producto_variantes',
     component: ProductoVariantesComponent,
-    /*   canActivate:[AuthGuard], */
+    canActivate: [AuthGuard],
   },
+  /*   {
+    path: 'banner',
+    component: BannerComponent,
+    // canActivate:[IndexGuard],
+  }, */
   /*  {
     path: 'profile',
     component: ProfileComponent,
@@ -79,7 +84,7 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
-    // canActivate:[IndexGuard],
+    canActivate: [AuthGuard],
   },
   /* {
     path: 'client',

@@ -1,296 +1,278 @@
-
 <div class="mx-3">
-    <div class="d-flex pb-3 pt-2">
-      <div class="col-10">
-        <h1>Lines List</h1>
-      </div>
-      <div class="col-2 text-end">
-          <button class="btn-create" (click)="openModal()">Create Line</button>
-        </div>
+  <div class="d-flex pb-3 pt-2">
+    <div class="col-10">
+      <h1>Lines List</h1>
     </div>
-    <div class="table-responsive">
-      <table class="table table-hover table-borderless" >
-        <thead>
-          <tr>
-            <th class="text-center">Id</th>
-            <th class="text-center">Img</th>
-            <th class="text-center">Position</th>
-            <th class="text-center">Code</th>
-            <th class="text-center">Group</th>
-            <th class="text-center">Name</th>
-            <th class="text-center">Observations</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Editar</th>
-          </tr>
-        </thead>
-        <tbody *ngIf="showTable">
-          <tr *ngFor="let item of list">
-            <td class="text-center">{{ item.id }}</td>
-            <td class="text-center">
-            <img src="{{ verificarURLImagen(item.img) }}" class="imagen">
-          
-            </td>
-            <td class="text-center">
-              {{ item.position }}
-             </td>
-            <td class="text-center">
-             {{ item.code }}
-            </td>
-            <td class="text-center" >
-              {{ getGroupNameById(item.group)  }}
-            </td>
-            <td class="text-center" >
-             {{ item.name }}
-            </td>
-            <td class="text-center" >
-             {{ item.observation }}
-            </td>
-            <td class="text-center">
-              <button class="btn" (click)="toggleUserStatus(item.id, item.status)">
-                {{ item.status ? 'Activate' : 'Desactivate' }}
-              </button>
-              <td class="text-center">
-                <button class="btn"  (click)="openEditDialog(item.id)">
-                 Edit
-                </button>
-              </td>
-           
-          </tr>
-        </tbody>
-        
-        <tbody *ngIf="squeleto">
-          <tr class="ng-star-inserted">
-            <td><p-skeleton height="1.5rem"></p-skeleton></td>
-            <td><p-skeleton height="1.5rem"></p-skeleton></td>
-            <td><p-skeleton height="1.5rem"></p-skeleton></td>
-            <td><p-skeleton height="1.5rem"></p-skeleton></td>
-            <td><p-skeleton height="1.5rem"></p-skeleton></td>
-            <td><p-skeleton height="1.5rem"></p-skeleton></td>
-            <td><p-skeleton height="1.5rem"></p-skeleton></td>
-            <td><p-skeleton height="1.5rem"></p-skeleton></td>
-            <td><p-skeleton height="1.5rem"></p-skeleton></td>
-  
-          </tr>
-          <tr class="ng-star-inserted">
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-          </tr>
-          <tr class="ng-star-inserted">
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-          </tr>
-          <tr class="ng-star-inserted">
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-          </tr>
-          <tr class="ng-star-inserted">
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-          </tr>
-          <tr class="ng-star-inserted">
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-          </tr>
-          <tr class="ng-star-inserted">
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-              <td><p-skeleton height="1.5rem"></p-skeleton></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="col-2 text-end">
+      <button class="btn-create" (click)="openModal()">Create Line</button>
     </div>
   </div>
-  <p-dialog
-    header="Create Group"
-    [(visible)]="display"
-    [style]="{ width: '50vw' }"
-  >
-    <div class="row">
-      <form action="">
-        <div class="row">
-          <div class="col-6 mb-3">
-            <label for="" class="w-100 fw-bold mb-1">IMG</label>
-            <input
-              type="text"
-              class="w-100"
-              [(ngModel)]="data.img"
-              name="img"
-              required
-            />
-          </div>
-          <div class="col-6 mb-3">
-              <label for="" class="w-100 fw-bold mb-1">Position</label>
-              <input
-                type="text"
-                class="w-100"
-                [(ngModel)]="data.position"
-                name="position"
-                required
-              />
-            </div>
-            <div class="col-6 mb-3">
-              <label for="" class="w-100 fw-bold mb-1">Code</label>
-              <input
-                type="text"
-                class="w-100"
-                [(ngModel)]="data.code"
-                name="code"
-                required
-              />
-            </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-borderless">
+      <thead>
+        <tr>
+          <th class="text-center">Id</th>
+          <th class="text-center">Img</th>
+          <th class="text-center">Position</th>
+          <th class="text-center">Code</th>
+          <th class="text-center">Group</th>
+          <th class="text-center">Name</th>
+          <th class="text-center">Observations</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Edit</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="showTable">
+        <tr *ngFor="let item of list">
+          <td class="text-center">{{ item.id }}</td>
+          <td class="text-center">
+            <img src="{{ verificarURLImagen(item.img) }}" class="imagen">
 
+          </td>
+          <td class="text-center">
+            {{ item.position }}
+          </td>
+          <td class="text-center">
+            {{ item.code }}
+          </td>
+          <td class="text-center">
+            {{ getGroupNameById(item.group) }}
+          </td>
+          <td class="text-center">
+            {{ item.name }}
+          </td>
+          <td class="text-center">
+            {{ item.observation }}
+          </td>
+          <td class="text-center">
+            <button class="btn" (click)="toggleUserStatus(item.id, item.status)">
+              {{ item.status ? 'Activate' : 'Desactivate' }}
+            </button>
+          <td class="text-center">
+            <button class="btn" (click)="openEditDialog(item.id)">
+              Edit
+            </button>
+          </td>
 
- 
+        </tr>
+      </tbody>
 
-<div class="col-6 mb-3">
-<p-dropdown [options]="groups" [(ngModel)]="data.group" placeholder="Select a City" [editable]="true" optionLabel="name"></p-dropdown>
-</div>        
-            <div class="col-6 mb-3">
-                <label for="" class="w-100 fw-bold mb-1">Name</label>
-                <input
-                  type="text"
-                  class="w-100"
-                  [(ngModel)]="data.name"
-                  name="name"
-                  required
-                />
-              </div>
-            </div>
-          </form>
+      <tbody *ngIf="squeleto">
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<p-dialog header="Create Group" [(visible)]="display" [style]="{ width: '50vw' }">
+  <div class="row">
+    <form action="">
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">IMG</label>
+          <input type="text" class="w-100" [(ngModel)]="data.img" name="img" required />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Position</label>
+          <input type="text" class="w-100" [(ngModel)]="data.position" name="position" (input)="validateNumberInput($event)" required />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Code</label>
+          <input type="text" class="w-100" [(ngModel)]="data.code" name="code" (input)="validateNumberInput($event)" required />
         </div>
 
-              <div class="col-12 mb-3">
-                <label for="" class="w-100 fw-bold mb-1">Observations</label>
-                <p-editor
-                  [(ngModel)]="data.observations"
-                  [style]="{ height: '200px' }"
-                ></p-editor>
-              </div>
 
-       
-   
-    <ng-template pTemplate="footer">
-      <button class="btn-modal" (click)="createGroup()">  Create User</button>
-    </ng-template>
-  </p-dialog>
-  
-  
-   <p-dialog
-    header="Edit Line"
-    [(visible)]="display2"
-    [style]="{ width: '50vw' }"
-  >
-    <div class="row">
-      <form action="">
-        <div class="row">
-          <div class="col-6 mb-3">
-            <label for="" class="w-100 fw-bold mb-1">IMG</label>
-            <input
-              type="text"
-              class="w-100"
-              [(ngModel)]="data2.img"
-              name="img"
-            />
-          </div>
-          <div class="col-6 mb-3">
-            <label for="" class="w-100 fw-bold mb-1">Position</label>
-            <input
-              type="text"
-              class="w-100"
-              [(ngModel)]="data2.position"
-              name="position"
-              required
-            />
-          </div>
 
         <div class="col-6 mb-3">
-              <label for="" class="w-100 fw-bold mb-1">Code</label>
-              <input
-                type="text"
-                class="w-100"
-                [(ngModel)]="data2.code"
-                name="code"
-                required
-              />
-            </div>
-      
-          <div class="select-container">
-            <label>Group</label>
-            <select name="aliado" class="form-control" [(ngModel)]="data2.group" >
-            <option *ngFor="let al of groups" [value]="al.id" >{{al.name}}</option>
-        </select>
-          </div>
-        
-          <div class="col-6 mb-3">
-            <label for="" class="w-100 fw-bold mb-1">Names</label>
-            <input
-              type="text"
-              class="w-100"
-              [(ngModel)]="data2.name"
-              name="name"
-        
-            />
-          </div>
-  
-
-
+          <label for="" class="w-100 fw-bold mb-1">Group</label>
+          <p-dropdown
+            name="groups"
+            [options]="groups"
+            [(ngModel)]="data.group"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Select Group"
+            class="w-100"
+            [filter]="true"
+            filterBy="name"
+            
+          >
+            <ng-template pTemplate="selectedItem" let-item pTemplate="item">
+              <div class="flex align-items-center gap-2" *ngIf="data.group">
+                <div>{{ item.name  }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <div>{{ item.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
         </div>
-      </form>
-    </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Name</label>
+          <input type="text" class="w-100" [(ngModel)]="data.name" name="name" required />
+        </div>
+      </div>
+    </form>
+  </div>
 
-          <div class="col-12 mb-3">
-            <label for="" class="w-100 fw-bold mb-1"></label>
-            <p-editor
-              [(ngModel)]="data2.observation"
-              [style]="{ height: '200px' }"
-            ></p-editor>
-          </div>
+  <div class="col-12 mb-3">
+    <label for="" class="w-100 fw-bold mb-1">Observations</label>
+    <p-editor [(ngModel)]="data.observations" [style]="{ height: '200px' }"></p-editor>
+  </div>
 
-     
-     
-    <ng-template pTemplate="footer">
-      <button class="btn-modal" (click)="EditGroup(data2.id)" >Edit Line</button>
-    </ng-template>
-  </p-dialog> 
-  
+
+
+  <ng-template pTemplate="footer">
+    <button class="btn-modal" (click)="createGroup()"> Create Line</button>
+  </ng-template>
+</p-dialog>
+
+
+<p-dialog header="Edit Line" [(visible)]="display2" [style]="{ width: '50vw' }">
+  <div class="row">
+    <form action="">
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">IMG</label>
+          <input type="text" class="w-100" [(ngModel)]="data2.img" name="img2" />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Position</label>
+          <input type="text" class="w-100" [(ngModel)]="data2.position" name="position2"  (input)="validateNumberInput($event)" required />
+        </div>
+
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Code</label>
+          <input type="text" class="w-100" [(ngModel)]="data2.code" name="code2"  (input)="validateNumberInput($event)" required />
+        </div>
+
+
+
+
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Group</label>
+          <p-dropdown
+            name="groups"
+            [options]="groups"
+            [(ngModel)]="data2.group"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Select Group"
+            class="w-100"
+            [filter]="true"
+            filterBy="name"
+            
+          >
+            <ng-template pTemplate="selectedItem" let-item pTemplate="item">
+              <div class="flex align-items-center gap-2" *ngIf="data2.group">
+                <div>{{ item.name  }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <div>{{ item.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Names</label>
+          <input type="text" class="w-100" [(ngModel)]="data2.name" name="name2" />
+        </div>
+
+
+
+      </div>
+    </form>
+  </div>
+
+  <div class="col-12 mb-3">
+    <label for="" class="w-100 fw-bold mb-1"></label>
+    <p-editor [(ngModel)]="data2.observation" [style]="{ height: '200px' }"></p-editor>
+  </div>
+
+
+
+  <ng-template pTemplate="footer">
+    <button class="btn-modal" (click)="EditGroup(data2.id)">Edit Line</button>
+  </ng-template>
+</p-dialog>

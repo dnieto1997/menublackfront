@@ -31,12 +31,31 @@ export class UserComponent {
     this.start();
   }
   start() {
-    this.userService.getUser({}).subscribe((res: any) => {
-      this.list = res;
-      this.loading = false;
-      this.showTable = true;
-      this.squeleto = false;
-    });
+    this.userService.getUser({}).subscribe(
+      (res: any) => {
+        this.list = res;
+        this.loading = false;
+        this.showTable = true;
+        this.squeleto = false;
+      },
+      (error: any) => {
+        this.loading = false;
+        if (error.status == 401) {
+          Swal.fire({
+            title: 'Token Expirado',
+            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Acción cuando se hace clic en el botón Aceptar
+              this.auth.close();
+            }
+          });
+        }
+      }
+    );
   }
   openModal() {
     this.display = true;
@@ -62,12 +81,9 @@ export class UserComponent {
           this.display = false;
         },
         (error: any) => {
-          console.log(error.error.statusText);
-          if (error.statusText == 'Unauthorized') {
+          if (error.status == 401) {
             this.auth.close();
           }
-
-          console.log(error);
         }
       );
     }
@@ -101,7 +117,9 @@ export class UserComponent {
         this.start();
       },
       (error: any) => {
-        console.log(error);
+        if (error.status == 401) {
+          this.auth.close();
+        }
       }
     );
   }
@@ -114,7 +132,9 @@ export class UserComponent {
         this.start();
       },
       (error: any) => {
-        console.log(error);
+        if (error.status == 401) {
+          this.auth.close();
+        }
       }
     );
     if (this.editMode.field === field && this.editMode.id === userId) {

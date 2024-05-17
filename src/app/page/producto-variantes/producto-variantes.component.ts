@@ -25,8 +25,7 @@ export class ProductoVariantesComponent {
   public fileSelect?: string | ArrayBuffer | null = null;
   public text: string | undefined =
     '<p>Aquí tu contenido inicial para el editor.</p>';
-  public selectedProduct: any;
-  public selectedVariant: any;
+
   constructor(
     private auth: AuthService,
     private productService: ProductService
@@ -36,21 +35,52 @@ export class ProductoVariantesComponent {
     this.start();
   }
   start() {
-    this.auth.getProductVariant({}).subscribe((res: any) => {
-      this.list = res;
-      this.loading = false;
-      this.showTable = true;
-      this.squeleto = false;
-    });
+    this.auth.getProductVariant({}).subscribe(
+      (res: any) => {
+        this.list = res;
+        this.loading = false;
+        this.showTable = true;
+        this.squeleto = false;
+      },
+      (error: any) => {
+        this.loading = false;
+        if (error.status == 401) {
+          Swal.fire({
+            title: 'Token Expirado',
+            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Acción cuando se hace clic en el botón Aceptar
+              this.auth.close();
+            }
+          });
+        }
+      }
+    );
 
-    this.productService.getProduct({}).subscribe((res: any) => {
-      this.product = res;
-      this.selectedProduct = this.data.product_id;
-    });
-    this.auth.getVariant({}).subscribe((res: any) => {
-      this.variant = res;
-      this.selectedVariant = this.data.product_variante;
-    });
+    this.productService.getProduct({}).subscribe(
+      (res: any) => {
+        this.product = res;
+      },
+      (error: any) => {
+        if (error.status == 401) {
+          this.auth.close();
+        }
+      }
+    );
+    this.auth.getVariant({}).subscribe(
+      (res: any) => {
+        this.variant = res;
+      },
+      (error: any) => {
+        if (error.status == 401) {
+          this.auth.close();
+        }
+      }
+    );
   }
   openModal(param?: boolean) {
     if (param) {
@@ -64,7 +94,7 @@ export class ProductoVariantesComponent {
   }
 
   createProduct() {
-    if (!this.data.producto_id) {
+    if (!this.data.product_id) {
       Swal.fire({
         title: 'Warning',
         text: 'Name no exist',
@@ -74,8 +104,8 @@ export class ProductoVariantesComponent {
       this.loading = true;
 
       const datas = {
-        producto_id: this.data.producto_id,
-        producto_variante: this.data.producto_variante,
+        producto_id: this.data.product_id,
+        producto_variante: this.data.product_variante,
       };
 
       this.auth.createProductVariant(datas).subscribe(
@@ -87,11 +117,14 @@ export class ProductoVariantesComponent {
               text: 'Fue creada el  producto Variante ' + res.message,
               icon: 'success',
             });
+            this.data = {};
             this.start();
           }
         },
         (error: any) => {
-          console.log(error);
+          if (error.status == 401) {
+            this.auth.close();
+          }
         }
       );
     }
@@ -101,7 +134,6 @@ export class ProductoVariantesComponent {
       this.overlayPanel.hide();
     }
     this.data = item;
-
     console.log(item);
 
     setTimeout(() => {
@@ -109,31 +141,35 @@ export class ProductoVariantesComponent {
     }, 200);
   }
   edit() {
-    if (!this.data.producto_id) {
+    if (!this.data.product_id) {
       Swal.fire({
         title: 'Warning',
-        text: 'campo nombre de categoria vacio',
+        text: 'Prodcuto Id vacio',
         icon: 'warning',
       });
     } else {
       this.loading = true;
+      console.log(this.data.product_id);
+      console.log(this.data.product_variante);
 
       this.auth
         .updateProductVariantes(this.data.id, {
-          producto_id: this.selectedProduct,
-          producto_variante: this.data.producto_variante,
+          producto_id: this.data.product_id,
+          producto_variante: this.data.product_variante,
         })
         .subscribe(
           (res: any) => {
             if (res) {
               this.display = false;
-              this.start();
+
               this.loading = false;
               Swal.fire({
                 title: 'Actualización Exitosa',
                 text: 'Producto de Variante Actualizada Exitosamente ',
                 icon: 'success',
               });
+
+              this.start();
             }
           },
           (error: any) => {
@@ -172,7 +208,9 @@ export class ProductoVariantesComponent {
           }
         },
         (error: any) => {
-          console.log(error);
+          if (error.status == 401) {
+            this.auth.close();
+          }
         }
       );
   }

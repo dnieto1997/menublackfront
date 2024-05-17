@@ -4,25 +4,25 @@ import { BannerService } from './banner.service';
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
-  styleUrls: ['./banner.component.scss']
+  styleUrls: ['./banner.component.scss'],
 })
 export class BannerComponent {
   public isLoading = false;
   public imagenPrevisualizacion?: string | ArrayBuffer | null = null;
   public imagenSeleccionada?: File | null = null;
   public list: any;
-  constructor(private bannerService: BannerService) { }
+  constructor(private bannerService: BannerService) {}
 
   ngOnInit(): void {
     this.start();
   }
 
   start() {
-    this.isLoading = true
+    this.isLoading = true;
     this.bannerService.getFiles().subscribe((res) => {
-      this.list = res
-      this.isLoading = false
-    })
+      this.list = res;
+      this.isLoading = false;
+    });
   }
 
   seleccionarArchivo(event: any): void {
@@ -31,7 +31,7 @@ export class BannerComponent {
       this.imagenSeleccionada = archivo;
 
       const reader = new FileReader();
-      reader.onload = e => this.imagenPrevisualizacion = reader.result;
+      reader.onload = (e) => (this.imagenPrevisualizacion = reader.result);
       reader.readAsDataURL(archivo);
     }
   }
@@ -39,10 +39,17 @@ export class BannerComponent {
   subirImagen(): void {
     if (this.imagenSeleccionada) {
       const formData = new FormData();
-      formData.append('file', this.imagenSeleccionada, this.imagenSeleccionada.name);
+      formData.append(
+        'file',
+        this.imagenSeleccionada,
+        this.imagenSeleccionada.name
+      );
+
+      console.log(formData);
 
       this.bannerService.updateFile(formData).subscribe(
         (res) => {
+          console.log(res);
           this.start();
           this.imagenPrevisualizacion = null;
           this.imagenSeleccionada = null;
@@ -53,9 +60,9 @@ export class BannerComponent {
   }
 
   delete(id: any) {
-    this.isLoading = true
+    this.isLoading = true;
     this.bannerService.delete(id).subscribe((res) => {
       this.start();
-    })
+    });
   }
 }

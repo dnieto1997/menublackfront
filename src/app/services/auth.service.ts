@@ -104,6 +104,10 @@ export class AuthService {
     return this.httpService.put(`productos-variantes/${postDate}`, postDate2);
   }
 
+  menu(postDate: any): Observable<any> {
+    return this.httpService.get(`menu`, postDate);
+  }
+
   close() {
     this.storageService.removeItem(AuthConfi.AUTH);
     this.storageService.removeItem('profile');
