@@ -4,36 +4,48 @@
     <div class="col-10">
       <h1>Listado Cliente</h1>
     </div>
+    <div class="col-2 text-end">
+      <button class="btn-create" (click)="openModal()">Create Group</button>
+    </div>
   </div>
   <div class="table-responsive">
     <table class="table table-hover table-borderless" aria-describedby="">
       <thead>
         <tr>
-          <th></th>
-          <th>Nombres</th>
-          <th>Correo</th>
+
+          <th>Id</th>
+          <th>Names</th>
+          <th>Apellidos</th>
+          <th>Barrio</th>
           <th>Celular</th>
-          <th>Tipo Usuario</th>
-          <th>Registro</th>
-          <th class="text-center">Estado</th>
-          <th>Fecha Creacion</th>
+          <th>Direccion</th>
+          <th>Medio de Pago</th>
+          <th>Observaciones</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Acciones</th>
         </tr>
       </thead>
       <tbody *ngIf="showTable">
         <tr class="ng-star-inserted" *ngFor="let item of list">
-          <td><img src="{{ item.img1 }}" width="30px" alt="" srcset="" /></td>
-          <td class="text-uppercase">{{ item.names }}</td>
-          <td class="text-uppercase">{{ item.email }}</td>
-          <td class="text-uppercase">{{ item.phone }}</td>
-          <td class="text-uppercase">{{ item.type }}</td>
-          <td class="text-uppercase">{{ item.medio }}</td>
+          <td class="text-uppercase">{{ item.id }}</td>
+          <td class="text-uppercase">{{ item.nombres }}</td>
+          <td class="text-uppercase">{{ item.apellidos }}</td>
+          <td class="text-uppercase">{{ item.barrio }}</td>
+          <td class="text-uppercase">{{ item.celular }}</td>
+          <td class="text-uppercase">{{ item.direccion }}</td>
+          <td class="text-uppercase">{{ item.medioDePago }}</td>
+          <td class="text-uppercase">{{ item.observaciones }}</td>
           <td>
             <div
               [ngClass]="item.status ? 'statusActive' : 'statusDesactive'"
             ></div>
           </td>
-          <!-- <td><img src="{{ item.img2 }}" width="30px" alt="" srcset="" /></td> -->
-          <td>{{ item.datecreate }}</td>
+          <td class="col-1 text-center">
+            <i
+              class="ti ti-dots-vertical tree-dots"
+              (click)="showOverlayPanel($event, item)"
+            ></i>
+          </td>
         </tr>
       </tbody>
       <tbody *ngIf="squeleto">
@@ -43,6 +55,30 @@
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+        </tr>
+        <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
         </tr>
         <tr class="ng-star-inserted">
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
@@ -57,10 +93,6 @@
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
-        </tr>
-        <tr class="ng-star-inserted">
-          <td><p-skeleton height="1.5rem"></p-skeleton></td>
-          <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
@@ -71,15 +103,14 @@
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
-        </tr>
-        <tr class="ng-star-inserted">
-          <td><p-skeleton height="1.5rem"></p-skeleton></td>
-          <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
         </tr>
         <tr class="ng-star-inserted">
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
           <td><p-skeleton height="1.5rem"></p-skeleton></td>
@@ -90,3 +121,106 @@
     </table>
   </div>
 </div>
+
+<p-dialog
+  header="  {{ isEdit ? 'Editar' : 'Crear' }}"
+  [(visible)]="display"
+  [style]="{ width: '70vw', height: '50vh' }"
+>
+  <div class="row">
+    <form action="">
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Nombres</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.nombres"
+            name="nombres"
+            required
+          />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Apellidos</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.apellidos"
+            name="apellidos"
+            required
+          />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Barrio</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.barrio"
+            name="barrio"
+            required
+          />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Celular</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.celular"
+            name="celular"
+            required
+          />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Dirección</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.direccion"
+            name="direccion"
+            required
+          />
+        </div>
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Medio de Pago</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.medioDePago"
+            name="medioDePago"
+            required
+          />
+        </div>
+    
+ 
+      
+      </div>
+    </form>
+    <div class="col-12 mb-3">
+      <label for="" class="w-100 fw-bold mb-1">Observaciones</label>
+      <p-editor
+        [(ngModel)]="data.observaciones"
+        [style]="{ height: '200px' }"
+      ></p-editor>
+    </div>
+
+  </div>
+
+  <button class="btn-modal" (click)="isEdit ? edit() : createProduct()">
+    {{ isEdit ? "Edit" : "Create" }}
+  </button>
+</p-dialog>
+<p-overlayPanel #overlayPanel>
+  <ng-template pTemplate>
+    <div class="d-grid">
+      <button class="btn-list" (click)="openModal(true)">
+        <i class="ti ti-edit"></i> Editar
+      </button>
+      <button class="btn-list" (click)="changeStatus()">
+        <div
+          [ngClass]="!data.status ? 'statusActive' : 'statusDesactive'"
+        ></div>
+        {{ data.status ? "Deshabilitar" : "Habilitar" }}
+      </button>
+    </div>
+  </ng-template>
+</p-overlayPanel>

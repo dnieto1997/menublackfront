@@ -61,8 +61,8 @@ export class NavbarComponent implements OnInit {
       (error: any) => {
         if (error.status == 401) {
           Swal.fire({
-            title: 'Token Expirado',
-            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            title: 'Expired Token',
+            text: 'Your session has expired. Please log in again.',
             icon: 'warning',
             showCancelButton: false,
             confirmButtonText: 'Aceptar',

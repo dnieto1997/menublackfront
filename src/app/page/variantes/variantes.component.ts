@@ -90,8 +90,9 @@ export class VariantesComponent {
               title: 'Creacion Exitosa',
               text: 'Fue creada la Variante ' + this.data.name,
               icon: 'success',
+            }).then(() => {
+              this.start(); // Asegúrate de actualizar la página después de la confirmación
             });
-            this.start();
           }
         },
         (error: any) => {
@@ -133,12 +134,13 @@ export class VariantesComponent {
           (res: any) => {
             if (res) {
               this.display = false;
-              this.start();
               this.loading = false;
               Swal.fire({
                 title: 'Actualización Exitosa',
                 text: 'Variante Actualizada Exitosamente ',
                 icon: 'success',
+              }).then(() => {
+                this.start(); // Asegúrate de actualizar la página después de la confirmación
               });
             }
           },
@@ -163,11 +165,12 @@ export class VariantesComponent {
           if (res) {
             this.loading = false;
             this.display = false;
-            this.start();
             Swal.fire({
               title: 'Cambio de Estado Exitoso',
               text: 'Variante Actualizada Exitosamente ',
               icon: 'success',
+            }).then(() => {
+              this.start(); // Asegúrate de actualizar la página después de la confirmación
             });
           }
         },

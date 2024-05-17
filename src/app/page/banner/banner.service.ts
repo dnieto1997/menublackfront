@@ -8,13 +8,18 @@ import { HttpService } from 'src/app/services/http.service';
 export class BannerService {
   constructor(private httpService: HttpService) {}
 
-  getFiles(): Observable<any> {
-    return this.httpService.get(`sliders`, {});
+  Banner(): Observable<any> {
+    return this.httpService.get(`banner`, {});
   }
-  updateFile(formData: FormData): Observable<any> {
-    return this.httpService.post(`sliders`, formData);
+
+  createBanner(postDate: any): Observable<any> {
+    return this.httpService.post('banner', postDate);
   }
-  delete(data: any): Observable<any> {
-    return this.httpService.delete(`sliders/${data}`, {});
+  updateStatusBanner(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`banner/status/${postDate}`, postDate2);
+  }
+
+  updateBanner(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`banner/${postDate}`, postDate2);
   }
 }

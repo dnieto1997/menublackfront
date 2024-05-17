@@ -9,6 +9,17 @@ export class ClientService {
   constructor(private httpService: HttpService) {}
 
   getUser(postDate: any): Observable<any> {
-    return this.httpService.get('user', postDate);
+    return this.httpService.get('client', postDate);
+  }
+
+  createClient(postDate: any): Observable<any> {
+    return this.httpService.post('client', postDate);
+  }
+  updateStatusClient(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`client/status/${postDate}`, postDate2);
+  }
+
+  updateClient(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.put(`client/${postDate}`, postDate2);
   }
 }

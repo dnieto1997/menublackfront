@@ -89,7 +89,7 @@ export class GroupComponent {
         if (error.status == 401) {
           Swal.fire({
             title: 'Token Expirado',
-            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            text: 'Your session has expired. Please log in again.',
             icon: 'warning',
             showCancelButton: false,
             confirmButtonText: 'Aceptar',
@@ -162,8 +162,8 @@ export class GroupComponent {
     if (this.data2.days.length === 0) {
       // Mostrar un mensaje de alerta utilizando Swal
       Swal.fire({
-        title: 'Advertencia',
-        text: 'Debe seleccionar al menos un día.',
+        title: 'Warning',
+        text: 'You must select at least one day.',
         icon: 'warning',
       });
     }
@@ -227,10 +227,12 @@ export class GroupComponent {
           title: 'Success',
           text: res.message,
           icon: 'success',
+        }).then(() => {
+          this.findAll(); // Asegúrate de actualizar la página después de la confirmación
         });
 
         // Llamar a findAll después de crear el grupo con éxito para actualizar la lista de grupos
-        await this.findAll();
+
         this.data = {
           img: '',
           code: '',
@@ -379,8 +381,9 @@ export class GroupComponent {
               title: 'Success',
               text: res.message,
               icon: 'success',
+            }).then(() => {
+              this.findAll(); // Asegúrate de actualizar la página después de la confirmación
             });
-            this.findAll();
           }
           this.display2 = false;
         },

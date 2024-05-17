@@ -46,11 +46,11 @@ export class ProductoVariantesComponent {
         this.loading = false;
         if (error.status == 401) {
           Swal.fire({
-            title: 'Token Expirado',
-            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            title: 'Expired Token',
+            text: 'Your session has expired. Please log in again.',
             icon: 'warning',
             showCancelButton: false,
-            confirmButtonText: 'Aceptar',
+            confirmButtonText: 'Confirm',
           }).then((result) => {
             if (result.isConfirmed) {
               // Acción cuando se hace clic en el botón Aceptar
@@ -113,12 +113,13 @@ export class ProductoVariantesComponent {
           if (res) {
             this.display = false;
             Swal.fire({
-              title: 'Creacion Exitosa',
-              text: 'Fue creada el  producto Variante ' + res.message,
+              title: 'Successful Creation',
+              text: 'The Variant product was created' + res.message,
               icon: 'success',
+            }).then(() => {
+              this.start(); // Asegúrate de actualizar la página después de la confirmación
             });
             this.data = {};
-            this.start();
           }
         },
         (error: any) => {
@@ -144,13 +145,11 @@ export class ProductoVariantesComponent {
     if (!this.data.product_id) {
       Swal.fire({
         title: 'Warning',
-        text: 'Prodcuto Id vacio',
+        text: 'Empty Producto Id ',
         icon: 'warning',
       });
     } else {
       this.loading = true;
-      console.log(this.data.product_id);
-      console.log(this.data.product_variante);
 
       this.auth
         .updateProductVariantes(this.data.id, {
@@ -164,12 +163,12 @@ export class ProductoVariantesComponent {
 
               this.loading = false;
               Swal.fire({
-                title: 'Actualización Exitosa',
-                text: 'Producto de Variante Actualizada Exitosamente ',
+                title: 'Successful Update',
+                text: 'Variant Product Updated Successfully',
                 icon: 'success',
+              }).then(() => {
+                this.start(); // Asegúrate de actualizar la página después de la confirmación
               });
-
-              this.start();
             }
           },
           (error: any) => {
@@ -201,8 +200,8 @@ export class ProductoVariantesComponent {
             this.display = false;
             this.start();
             Swal.fire({
-              title: 'Cambio de Estado Exitoso',
-              text: 'Variante Actualizada Exitosamente ',
+              title: 'Successful State Change',
+              text: 'Status changed',
               icon: 'success',
             });
           }

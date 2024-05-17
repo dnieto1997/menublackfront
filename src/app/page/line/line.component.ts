@@ -38,7 +38,7 @@ export class LineComponent {
         if (error.status == 401) {
           Swal.fire({
             title: 'Token Expirado',
-            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            text: 'Your session has expired. Please log in again.',
             icon: 'warning',
             showCancelButton: false,
             confirmButtonText: 'Aceptar',
@@ -87,7 +87,7 @@ export class LineComponent {
     ) {
       Swal.fire({
         title: 'Error',
-        text: 'Por favor, complete todos los campos.',
+        text: 'Please complete all fields.',
         icon: 'error',
       });
       return;
@@ -108,10 +108,20 @@ export class LineComponent {
           }
         },
         (error: any) => {
-          if (error.statusText == 'Unauthorized') {
-            this.auth.close();
+          if (error.status == 401) {
+            Swal.fire({
+              title: 'Expired Token',
+              text: 'Your session has expired. Please log in again.',
+              icon: 'warning',
+              showCancelButton: false,
+              confirmButtonText: 'Aceptar',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Acción cuando se hace clic en el botón Aceptar
+                this.auth.close();
+              }
+            });
           }
-          console.log(error);
         }
       );
     }
@@ -192,9 +202,11 @@ export class LineComponent {
               title: 'Success',
               text: res.message,
               icon: 'success',
+            }).then(() => {
+              this.findAll();
+
+              this.display2 = false;
             });
-            this.findAll();
-            this.display2 = false;
           }
         },
         (error: any) => {

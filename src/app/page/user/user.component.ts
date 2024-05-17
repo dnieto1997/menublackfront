@@ -42,11 +42,11 @@ export class UserComponent {
         this.loading = false;
         if (error.status == 401) {
           Swal.fire({
-            title: 'Token Expirado',
-            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            title: 'Expired Token',
+            text: 'Your session has expired. Please log in again.',
             icon: 'warning',
             showCancelButton: false,
-            confirmButtonText: 'Aceptar',
+            confirmButtonText: 'Confirm',
           }).then((result) => {
             if (result.isConfirmed) {
               // Acción cuando se hace clic en el botón Aceptar
@@ -64,7 +64,7 @@ export class UserComponent {
     if (!this.data.name) {
       Swal.fire({
         title: 'Warning',
-        text: 'campo nombre  vacio',
+        text: 'Empty Name Field',
         icon: 'warning',
       });
     } else {
@@ -73,10 +73,11 @@ export class UserComponent {
           if (res) {
             this.display = false;
             Swal.fire({
-              title: 'Creacion Exitosa',
-              text: 'Fue creado el usuario ' + this.data.name,
+              title: 'Successful Creation',
+              text: 'The user was created' + this.data.name,
+            }).then(() => {
+              this.start(); // Asegúrate de actualizar la página después de la confirmación
             });
-            this.start();
           }
           this.display = false;
         },

@@ -61,11 +61,11 @@ const routes: Routes = [
     component: ProductoVariantesComponent,
     canActivate: [AuthGuard],
   },
-  /*   {
+  {
     path: 'banner',
     component: BannerComponent,
-    // canActivate:[IndexGuard],
-  }, */
+    canActivate: [AuthGuard],
+  },
   /*  {
     path: 'profile',
     component: ProfileComponent,
@@ -86,11 +86,11 @@ const routes: Routes = [
     component: UserComponent,
     canActivate: [AuthGuard],
   },
-  /* {
+  {
     path: 'client',
     component: ClientComponent,
     // canActivate:[IndexGuard],
-  },
+  } /* ,
   {
     path: 'shoppingCart',
     component: ShoppingCartComponent,
@@ -100,13 +100,13 @@ const routes: Routes = [
     path: 'order',
     component: OrderComponent,
     // canActivate:[IndexGuard],
-  },
+  }, */,
   {
     path: 'banner',
     component: BannerComponent,
     // canActivate:[IndexGuard],
   },
-  {
+  /*  {
     path: 'rates',
     component: RatesComponent,
     // canActivate:[IndexGuard],

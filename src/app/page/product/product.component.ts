@@ -48,7 +48,7 @@ export class ProductComponent {
         if (error.status == 401) {
           Swal.fire({
             title: 'Token Expirado',
-            text: 'Su sesión ha expirado. Por favor, vuelva a iniciar sesión.',
+            text: 'Your session has expired. Please log in again.',
             icon: 'warning',
             showCancelButton: false,
             confirmButtonText: 'Aceptar',
@@ -65,7 +65,6 @@ export class ProductComponent {
     this.auth.findAllGroup({}).subscribe(
       (res: any) => {
         this.group = res;
-        console.log(res);
       },
       (error: any) => {
         if (error.status == 401) {
@@ -76,7 +75,6 @@ export class ProductComponent {
 
     this.auth.findAllLine({}).subscribe(
       (res: any) => {
-        console.log(res);
         this.line = res;
       },
       (error: any) => {
@@ -117,7 +115,7 @@ export class ProductComponent {
     if (this.data.img.length >= 255) {
       Swal.fire({
         title: 'Warning',
-        text: 'Campo de imagen es muy grande',
+        text: 'Image field is very large',
         icon: 'warning',
       });
     } else {
@@ -142,11 +140,12 @@ export class ProductComponent {
           if (res) {
             this.display = false;
             Swal.fire({
-              title: 'Creacion Exitosa',
-              text: 'Fue creada la categoria ' + this.data.name,
+              title: 'Successful Creation',
+              text: 'The category was created ' + this.data.name,
               icon: 'success',
+            }).then(() => {
+              this.start(); // Asegúrate de actualizar la página después de la confirmación
             });
-            this.start();
           }
         },
         (error: any) => {
@@ -163,8 +162,6 @@ export class ProductComponent {
     }
     this.data = item;
 
-    console.log(item);
-
     setTimeout(() => {
       this.overlayPanel.toggle(event);
     }, 200);
@@ -173,7 +170,7 @@ export class ProductComponent {
     if (!this.data.name) {
       Swal.fire({
         title: 'Warning',
-        text: 'campo nombre de categoria vacio',
+        text: 'Empty category name field',
         icon: 'warning',
       });
     } else {
@@ -194,23 +191,34 @@ export class ProductComponent {
         })
         .subscribe(
           (res: any) => {
-            console.log(res);
             if (res) {
               this.display = false;
-              this.start();
               this.loading = false;
               Swal.fire({
-                title: 'Actualización Exitosa',
-                text: 'Categoria Actualizada Exitosamente ',
+                title: 'Successful Update',
+                text: 'Product Updated Successfully',
                 icon: 'success',
+              }).then(() => {
+                this.start(); // Asegúrate de actualizar la página después de la confirmación
               });
             }
           },
           (error: any) => {
-            if (error.statusText == 'Unauthorized') {
-              this.auth.close();
+            this.loading = false;
+            if (error.status == 401) {
+              Swal.fire({
+                title: 'Expired Token',
+                text: 'Your session has expired. Please log in again.',
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // Acción cuando se hace clic en el botón Aceptar
+                  this.auth.close();
+                }
+              });
             }
-            console.log(error);
           }
         );
     }
@@ -253,8 +261,6 @@ export class ProductComponent {
 
   changeStatus() {
     this.loading = true;
-    console.log(this.data.id);
-    console.log(this.data.status);
 
     this.productService
       .updateStatus(this.data.id, { status: this.data.status })
@@ -265,9 +271,11 @@ export class ProductComponent {
             this.display = false;
             this.start();
             Swal.fire({
-              title: 'Cambio de Estado Exitoso',
-              text: 'Categoria Actualizada Exitosamente ',
+              title: 'Successful State Change',
+              text: 'Category Updated Successfully',
               icon: 'success',
+            }).then(() => {
+              this.start(); // Asegúrate de actualizar la página después de la confirmación
             });
           }
         },
