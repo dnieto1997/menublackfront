@@ -85,17 +85,17 @@ export class VariantesComponent {
       this.auth.createVariant(datas).subscribe(
         (res: any) => {
           if (res) {
+            this.loading = false;
             Swal.fire({
               title: 'Creacion Exitosa',
               text: 'Fue creada la Variante ' + this.data.name,
               icon: 'success',
             }).then(() => {
               this.start();
+              this.display = false;
               // Asegúrate de actualizar la página después de la confirmación
             });
           }
-          this.loading = false;
-          this.display = false;
         },
         (error: any) => {
           if (error.status == 401) {
@@ -123,6 +123,7 @@ export class VariantesComponent {
     }, 200);
   }
   edit() {
+    this.loading = true;
     if (!this.data.name) {
       Swal.fire({
         title: 'Warning',
@@ -130,8 +131,6 @@ export class VariantesComponent {
         icon: 'warning',
       });
     } else {
-      this.loading = true;
-
       this.auth
         .updateVariantes(this.data.id, {
           name: this.data.name,
@@ -140,15 +139,16 @@ export class VariantesComponent {
         .subscribe(
           (res: any) => {
             if (res) {
-              this.display = false;
-
+              this.loading = false;
               Swal.fire({
                 title: 'Actualización Exitosa',
                 text: 'Variante Actualizada Exitosamente ',
                 icon: 'success',
               }).then(() => {
                 this.start();
-                this.loading = false; // Asegúrate de actualizar la página después de la confirmación
+                this.display = false;
+
+                // Asegúrate de actualizar la página después de la confirmación
               });
             }
           },
@@ -172,13 +172,14 @@ export class VariantesComponent {
         (res: any) => {
           if (res) {
             this.loading = false;
-            this.display = false;
+
             Swal.fire({
               title: 'Cambio de Estado Exitoso',
               text: 'Variante Actualizada Exitosamente ',
               icon: 'success',
             }).then(() => {
-              this.start(); // Asegúrate de actualizar la página después de la confirmación
+              this.start();
+              this.display = false; // Asegúrate de actualizar la página después de la confirmación
             });
           }
         },

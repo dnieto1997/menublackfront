@@ -117,7 +117,6 @@ export class ProductoVariantesComponent {
               this.start();
             });
 
-            this.data = {};
             this.display = false;
           }
         },
@@ -135,6 +134,7 @@ export class ProductoVariantesComponent {
     }
     this.data = item;
 
+    console.log(this.data);
 
     setTimeout(() => {
       this.overlayPanel.toggle(event);
@@ -157,6 +157,7 @@ export class ProductoVariantesComponent {
         .subscribe(
           (res: any) => {
             if (res) {
+              this.loading = false;
               Swal.fire({
                 title: 'Successful Update',
                 text: 'Variant Product Updated Successfully',
@@ -193,14 +194,14 @@ export class ProductoVariantesComponent {
       .subscribe(
         (res: any) => {
           if (res) {
-            this.start();
+            this.loading = false;
             Swal.fire({
               title: 'Successful State Change',
               text: 'Status changed',
               icon: 'success',
             }).then(() => {
               this.start();
-              this.loading = false;
+
               this.display = false; // Asegúrate de actualizar la página después de la confirmación
             });
           }

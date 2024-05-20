@@ -51,7 +51,7 @@
           </td>
           <td class="text-center">
             <button class="btn" (click)="toggleUserStatus(item.id, item.status)">
-              {{ item.status ? 'Activate' : 'Desactivate' }}
+              {{ !item.status ? 'Activate' : 'Desactivate' }}
             </button>
             <td class="text-center">
               <button class="btn"  (click)="openEditDialog(item.id)">

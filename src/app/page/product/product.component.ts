@@ -154,7 +154,8 @@ export class ProductComponent {
               text: 'The category was created ' + this.data.name,
               icon: 'success',
             }).then(() => {
-              this.start(); // Asegúrate de actualizar la página después de la confirmación
+              this.start();
+              this.loading = false; // Asegúrate de actualizar la página después de la confirmación
             });
           }
         },
@@ -192,7 +193,17 @@ export class ProductComponent {
     input.value = value;
   }
   edit() {
-    if (!this.data.img) {
+    console.log(this.data);
+    if (
+      !this.data.name ||
+      !this.data.code ||
+      !this.data.group ||
+      !this.data.lines ||
+      !this.data.img ||
+      !this.data.price ||
+      !this.data.stars ||
+      this.data.img.length >= 255
+    ) {
       Swal.fire({
         title: 'Warning',
         text: 'Seleccione todos los campos',
@@ -218,19 +229,18 @@ export class ProductComponent {
         .subscribe(
           (res: any) => {
             if (res) {
-              this.display = false;
               this.loading = false;
               Swal.fire({
                 title: 'Successful Update',
                 text: 'Product Updated Successfully',
                 icon: 'success',
               }).then(() => {
-                this.start(); // Asegúrate de actualizar la página después de la confirmación
+                this.start();
+                this.display = false; // Asegúrate de actualizar la página después de la confirmación
               });
             }
           },
           (error: any) => {
-            this.loading = false;
             if (error.status == 401) {
               Swal.fire({
                 title: 'Expired Token',
@@ -242,6 +252,7 @@ export class ProductComponent {
                 if (result.isConfirmed) {
                   // Acción cuando se hace clic en el botón Aceptar
                   this.auth.close();
+                  this.loading = false;
                 }
               });
             }
