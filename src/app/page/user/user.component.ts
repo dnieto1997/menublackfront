@@ -1,7 +1,8 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { UserService } from './user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-user',
@@ -9,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent {
+  @ViewChild('overlayPanel') overlayPanel!: OverlayPanel;
   public loading: boolean = true;
   public showTable: boolean = false;
   public display: boolean = false;
@@ -20,6 +22,8 @@ export class UserComponent {
     id: number | null;
     newValue: any | null;
   } = { field: null, id: null, newValue: null };
+  public isEdit: boolean = false;
+  public panelVisible: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -57,8 +61,12 @@ export class UserComponent {
       }
     );
   }
-  openModal() {
-    this.display = true;
+  openModal(param?: boolean) {
+    if (param) {
+      this.isEdit = true;
+    } else {
+      this.isEdit = false;
+    }
   }
   createCategory() {
     if (!this.data.name) {
@@ -129,7 +137,6 @@ export class UserComponent {
 
     this.auth.updateUser2(userId, { [fieldName]: newValue }).subscribe(
       (res: any) => {
-        console.log(res);
         this.start();
       },
       (error: any) => {
@@ -149,5 +156,16 @@ export class UserComponent {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.editMode = { field: null, id: null, newValue: null };
     }
+  }
+
+  showOverlayPanel(event: Event, item: any) {
+    if (this.panelVisible) {
+      this.overlayPanel.hide();
+    }
+    this.data = item;
+
+    setTimeout(() => {
+      this.overlayPanel.toggle(event);
+    }, 200);
   }
 }

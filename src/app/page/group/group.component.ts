@@ -254,6 +254,10 @@ export class GroupComponent {
     }
   }
 
+  removePTags(text: string): string {
+    return text.replace(/<\/?p>/g, '');
+  }
+
   convertirDia(dias: string | string[]): string {
     // Log the raw input
 

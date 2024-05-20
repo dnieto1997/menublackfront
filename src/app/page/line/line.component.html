@@ -42,7 +42,7 @@
             {{ item.name }}
           </td>
           <td class="text-center">
-            {{ item.observation }}
+            {{ removePTags(item.observation) }}
           </td>
           <td class="text-center">
             <button class="btn" (click)="toggleUserStatus(item.id, item.status)">

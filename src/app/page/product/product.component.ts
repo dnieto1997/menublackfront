@@ -112,29 +112,38 @@ export class ProductComponent {
     }
   }
   createProduct() {
-    if (this.data.img.length >= 255) {
+    if (
+      !this.data.name ||
+      !this.data.code ||
+      !this.data.group ||
+      !this.data.lines ||
+      !this.data.img ||
+      !this.data.price ||
+      !this.data.stars ||
+      this.data.img.length >= 255
+    ) {
       Swal.fire({
         title: 'Warning',
-        text: 'Image field is very large',
+        text: 'Please fill all required fields',
         icon: 'warning',
       });
     } else {
       this.loading = true;
-      const formData = new FormData();
 
       const datas = {
         img: this.data.img,
         code: this.data.code,
         group: this.data.group,
-        line: this.data.line,
+        line: this.data.lines,
         name: this.data.name,
         price: this.data.price,
         stars: this.data.stars,
         new: this.data.new,
         promotion: this.data.promotion,
-        observations: this.data.observations,
+        observations: this.data.observation ? this.data.observation : ' ',
       };
 
+      console.log(datas);
       this.productService.postProduct(datas).subscribe(
         (res: any) => {
           if (res) {
@@ -151,6 +160,7 @@ export class ProductComponent {
         (error: any) => {
           if (error.status == 401) {
             this.auth.close();
+            this.loading = false;
           }
         }
       );

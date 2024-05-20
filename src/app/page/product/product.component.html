@@ -50,7 +50,7 @@
             <img [src]="img.src" [alt]="img.alt" class="estrella">
           </span>
         </td>
-        <td class="text-uppercase">{{ item.price }}</td>
+        <td class="text-uppercase">{{ item.price| currency:'USD':'symbol':'1.0-0' }}</td>
         <td class="text-uppercase">{{ (item.new==true)?'SI':'NO' }}</td>
         <td class="text-uppercase">{{ (item.promotion==true)?'SI':'NO' }}</td>
         <td class="text-uppercase">{{ item.observation }}</td>

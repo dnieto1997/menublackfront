@@ -16,7 +16,8 @@
           <th class="text-center">User</th>
           <th class="text-center">Name</th>
           <th class="text-center">Status</th>
-          <th class="text-center">Password</th>
+          <th class="text-center">Actions</th>
+          
         </tr>
       </thead>
       <tbody *ngIf="showTable">
@@ -30,17 +31,19 @@
             <input *ngIf="editMode.field === 'name' && editMode.id === item.id" type="text" [(ngModel)]="item.name" (blur)="toggleEditing('name', item.id, item.name)"/>
             <span *ngIf="editMode.field !== 'name' || editMode.id !== item.id">{{ item.name }}</span>
           </td>
-          <td class="text-center">
-            <button class="btn" (click)="toggleUserStatus(item.id, item.status)">
-              {{ item.status ? 'Activate' : 'Desactivate' }}
-            </button>
+
+          <td>
+            <div
+              [ngClass]="item.status ? 'statusActive' : 'statusDesactive'"
+            ></div>
+          </td>
+          <td class="col-1 text-center">
+            <i
+              class="ti ti-dots-vertical tree-dots"
+              (click)="showOverlayPanel($event, item)"
+            ></i>
           </td>
 
-          <td class="text-center">
-            <button class="btn" (click)="reset(item.id)">
-              Reset
-            </button>
-          </td>
         </tr>
       </tbody>
       
@@ -143,3 +146,18 @@
     <button class="btn-modal" (click)="createCategory()">Create User</button>
   </ng-template>
 </p-dialog>
+<p-overlayPanel #overlayPanel>
+  <ng-template pTemplate>
+    <div class="d-grid">
+      <button class="btn-list" (click)="reset(data.id)">
+        <i class="ti ti-edit"></i> Reset Password
+      </button>
+      <button class="btn-list"  (click)="toggleUserStatus(data.id, data.status)">
+        <div
+          [ngClass]="!data.status ? 'statusActive' : 'statusDesactive'"
+        ></div>
+        {{ data.status ? "Deshabilitar" : "Habilitar" }}
+      </button>
+    </div>
+  </ng-template>
+</p-overlayPanel>

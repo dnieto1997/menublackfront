@@ -85,15 +85,17 @@ export class VariantesComponent {
       this.auth.createVariant(datas).subscribe(
         (res: any) => {
           if (res) {
-            this.display = false;
             Swal.fire({
               title: 'Creacion Exitosa',
               text: 'Fue creada la Variante ' + this.data.name,
               icon: 'success',
             }).then(() => {
-              this.start(); // Asegúrate de actualizar la página después de la confirmación
+              this.start();
+              // Asegúrate de actualizar la página después de la confirmación
             });
           }
+          this.loading = false;
+          this.display = false;
         },
         (error: any) => {
           if (error.status == 401) {
@@ -134,13 +136,14 @@ export class VariantesComponent {
           (res: any) => {
             if (res) {
               this.display = false;
-              this.loading = false;
+
               Swal.fire({
                 title: 'Actualización Exitosa',
                 text: 'Variante Actualizada Exitosamente ',
                 icon: 'success',
               }).then(() => {
-                this.start(); // Asegúrate de actualizar la página después de la confirmación
+                this.start();
+                this.loading = false; // Asegúrate de actualizar la página después de la confirmación
               });
             }
           },

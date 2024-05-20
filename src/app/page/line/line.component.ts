@@ -216,4 +216,7 @@ export class LineComponent {
         }
       );
   }
+  removePTags(text: string): string {
+    return text.replace(/<\/?p>/g, '');
+  }
 }

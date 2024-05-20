@@ -30,7 +30,7 @@
       <tr>
         <td class="text-uppercase">{{ item.id }}</td>
         <td class="text-uppercase">{{ item.name }}</td>
-        <td class="text-uppercase">{{ item.cost }}</td>
+        <td class="text-uppercase">{{ item.cost | currency:'USD':'symbol':'1.0-0' }}</td>
         <td>
           <div
             [ngClass]="item.status ? 'statusActive' : 'statusDesactive'"
