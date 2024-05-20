@@ -1,33 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { Socket, io } from 'socket.io-client';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { TranslationService } from 'src/app/services/translation.service';
+import { UserProfileService } from 'src/app/services/user-profile.service'; // Import the service
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   public showNavbar: boolean = true;
   public showProfileOptions: boolean = false;
   public isMenuOpen: boolean = false;
   public isSubmenuOpen: boolean[] = [false, false, false];
   public menuOptions: any[] = [];
   public countries: any[] | undefined;
-  public name: any;
-  public selectedCountry: any;
+  public name: string | null = '';
+  private profileSubscription: Subscription | undefined;
 
-  voices: SpeechSynthesisVoice[] = [];
   constructor(
     private router: Router,
     private translationService: TranslationService,
     public authService: AuthService,
-    public storageService: StorageService
+    public storageService: StorageService,
+    private userProfileService: UserProfileService // Inject the service
   ) {
     this.router.events.subscribe((event) => {
       if (this.router.url === '/login') {
@@ -37,19 +37,32 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
+
   ngOnInit() {
     this.countries = [
       { name: 'Spain', code: 'es', img: '' },
       { name: 'United States', code: 'en' },
     ];
     this.menu();
-    this.obtenerNombre();
+
+    // Subscribe to the profile updates
+    this.profileSubscription = this.userProfileService.currentProfile.subscribe(
+      (profile) => {
+        this.name = profile;
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    if (this.profileSubscription) {
+      this.profileSubscription.unsubscribe();
+    }
   }
 
   toggleProfileOptions() {
     this.showProfileOptions = !this.showProfileOptions;
     setTimeout(() => {
-      this.showProfileOptions = !this.showProfileOptions;
+      this.showProfileOptions = false;
     }, 50000);
   }
 
@@ -68,7 +81,6 @@ export class NavbarComponent implements OnInit {
             confirmButtonText: 'Aceptar',
           }).then((result) => {
             if (result.isConfirmed) {
-              // Acción cuando se hace clic en el botón Aceptar
               this.authService.close();
             }
           });
@@ -76,41 +88,29 @@ export class NavbarComponent implements OnInit {
       }
     );
   }
+
   logout() {
     this.authService.close();
-  }
-
-  obtenerNombre() {
-    // Obtener el valor de 'profile' del localStorage
-    let profile = localStorage.getItem('profile');
-
-    // Verificar si el valor existe y si es una cadena
-    if (profile && typeof profile === 'string') {
-      // Eliminar las comillas alrededor del valor, si están presentes
-      if (profile.startsWith('"') && profile.endsWith('"')) {
-        profile = profile.substring(1, profile.length - 1);
-      }
-    }
-
-    // Asignar el valor al nombre
-    this.name = profile;
   }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
+
   toggleSubmenu(index: number) {
     this.isSubmenuOpen[index] = !this.isSubmenuOpen[index];
   }
+
   isOptionActive(option: any): boolean {
     if (option.isSubmenu) {
       return option.subOptions.some((subOption: any) =>
         this.router.url.includes(subOption)
       );
     } else {
-      return this.router.url.includes(option.url); // Utiliza la propiedad "url" en lugar de "name"
+      return this.router.url.includes(option.url);
     }
   }
+
   changeLanguage(language: string) {
     this.translationService.setLanguage(language);
   }

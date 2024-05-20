@@ -18,7 +18,7 @@
         class="profile-photo"
       />
       <div class="d-grid">
-        <span class="profile-name">{{name}}</span>
+        <span class="profile-name">{{ name }}</span>
         <span class="profile-rol">Admin</span>
       </div>
 
@@ -49,6 +49,7 @@
     </div>
   </div>
 </nav>
+
 <!-- SIDEBAR -->
 <div id="sidebar" [ngClass]="{ open: isMenuOpen }">
   <ul>
@@ -87,4 +88,5 @@
     </ng-container>
   </ul>
 </div>
+
 <p-toast [life]="9000"></p-toast>

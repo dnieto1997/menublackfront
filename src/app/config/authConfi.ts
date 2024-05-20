@@ -1,4 +1,4 @@
 export class AuthConfi {
-  public static readonly AUTH = 'portalToppayV2';
-  public static readonly VERSION = 'Portal';
+  public static readonly AUTH = 'MenuBlank';
+  public static readonly VERSION = 'Menu';
 }

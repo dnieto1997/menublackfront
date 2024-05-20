@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthConfi } from 'src/app/config/authConfi';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent {
   constructor(
     private auth: AuthService,
     public storageService: StorageService,
-    public router: Router
+    public router: Router,
+    private userProfileService: UserProfileService
   ) {}
 
   ngOnInit() {
@@ -47,11 +49,9 @@ export class LoginComponent {
     this.isLoading = true;
     this.auth.login({ user: this.user, password: this.pass }).subscribe(
       (res: any) => {
+        console.log(res);
         this.storageService.store(AuthConfi.AUTH, res.token);
-        this.storageService.store(
-          'profile',
-          JSON.stringify(res.data_user.name)
-        );
+        this.userProfileService.setProfile(res.data_user.name);
         this.router.navigate(['dashboard']);
         this.isLoading = false;
       },
