@@ -44,6 +44,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       { name: 'United States', code: 'en' },
     ];
     this.menu();
+    this.obtenerNombre();
 
     // Subscribe to the profile updates
     this.profileSubscription = this.userProfileService.currentProfile.subscribe(
@@ -91,6 +92,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.close();
+    this.userProfileService.clearProfile(); // Clear profile on logout
+  }
+
+  obtenerNombre() {
+    // Initially set the profile name from the service
+    const profile = this.userProfileService.getInitialProfile();
+    if (profile) {
+      this.name = profile;
+    }
   }
 
   toggleMenu() {

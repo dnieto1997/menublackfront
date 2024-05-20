@@ -185,4 +185,13 @@ export class ClientComponent {
         }
       );
   }
+
+  removePTags(text: string): string {
+    return text.replace(/<\/?p>/g, '');
+  }
+  validateNumberInput(event: any) {
+    const input = event.target;
+    const value = input.value;
+    input.value = value.replace(/[^0-9]/g, ''); // Solo permite números
+  }
 }

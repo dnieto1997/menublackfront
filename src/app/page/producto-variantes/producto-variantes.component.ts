@@ -87,13 +87,13 @@ export class ProductoVariantesComponent {
       this.isEdit = true;
     } else {
       this.isEdit = false;
-      console.log(this.data);
       this.data = {};
     }
     this.display = true;
   }
 
   createProduct() {
+    this.display = true;
     if (!this.data.product_id) {
       Swal.fire({
         title: 'Warning',
@@ -101,8 +101,6 @@ export class ProductoVariantesComponent {
         icon: 'warning',
       });
     } else {
-      this.loading = true;
-
       const datas = {
         producto_id: this.data.product_id,
         producto_variante: this.data.product_variante,
@@ -111,15 +109,16 @@ export class ProductoVariantesComponent {
       this.auth.createProductVariant(datas).subscribe(
         (res: any) => {
           if (res) {
-            this.display = false;
             Swal.fire({
               title: 'Successful Creation',
-              text: 'The Variant product was created' + res.message,
+              text: res.message,
               icon: 'success',
             }).then(() => {
-              this.start(); // Asegúrate de actualizar la página después de la confirmación
+              this.start();
             });
+
             this.data = {};
+            this.display = false;
           }
         },
         (error: any) => {
@@ -135,13 +134,14 @@ export class ProductoVariantesComponent {
       this.overlayPanel.hide();
     }
     this.data = item;
-    console.log(item);
+
 
     setTimeout(() => {
       this.overlayPanel.toggle(event);
     }, 200);
   }
   edit() {
+    this.display = true;
     if (!this.data.product_id) {
       Swal.fire({
         title: 'Warning',
@@ -149,8 +149,6 @@ export class ProductoVariantesComponent {
         icon: 'warning',
       });
     } else {
-      this.loading = true;
-
       this.auth
         .updateProductVariantes(this.data.id, {
           producto_id: this.data.product_id,
@@ -159,16 +157,15 @@ export class ProductoVariantesComponent {
         .subscribe(
           (res: any) => {
             if (res) {
-              this.display = false;
-
-              this.loading = false;
               Swal.fire({
                 title: 'Successful Update',
                 text: 'Variant Product Updated Successfully',
                 icon: 'success',
               }).then(() => {
-                this.start(); // Asegúrate de actualizar la página después de la confirmación
+                this.start();
               });
+
+              this.display = false;
             }
           },
           (error: any) => {
@@ -196,13 +193,15 @@ export class ProductoVariantesComponent {
       .subscribe(
         (res: any) => {
           if (res) {
-            this.loading = false;
-            this.display = false;
             this.start();
             Swal.fire({
               title: 'Successful State Change',
               text: 'Status changed',
               icon: 'success',
+            }).then(() => {
+              this.start();
+              this.loading = false;
+              this.display = false; // Asegúrate de actualizar la página después de la confirmación
             });
           }
         },

@@ -105,6 +105,11 @@ export class VariantesComponent {
       );
     }
   }
+  validateNumberInput(event: any) {
+    const input = event.target;
+    const value = input.value;
+    input.value = value.replace(/[^0-9]/g, ''); // Solo permite números
+  }
   showOverlayPanel(event: Event, item: any) {
     if (this.panelVisible) {
       this.overlayPanel.hide();

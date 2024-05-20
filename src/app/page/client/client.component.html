@@ -125,7 +125,7 @@
 <p-dialog
   header="  {{ isEdit ? 'Editar' : 'Crear' }}"
   [(visible)]="display"
-  [style]="{ width: '70vw', height: '50vh' }"
+  [style]="{ width: '70vw', height: '80vh' }"
 >
   <div class="row">
     <form action="">
@@ -167,6 +167,7 @@
             class="w-100"
             [(ngModel)]="data.celular"
             name="celular"
+            (input)="validateNumberInput($event)"
             required
           />
         </div>
@@ -180,19 +181,14 @@
             required
           />
         </div>
-        <div class="col-6 mb-3">
-          <label for="" class="w-100 fw-bold mb-1">Medio de Pago</label>
-          <input
-            type="text"
-            class="w-100"
-            [(ngModel)]="data.medioDePago"
-            name="medioDePago"
-            required
-          />
-        </div>
-    
- 
-      
+     <div class="col-6 mb-3">
+  <label for="" class="w-100 fw-bold mb-1" >Medio de Pago</label>
+  <select name="aliado" class="form-control" [(ngModel)]="data.medioDePago" >
+    <option [ngValue]="'efectivo'">Efectivo</option>
+    <option [ngValue]="'online'">Online</option>
+  </select>
+</div> 
+
       </div>
     </form>
     <div class="col-12 mb-3">

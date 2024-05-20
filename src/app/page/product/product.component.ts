@@ -38,6 +38,7 @@ export class ProductComponent {
   async start() {
     this.productService.getProduct({}).subscribe(
       (res: any) => {
+        console.log(res);
         this.list = res;
         this.loading = false;
         this.showTable = true;
@@ -176,15 +177,30 @@ export class ProductComponent {
       this.overlayPanel.toggle(event);
     }, 200);
   }
+
+  removePTags(text: string): string {
+    return text.replace(/<\/?p>/g, '');
+  }
+  validateNumberInput(event: any) {
+    const input = event.target;
+    let value = input.value;
+    // Reemplaza todo lo que no sea dígito o punto decimal por una cadena vacía
+    value = value.replace(/[^0-9.]/g, '');
+    // Reemplaza los múltiples puntos decimales por uno solo
+    value = value.replace(/(\..*)\./g, '$1');
+    // Actualiza el valor del input
+    input.value = value;
+  }
   edit() {
-    if (!this.data.name) {
+    if (!this.data.img) {
       Swal.fire({
         title: 'Warning',
-        text: 'Empty category name field',
+        text: 'Seleccione todos los campos',
         icon: 'warning',
       });
     } else {
       this.loading = true;
+      console.log(this.data);
 
       this.productService
         .updateProduct(this.data.id, {
@@ -197,7 +213,7 @@ export class ProductComponent {
           stars: this.data.stars,
           new: this.data.new,
           promotion: this.data.promotion,
-          observations: this.data.observation,
+          observations: this.data.observation ? this.data.observation : ' ',
         })
         .subscribe(
           (res: any) => {

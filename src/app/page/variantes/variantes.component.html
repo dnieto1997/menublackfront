@@ -72,6 +72,7 @@
             class="w-100"
             [(ngModel)]="data.cost"
             name="cost"
+            (input)="validateNumberInput($event)"
             required
           />
         </div>
