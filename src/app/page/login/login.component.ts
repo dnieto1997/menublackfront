@@ -16,6 +16,7 @@ export class LoginComponent {
   public pass: string = '';
   public isLoading = false;
   products: any = [{ imagen: 'fp' }, { imagen: 'fp' }];
+  public passwordFieldType: string = 'password';
 
   responsiveOptions: any[] | undefined;
   constructor(
@@ -49,10 +50,9 @@ export class LoginComponent {
     this.isLoading = true;
     this.auth.login({ user: this.user, password: this.pass }).subscribe(
       (res: any) => {
-        console.log(res);
         this.storageService.store(AuthConfi.AUTH, res.token);
         this.userProfileService.setProfile(res.data_user.name);
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/dashboard']);
         this.isLoading = false;
       },
       (error: any) => {
@@ -66,5 +66,9 @@ export class LoginComponent {
         this.isLoading = false;
       }
     );
+  }
+  togglePasswordVisibility(): void {
+    this.passwordFieldType =
+      this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 }

@@ -2,11 +2,18 @@
 <div class="container" id="container">
   <div class="form-container sign-in-container">
     <form action="#">
-      <img class="mb-3" src="../../../assets/logo.png" width="300" alt="" />
-      <input type="text" name="user" placeholder="Email" [(ngModel)]="user" />
-      <input type="password" name="password" placeholder="Password" [(ngModel)]="pass" />
+      <img class="mb-3" src="../../../assets/logo.png" width="300" alt="Logo" />
+      <input type="text" name="user" placeholder="User" [(ngModel)]="user" />
+      <div class="password-container">
+        <input
+          [type]="passwordFieldType"
+          name="password"
+          placeholder="Password"
+          [(ngModel)]="pass"
+        />
+        <i class="ti" [ngClass]="passwordFieldType === 'password' ? 'ti-eye' : 'ti-eye-off'" (click)="togglePasswordVisibility()"></i>
+      </div>
       <button class="my-button" (click)="login()">Sign In</button>
     </form>
   </div>
-
 </div>

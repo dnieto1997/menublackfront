@@ -37,6 +37,7 @@ export class UserComponent {
   start() {
     this.userService.getUser({}).subscribe(
       (res: any) => {
+        console.log(res);
         this.list = res;
         this.loading = false;
         this.showTable = true;

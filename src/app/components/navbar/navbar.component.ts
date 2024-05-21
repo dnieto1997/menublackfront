@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { TranslationService } from 'src/app/services/translation.service';
@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public countries: any[] | undefined;
   public name: string | null = '';
   private profileSubscription: Subscription | undefined;
+  private routerSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -29,11 +30,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     public storageService: StorageService,
     private userProfileService: UserProfileService // Inject the service
   ) {
-    this.router.events.subscribe((event) => {
-      if (this.router.url === '/login') {
-        this.showNavbar = false;
-      } else {
-        this.showNavbar = true;
+    this.routerSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.showNavbar = this.router.url !== '/login';
       }
     });
   }
@@ -57,6 +56,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.profileSubscription) {
       this.profileSubscription.unsubscribe();
+    }
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
     }
   }
 

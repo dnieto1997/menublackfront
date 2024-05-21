@@ -17,9 +17,7 @@ export class HttpService {
   ) {
     this.storageService.get(AuthConfi.AUTH).then((res: any) => {
       this.token = res;
-    });
-    this.storageService.get('sc').then((res: any) => {
-      this.country = res;
+      console.log(this.token);
     });
   }
 

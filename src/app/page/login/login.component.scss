@@ -1,18 +1,3 @@
-h1 {
-  font-weight: bold;
-  margin: 0;
-}
-h1.text-signin {
-  font-weight: bold;
-  margin: 0;
-  color: #df0c0f;
-}
-a {
-  color: #333;
-  font-size: 14px;
-  text-decoration: none;
-  margin: 15px 0;
-}
 
 button {
   border-radius: 20px;
@@ -26,11 +11,13 @@ button {
   text-transform: uppercase;
   transition: transform 80ms ease-in;
 }
+
 button:hover {
-  border: 1px solid #7f76e7;
-  background-color: #7f76e7;
+  border: 1px solid #bdb6f4;
+  background-color: #bdb6f4;
 }
 
+/* Form Styles */
 form {
   background-color: #ffffff;
   display: flex;
@@ -38,32 +25,36 @@ form {
   justify-content: center;
   flex-direction: column;
   padding: 0 50px;
-  height: 100%;
+  height: 80%;
   text-align: center;
+
 }
 
 input {
   border: none;
   padding: 12px 15px;
   margin: 15px 0;
-  width: 50%;
+  width: 100%;
+  max-width: 400px; /* Ensures inputs have a maximum width */
   border-radius: 30px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 3px rgba(0, 0, 0, 0.22);
 }
 
+/* Container Styles */
 .container {
   display: flex;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   overflow: hidden;
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
+  width: 60%;
+  max-width: 800px; /* Ensures container has a maximum width */
+  height: 60%;
   padding: 0;
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centers vertically */
+  justify-content: center; /* Centers horizontally */
   transition: all 0.6s ease-in-out;
+  margin-top: 7%;
 }
 
 .form-container {
@@ -72,54 +63,29 @@ input {
 }
 
 .sign-in-container {
-  width: 50%;
+  width: 100%; /* Ensures sign-in container takes full width */
   z-index: 2;
 }
 
-.overlay-container {
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
-  transition: transform 0.6s ease-in-out;
-  z-index: 100;
-}
-
-.overlay {
-  background: #df0c0f;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: bottom;
-  color: #ffffff;
-  height: 100%;
-}
-
-.overlay-panel {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 0 40px;
-  text-align: center;
-  height: 100%;
-  width: 100%;
-  padding-top: 100px;
-}
-.forgotPass {
-  font-weight: bold;
-}
 
 .slider img {
   width: 100%;
-  height: auto; /* Ajusta esto según tus necesidades */
-  object-fit: cover; /* Asegura que la imagen cubra el área sin perder su aspecto */
+  height: auto; /* Ensures images adjust to container */
+  object-fit: cover; /* Ensures images cover container without distortion */
 }
+
+/* Hide carousel controls */
 ::ng-deep .p-carousel .p-carousel-prev,
 ::ng-deep .p-carousel .p-carousel-next,
 .p-carousel-page {
   display: none;
 }
+
+/* Responsive Styles */
 @media (max-width: 767px) {
   .container {
     display: block;
+    max-width: 100%; /* Adjusts max-width for mobile */
   }
   .sign-in-container {
     width: 100%;
@@ -133,4 +99,26 @@ input {
   .overlay-container {
     display: none;
   }
+}
+
+/* Password Container Styles */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px; /* Ensures container has a maximum width */
+}
+
+.password-container input {
+  width: 100%; /* Ensure input takes full width */
+  padding-right: 40px; /* Adds padding to accommodate the icon */
+}
+
+.password-container .ti {
+  position: absolute;
+  right: 15px; /* Ensures icon is inside the input */
+  cursor: pointer;
+  font-size: 30px; /* Increased icon size */
+  color: #000000; /* Color for the icon */
 }
