@@ -3,7 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { TranslationService } from 'src/app/services/translation.service';
-import { UserProfileService } from 'src/app/services/user-profile.service'; // Import the service
+import { UserProfileService } from 'src/app/services/user-profile.service';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 
@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private translationService: TranslationService,
     public authService: AuthService,
     public storageService: StorageService,
-    private userProfileService: UserProfileService // Inject the service
+    private userProfileService: UserProfileService
   ) {
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -45,7 +45,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.menu();
     this.obtenerNombre();
 
-    // Subscribe to the profile updates
     this.profileSubscription = this.userProfileService.currentProfile.subscribe(
       (profile) => {
         this.name = profile;
@@ -64,9 +63,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   toggleProfileOptions() {
     this.showProfileOptions = !this.showProfileOptions;
-    setTimeout(() => {
-      this.showProfileOptions = false;
-    }, 50000);
+    // Cierra el sidebar cuando se abre el profile-section
+    this.isMenuOpen = false;
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+    // Cierra el profile-section cuando se abre el sidebar
+    this.showProfileOptions = false;
   }
 
   menu() {
@@ -94,19 +98,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.close();
-    this.userProfileService.clearProfile(); // Clear profile on logout
+    this.userProfileService.clearProfile();
   }
 
   obtenerNombre() {
-    // Initially set the profile name from the service
     const profile = this.userProfileService.getInitialProfile();
     if (profile) {
       this.name = profile;
     }
-  }
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
   }
 
   toggleSubmenu(index: number) {
@@ -121,9 +120,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
     } else {
       return this.router.url.includes(option.url);
     }
-  }
-
-  changeLanguage(language: string) {
-    this.translationService.setLanguage(language);
   }
 }
