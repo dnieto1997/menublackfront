@@ -52,9 +52,10 @@
   </p-table>
 </div>
 <p-dialog
-  header="  {{ isEdit ? 'Editar' : 'Crear' }}"
+  header="  {{ isEdit ? 'Edit Banner' : 'Create Banner' }}"
   [(visible)]="display"
-  [style]="{ width: '70vw', height: '50vh' }"
+  [style]="{ width: '70vw', height: '30vh' }"
+  [breakpoints]="{ '960px': '95vw', '640px': '100vw' }"
 >
   <div class="row">
     <form action="">

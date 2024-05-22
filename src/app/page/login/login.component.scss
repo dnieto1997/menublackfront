@@ -1,20 +1,9 @@
-
-button {
-  border-radius: 20px;
-  border: 1px solid #0d0d0d;
-  background-color: #0f0f0f;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
-}
-
-button:hover {
-  border: 1px solid #bdb6f4;
-  background-color: #bdb6f4;
+.container {
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  height: 100vh; /* Full viewport height */
+  background-color: #f0f2f5; /* Adjust background color if needed */
 }
 
 /* Form Styles */
@@ -22,103 +11,83 @@ form {
   background-color: #ffffff;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Align items to the top */
   flex-direction: column;
-  padding: 0 50px;
-  height: 80%;
+  padding: 60px; /* Increase padding for larger form */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); /* Subtle shadow */
   text-align: center;
+  width: 100%;
+  max-width: 700px; /* Ensure form has a larger maximum width */
+}
 
+img {
+  margin-bottom: 40px; /* Add more margin below the logo */
 }
 
 input {
-  border: none;
-  padding: 12px 15px;
-  margin: 15px 0;
+  border: 1px solid #ddd;
+  padding: 20px 25px; /* Increase padding for larger inputs */
+  margin: 25px 0; /* Adjust margin to add more space between inputs */
   width: 100%;
-  max-width: 400px; /* Ensures inputs have a maximum width */
   border-radius: 30px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 3px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 20px; /* Increase font size */
 }
 
-/* Container Styles */
-.container {
-  display: flex;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  overflow: hidden;
-  width: 60%;
-  max-width: 800px; /* Ensures container has a maximum width */
-  height: 60%;
-  padding: 0;
-  align-items: center; /* Centers vertically */
-  justify-content: center; /* Centers horizontally */
-  transition: all 0.6s ease-in-out;
-  margin-top: 7%;
-}
-
-.form-container {
-  height: 100%;
-  transition: all 0.6s ease-in-out;
-}
-
-.sign-in-container {
-  width: 100%; /* Ensures sign-in container takes full width */
-  z-index: 2;
-}
-
-
-.slider img {
-  width: 100%;
-  height: auto; /* Ensures images adjust to container */
-  object-fit: cover; /* Ensures images cover container without distortion */
-}
-
-/* Hide carousel controls */
-::ng-deep .p-carousel .p-carousel-prev,
-::ng-deep .p-carousel .p-carousel-next,
-.p-carousel-page {
-  display: none;
-}
-
-/* Responsive Styles */
-@media (max-width: 767px) {
-  .container {
-    display: block;
-    max-width: 100%; /* Adjusts max-width for mobile */
-  }
-  .sign-in-container {
-    width: 100%;
-  }
-  input {
-    width: 100%;
-  }
-  button {
-    width: 100%;
-  }
-  .overlay-container {
-    display: none;
-  }
-}
-
-/* Password Container Styles */
 .password-container {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 400px; /* Ensures container has a maximum width */
 }
 
 .password-container input {
-  width: 100%; /* Ensure input takes full width */
-  padding-right: 40px; /* Adds padding to accommodate the icon */
+  padding-right: 60px; /* Increase padding for larger input */
 }
 
 .password-container .ti {
   position: absolute;
-  right: 15px; /* Ensures icon is inside the input */
+  right: 20px; /* Adjust position for larger input */
   cursor: pointer;
-  font-size: 30px; /* Increased icon size */
-  color: #000000; /* Color for the icon */
+  font-size: 24px; /* Adjust icon size */
+  color: #000;
+}
+
+button {
+  border-radius: 30px;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  font-size: 18px; /* Increase font size */
+  font-weight: bold;
+  padding: 18px 70px; /* Increase padding for larger button */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 500px; /* Ensure button has a larger maximum width */
+}
+
+button:hover {
+  background-color: #444;
+}
+
+/* Responsive Styles */
+@media (max-width: 767px) {
+  form {
+    padding: 50px; /* Adjust padding for smaller screens */
+    width: 95%; /* Ensure form takes up more space */
+    max-width: 95%; /* Ensure form takes up more space */
+  }
+
+  input {
+    padding: 18px; /* Maintain padding for larger inputs */
+    font-size: 18px; /* Maintain font size for readability */
+  }
+
+  button {
+    padding: 18px 60px; /* Maintain padding for larger button */
+    font-size: 18px; /* Maintain font size for readability */
+  }
 }

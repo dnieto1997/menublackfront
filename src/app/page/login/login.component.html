@@ -1,19 +1,20 @@
 <app-loading *ngIf="isLoading"></app-loading>
-<div class="container" id="container">
+<div class="container">
   <div class="form-container sign-in-container">
-    <form action="#">
-      <img class="mb-3" src="../../../assets/logo.png" width="300" alt="Logo" />
-      <input type="text" name="user" placeholder="User" [(ngModel)]="user" />
+    <form (ngSubmit)="login()">
+      <img class="mb-3" src="../../../assets/logo.png" width="200px"  alt="Logo" />
+      <input type="text" name="user" placeholder="User" [(ngModel)]="user" required />
       <div class="password-container">
         <input
           [type]="passwordFieldType"
           name="password"
           placeholder="Password"
           [(ngModel)]="pass"
+          required
         />
         <i class="ti" [ngClass]="passwordFieldType === 'password' ? 'ti-eye' : 'ti-eye-off'" (click)="togglePasswordVisibility()"></i>
       </div>
-      <button class="my-button" (click)="login()">Sign In</button>
+      <button type="submit" class="my-button">Sign In</button>
     </form>
   </div>
 </div>

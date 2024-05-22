@@ -47,9 +47,10 @@
   </p-table>
 </div>
 <p-dialog
-  header="  {{ isEdit ? 'Editar' : 'Crear' }}"
+  header="  {{ isEdit ? 'Edit Variant' : 'Create Variant' }}"
   [(visible)]="display"
-  [style]="{ width: '20vw', height: '40vh' }"
+  [style]="{ width: '40vw', height: '30vh' }"
+  [breakpoints]="{ '960px': '95vw', '640px': '100vw' }"
 >
   <div class="row">
     <form action="">
@@ -82,7 +83,7 @@
 
   </div>
   <button class="btn-modal" (click)="isEdit ? edit() : createProduct()">
-    {{ isEdit ? "Editar" : "Crear" }}
+    {{ isEdit ? "Edit Variant" : "Create Variant" }}
   </button>
 </p-dialog>
 <p-overlayPanel #overlayPanel>

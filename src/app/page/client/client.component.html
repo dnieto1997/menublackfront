@@ -124,8 +124,8 @@
 
 <p-dialog
   header="  {{ isEdit ? 'Editar' : 'Crear' }}"
-  [(visible)]="display"
-  [style]="{ width: '70vw', height: '80vh' }"
+  [(visible)]="display" [style]="{ width: '70vw', height: '80vh' }"
+  [breakpoints]="{ '960px': '95vw', '640px': '100vw' }"
 >
   <div class="row">
     <form action="">
