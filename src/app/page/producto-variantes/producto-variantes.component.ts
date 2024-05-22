@@ -134,8 +134,6 @@ export class ProductoVariantesComponent {
     }
     this.data = item;
 
-    console.log(this.data);
-
     setTimeout(() => {
       this.overlayPanel.toggle(event);
     }, 200);

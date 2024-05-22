@@ -48,7 +48,7 @@ export class ClientComponent {
       this.isEdit = true;
     } else {
       this.isEdit = false;
-      console.log(this.data);
+
       this.data = {};
     }
     this.display = true;

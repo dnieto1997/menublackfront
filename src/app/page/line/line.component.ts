@@ -16,7 +16,7 @@ export class LineComponent {
   public list: any[] = [];
   public data: any = {};
   public data2: any = {};
-  public groups: any = {};
+  public groups: { id: number; name: string }[] = [];
 
   constructor(private auth: AuthService) {}
 
@@ -71,7 +71,6 @@ export class LineComponent {
   }
 
   getGroupNameById(groupId: number): string {
-    console.log(groupId);
     const group = this.groups?.find((g: { id: number }) => g.id === groupId);
     return group ? group.name : 'Grupo no encontrado';
   }
@@ -92,7 +91,6 @@ export class LineComponent {
       });
       return;
     } else {
-      console.log(this.data);
       this.auth.createLine(this.data).subscribe(
         (res: any) => {
           if (res) {

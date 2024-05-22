@@ -37,7 +37,6 @@ export class UserComponent {
   start() {
     this.userService.getUser({}).subscribe(
       (res: any) => {
-        console.log(res);
         this.list = res;
         this.loading = false;
         this.showTable = true;
@@ -68,12 +67,13 @@ export class UserComponent {
     } else {
       this.isEdit = false;
     }
+    this.display = true;
   }
   createCategory() {
-    if (!this.data.name) {
+    if (!this.data.name || !this.data.name) {
       Swal.fire({
         title: 'Warning',
-        text: 'Empty Name Field',
+        text: 'All fields are required',
         icon: 'warning',
       });
     } else {
@@ -83,7 +83,7 @@ export class UserComponent {
             this.display = false;
             Swal.fire({
               title: 'Successful Creation',
-              text: 'The user was created' + this.data.name,
+              text: 'The user was created ' + this.data.name,
             }).then(() => {
               this.start(); // Asegúrate de actualizar la página después de la confirmación
             });

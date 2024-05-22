@@ -163,8 +163,6 @@ export class VariantesComponent {
 
   changeStatus() {
     this.loading = true;
-    console.log(this.data.id);
-    console.log(this.data.status);
 
     this.auth
       .updateStatusVariantes(this.data.id, { status: this.data.status })

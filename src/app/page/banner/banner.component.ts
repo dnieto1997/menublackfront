@@ -136,7 +136,6 @@ export class BannerComponent {
       this.overlayPanel.hide();
     }
     this.data = item;
-    console.log(item);
 
     setTimeout(() => {
       this.overlayPanel.toggle(event);

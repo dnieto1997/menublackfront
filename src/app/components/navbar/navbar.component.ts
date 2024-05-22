@@ -38,10 +38,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.countries = [
-      { name: 'Spain', code: 'es', img: '' },
-      { name: 'United States', code: 'en' },
-    ];
     this.menu();
     this.obtenerNombre();
 

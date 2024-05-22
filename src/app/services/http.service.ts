@@ -9,22 +9,18 @@ import { AuthConfi } from 'src/app/config/authConfi';
 })
 export class HttpService {
   public appVersion: string = environment.appVersion;
-  public token: string = '';
   public country: string = '';
   constructor(
     private http: HttpClient,
     private storageService: StorageService
-  ) {
-    this.storageService.get(AuthConfi.AUTH).then((res: any) => {
-      this.token = res;
-      console.log(this.token);
-    });
-  }
+  ) {}
 
   get(serviceName: string, data: any) {
+    const token = localStorage.getItem(AuthConfi.AUTH);
+
     const headers = new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.token,
+      Authorization: 'Bearer ' + token,
     });
 
     const options = { headers: headers, withCredeintials: false };
@@ -34,9 +30,10 @@ export class HttpService {
   }
 
   post(serviceName: string, data: any) {
+    const token = localStorage.getItem(AuthConfi.AUTH);
     const headers = new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.token,
+      Authorization: 'Bearer ' + token,
     });
     const options = { headers: headers, withCredeintials: false };
     const url = environment.appVersion + serviceName;
@@ -45,9 +42,10 @@ export class HttpService {
   }
 
   put(serviceName: string, data: any) {
+    const token = localStorage.getItem(AuthConfi.AUTH);
     const headers = new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.token,
+      Authorization: 'Bearer ' + token,
     });
     const options = { headers: headers, withCredeintials: false };
     const url = environment.appVersion + serviceName;
@@ -55,9 +53,10 @@ export class HttpService {
     return this.http.put(url, data, options);
   }
   patch(serviceName: string, data: any) {
+    const token = localStorage.getItem(AuthConfi.AUTH);
     const headers = new HttpHeaders({
       Accept: 'application/json',
-      'x-token': this.token || '',
+      Authorization: 'Bearer ' + token,
     });
     const options = { headers: headers, withCredeintials: false };
     const url = environment.appVersion + serviceName;
@@ -66,9 +65,10 @@ export class HttpService {
   }
 
   delete(serviceName: string, data: any) {
+    const token = localStorage.getItem(AuthConfi.AUTH);
     const headers = new HttpHeaders({
       Accept: 'application/json',
-      'x-token': this.token || '',
+      Authorization: 'Bearer ' + token,
     });
     const options = { headers: headers, withCredeintials: false };
     const url = environment.appVersion + serviceName;

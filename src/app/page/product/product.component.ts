@@ -38,7 +38,6 @@ export class ProductComponent {
   async start() {
     this.productService.getProduct({}).subscribe(
       (res: any) => {
-        console.log(res);
         this.list = res;
         this.loading = false;
         this.showTable = true;
@@ -144,7 +143,6 @@ export class ProductComponent {
         observations: this.data.observation ? this.data.observation : ' ',
       };
 
-      console.log(datas);
       this.productService.postProduct(datas).subscribe(
         (res: any) => {
           if (res) {
@@ -193,7 +191,6 @@ export class ProductComponent {
     input.value = value;
   }
   edit() {
-    console.log(this.data);
     if (
       !this.data.name ||
       !this.data.code ||

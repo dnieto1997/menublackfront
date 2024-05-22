@@ -78,7 +78,6 @@ export class GroupComponent {
   findAll() {
     this.auth.findAllGroup({}).subscribe(
       (res: any) => {
-        console.log(res);
         this.list = res;
         this.loading = false;
         this.showTable = true;
@@ -379,7 +378,6 @@ export class GroupComponent {
       })
       .subscribe(
         (res: any) => {
-          console.log(res);
           if (res.status == 201) {
             Swal.fire({
               title: 'Success',
