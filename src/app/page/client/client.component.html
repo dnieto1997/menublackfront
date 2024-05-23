@@ -214,6 +214,7 @@
       <button class="btn-list" (click)="changeStatus()">
         <div
           [ngClass]="!data.status ? 'statusActive' : 'statusDesactive'"
+    
         ></div>
         {{ data.status ? "Deshabilitar" : "Habilitar" }}
       </button>

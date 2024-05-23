@@ -124,6 +124,7 @@ export class ProductComponent {
     }
   }
   createProduct() {
+    this.loading = true;
     if (
       !this.data.name ||
       !this.data.code ||
@@ -140,8 +141,6 @@ export class ProductComponent {
         icon: 'warning',
       });
     } else {
-      this.loading = true;
-
       const datas = {
         img: this.data.img,
         code: this.data.code,
@@ -157,6 +156,7 @@ export class ProductComponent {
 
       this.productService.postProduct(datas).subscribe(
         (res: any) => {
+          this.loading = false;
           if (res) {
             this.display = false;
             Swal.fire({
@@ -165,7 +165,7 @@ export class ProductComponent {
               icon: 'success',
             }).then(() => {
               this.start();
-              this.loading = false; // Asegúrate de actualizar la página después de la confirmación
+              // Asegúrate de actualizar la página después de la confirmación
             });
           }
         },

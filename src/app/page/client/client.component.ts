@@ -82,8 +82,10 @@ export class ClientComponent {
               icon: 'success',
             }).then(() => {
               this.start();
-              this.loading = false; // Asegúrate de actualizar la página después de la confirmación
+              this.loading = false;
+              // Asegúrate de actualizar la página después de la confirmación
             });
+
             this.data = {};
           }
         },

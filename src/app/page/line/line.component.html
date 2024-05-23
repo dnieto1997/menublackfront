@@ -45,8 +45,8 @@
             {{ removePTags(item.observation) }}
           </td>
           <td class="text-center">
-            <button class="btn" (click)="toggleUserStatus(item.id, item.status)">
-              {{ !item.status ? 'Activate' : 'Desactivate' }}
+            <button class="btn" (click)="toggleUserStatus(item.id, item.status)"    [ngStyle]="{'background-color': !item.status ? 'red' : 'green'}">
+              {{ !item.status ? 'Desactivate' : 'Activate' }}
             </button>
           <td class="text-center">
             <button class="btn" (click)="openEditDialog(item.id)">
