@@ -61,6 +61,12 @@ export class LineComponent {
       (error: any) => {
         if (error.status == 401) {
           this.auth.close();
+        } else if (error.status == 409) {
+          Swal.fire({
+            title: 'Warning',
+            text: error.error.message,
+            icon: 'error',
+          });
         }
       }
     );
@@ -145,6 +151,12 @@ export class LineComponent {
       (error: any) => {
         if (error.status == 401) {
           this.auth.close();
+        } else if (error.status == 409) {
+          Swal.fire({
+            title: 'Warning',
+            text: error.error.message,
+            icon: 'error',
+          });
         }
       }
     );
@@ -171,6 +183,12 @@ export class LineComponent {
       (error: any) => {
         if (error.status == 401) {
           this.auth.close();
+        } else if (error.status == 409) {
+          Swal.fire({
+            title: 'Warning',
+            text: error.error.message,
+            icon: 'error',
+          });
         }
       }
     );

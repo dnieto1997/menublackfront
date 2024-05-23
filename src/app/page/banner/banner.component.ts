@@ -55,6 +55,12 @@ export class BannerComponent {
               this.auth.close();
             }
           });
+        } else if (error.status == 409) {
+          Swal.fire({
+            title: 'Warning',
+            text: error.error.message,
+            icon: 'error',
+          });
         }
       }
     );
@@ -66,6 +72,12 @@ export class BannerComponent {
       (error: any) => {
         if (error.status == 401) {
           this.auth.close();
+        } else if (error.status == 409) {
+          Swal.fire({
+            title: 'Warning',
+            text: error.error.message,
+            icon: 'error',
+          });
         }
       }
     );
@@ -124,6 +136,12 @@ export class BannerComponent {
                 // Acción cuando se hace clic en el botón Aceptar
                 this.auth.close();
               }
+            });
+          } else if (error.status == 409) {
+            Swal.fire({
+              title: 'Warning',
+              text: error.error.message,
+              icon: 'error',
             });
           }
         }

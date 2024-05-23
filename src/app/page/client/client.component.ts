@@ -78,7 +78,7 @@ export class ClientComponent {
             this.display = false;
             Swal.fire({
               title: 'Successful Creation',
-              text: 'The Variant product was created' + res.message,
+              text: res.message,
               icon: 'success',
             }).then(() => {
               this.start();
@@ -90,6 +90,12 @@ export class ClientComponent {
         (error: any) => {
           if (error.status == 401) {
             this.auth.close();
+          } else if (error.status == 409) {
+            Swal.fire({
+              title: 'Warning',
+              text: error.error.message,
+              icon: 'error',
+            });
           }
         }
       );
@@ -133,7 +139,7 @@ export class ClientComponent {
               this.loading = false;
               Swal.fire({
                 title: 'Successful Update',
-                text: 'Client Actualizado',
+                text: res.message,
                 icon: 'success',
               }).then(() => {
                 this.start(); // Asegúrate de actualizar la página después de la confirmación
@@ -153,6 +159,12 @@ export class ClientComponent {
                   // Acción cuando se hace clic en el botón Aceptar
                   this.auth.close();
                 }
+              });
+            } else if (error.status == 409) {
+              Swal.fire({
+                title: 'Warning',
+                text: error.error.message,
+                icon: 'error',
               });
             }
           }
@@ -181,6 +193,12 @@ export class ClientComponent {
         (error: any) => {
           if (error.status == 401) {
             this.auth.close();
+          } else if (error.status == 409) {
+            Swal.fire({
+              title: 'Warning',
+              text: error.error.message,
+              icon: 'error',
+            });
           }
         }
       );
