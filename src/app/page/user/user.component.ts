@@ -70,7 +70,7 @@ export class UserComponent {
     this.display = true;
   }
   createCategory() {
-    if (!this.data.name || !this.data.name) {
+    if (!this.data.name || !this.data.user) {
       Swal.fire({
         title: 'Warning',
         text: 'All fields are required',
@@ -83,7 +83,7 @@ export class UserComponent {
             this.display = false;
             Swal.fire({
               title: 'Successful Creation',
-              text: 'The user was created ' + this.data.name,
+              text: 'The user was created ' + this.data.user,
             }).then(() => {
               this.start(); // Asegúrate de actualizar la página después de la confirmación
             });

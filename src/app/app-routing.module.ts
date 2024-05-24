@@ -6,10 +6,7 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { ProductComponent } from './page/product/product.component';
 import { UserComponent } from './page/user/user.component';
 import { ClientComponent } from './page/client/client.component';
-import { ShoppingCartComponent } from './page/shopping-cart/shopping-cart.component';
-import { OrderComponent } from './page/order/order.component';
 import { BannerComponent } from './page/banner/banner.component';
-import { RatesComponent } from './page/rates/rates.component';
 import { GroupComponent } from './page/group/group.component';
 import { LineComponent } from './page/line/line.component';
 import { VariantesComponent } from './page/variantes/variantes.component';
@@ -22,8 +19,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'dashboard',
-    redirectTo: 'login',
+    path: '',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
