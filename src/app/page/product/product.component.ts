@@ -132,8 +132,7 @@ export class ProductComponent {
       !this.data.lines ||
       !this.data.img ||
       !this.data.price ||
-      !this.data.stars ||
-      this.data.img.length >= 255
+      !this.data.stars
     ) {
       Swal.fire({
         title: 'Warning',
@@ -161,11 +160,10 @@ export class ProductComponent {
             this.display = false;
             Swal.fire({
               title: 'Successful Creation',
-              text: 'The category was created ' + this.data.name,
+              text: `The Product ${this.data.name} was created`,
               icon: 'success',
             }).then(() => {
               this.start();
-              // Asegúrate de actualizar la página después de la confirmación
             });
           }
         },
@@ -190,8 +188,12 @@ export class ProductComponent {
   }
 
   removePTags(text: string): string {
-    return text.replace(/<\/?p>/g, '');
+    if (!text) {
+      return text; // Return the input text unchanged if it's falsy (empty or undefined)
+    }
+    return text.replace(/<\/?p>/g, ''); // Replace <p> and </p> tags with an empty string
   }
+
   validateNumberInput(event: any) {
     const input = event.target;
     let value = input.value;
@@ -220,7 +222,6 @@ export class ProductComponent {
       });
     } else {
       this.loading = true;
-      console.log(this.data);
 
       this.productService
         .updateProduct(this.data.id, {

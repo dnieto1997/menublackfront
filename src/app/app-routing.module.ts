@@ -86,7 +86,7 @@ const routes: Routes = [
   {
     path: 'client',
     component: ClientComponent,
-    // canActivate:[IndexGuard],
+    canActivate: [AuthGuard],
   } /* ,
   {
     path: 'shoppingCart',

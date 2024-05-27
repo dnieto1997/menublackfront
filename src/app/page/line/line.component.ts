@@ -87,7 +87,6 @@ export class LineComponent {
       !this.data.code ||
       !this.data.position ||
       !this.data.name ||
-      !this.data.observations ||
       this.data.group == 0
     ) {
       Swal.fire({
@@ -233,6 +232,9 @@ export class LineComponent {
       );
   }
   removePTags(text: string): string {
-    return text.replace(/<\/?p>/g, '');
+    if (!text) {
+      return text; // Return the input text unchanged if it's falsy (empty or undefined)
+    }
+    return text.replace(/<\/?p>/g, ''); // Replace <p> and </p> tags with an empty string
   }
 }

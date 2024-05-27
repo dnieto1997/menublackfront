@@ -55,10 +55,18 @@ export class ClientComponent {
   }
 
   createProduct() {
-    if (!this.data.nombres) {
+    if (
+      !this.data.nombres ||
+      !this.data.apellidos ||
+      !this.data.barrio ||
+      !this.data.celular ||
+      !this.data.direccion ||
+      !this.data.medioDePago ||
+      this.data.celular.length > 15
+    ) {
       Swal.fire({
         title: 'Warning',
-        text: 'Name no exist',
+        text: 'Please fill all required fields',
         icon: 'warning',
       });
     } else {
@@ -207,8 +215,12 @@ export class ClientComponent {
   }
 
   removePTags(text: string): string {
-    return text.replace(/<\/?p>/g, '');
+    if (!text) {
+      return text; // Return the input text unchanged if it's falsy (empty or undefined)
+    }
+    return text.replace(/<\/?p>/g, ''); // Replace <p> and </p> tags with an empty string
   }
+
   validateNumberInput(event: any) {
     const input = event.target;
     const value = input.value;

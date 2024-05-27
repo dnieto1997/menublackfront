@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { TranslationService } from 'src/app/services/translation.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
@@ -104,6 +103,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   toggleSubmenu(index: number) {
+    console.log(index);
     this.isSubmenuOpen[index] = !this.isSubmenuOpen[index];
   }
 

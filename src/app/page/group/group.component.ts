@@ -206,7 +206,6 @@ export class GroupComponent {
       !this.data.code ||
       !this.data.order ||
       !this.data.name ||
-      !this.data.observations ||
       !this.data.hours
     ) {
       // Si alguna de las variables está vacía, muestra una alerta con SweetAlert2
@@ -254,7 +253,10 @@ export class GroupComponent {
   }
 
   removePTags(text: string): string {
-    return text.replace(/<\/?p>/g, '');
+    if (!text) {
+      return text; // Return the input text unchanged if it's falsy (empty or undefined)
+    }
+    return text.replace(/<\/?p>/g, ''); // Replace <p> and </p> tags with an empty string
   }
 
   convertirDia(dias: string | string[]): string {
