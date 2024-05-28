@@ -1,0 +1,129 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="mx-3">
+  <div class="d-flex pb-3 pt-2">
+    <div class="col-10">
+      <h1>Product Groups</h1>
+    </div>
+    <div class="col-2 text-end">
+      <button class="btn-create" (click)="openModal()">Create Product Variants</button>
+    </div>
+  </div>
+  <p-table
+    [value]="list"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Name </th>
+        <th>Variants</th>
+        <th class="text-center">Status</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td class="text-uppercase">{{ item.id }}</td>
+        <td class="text-uppercase">{{ item.name }}</td>
+        <td class="text-uppercase">{{ VariantId(item.product_variante) }}</td>
+        <td>
+          <div [ngClass]="item.status ? 'statusActive' : 'statusDesactive'"></div>
+        </td>
+        <td class="col-1 text-center">
+          <i
+            class="ti ti-dots-vertical tree-dots"
+            (click)="showOverlayPanel($event, item)"
+          ></i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog
+  header="{{ isEdit ? 'Edit Product Groups' : 'Create Product Groups' }}"
+  [(visible)]="display"
+  [style]="{ width: '70vw', height: '60vh' }"
+>
+  <div class="row">
+    <form action="">
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Variant Name</label>
+          <input
+            type="text"
+            class="w-100"
+            [(ngModel)]="data.name"
+            name="name"
+            required
+          />
+        </div>
+
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Tipo</label>
+          <select name="tipo" class="form-control" [(ngModel)]="data.tipo">
+            <option [ngValue]="'radio'">Radio</option>
+            <option [ngValue]="'checkbox'">CheckBox</option>
+          </select>
+        </div>
+
+        <div class="col-6 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Product Variant</label>
+          <p-dropdown
+            name="Products_id"
+            [options]="availableVariants"
+            [(ngModel)]="selectedVariantId"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Select Product Variant"
+            class="w-100"
+            [filter]="true"
+            filterBy="name"
+          >
+            <ng-template pTemplate="selectedItem" let-item>
+              <div class="flex align-items-center gap-2" *ngIf="selectedVariantId" style="font-size: 0.9em;">
+                <div>{{ item.name }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div class="flex align-items-center gap-2" style="font-size: 0.9em;">
+                <div>{{ item.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <button class="btn btn-primary mt-2" (click)="addVariant()">Agregar Variante</button>
+        </div>
+
+        <div class="col-12 mt-3">
+          <h5>Variantes Seleccionadas</h5>
+          <ul class="list-group">
+            <li *ngFor="let variantId of selectedVariantIds; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+              {{ getVariantNameById(variantId) }}
+              <button class="btn btn-danger btn-sm" (click)="removeVariant(i)">Eliminar</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </form>
+  </div>
+  <button class="btn-modal" (click)="isEdit ? edit() : createProduct()">
+    {{ isEdit ? "Edit Products Variant" : "Create Products Variant" }}
+  </button>
+</p-dialog>
+<p-overlayPanel #overlayPanel>
+  <ng-template pTemplate>
+    <div class="d-grid">
+      <button class="btn-list" (click)="openModal(true)">
+        <i class="ti ti-edit"></i> Edit
+      </button>
+      <button class="btn-list" (click)="changeStatus()">
+        <div [ngClass]="!data.status ? 'statusActive' : 'statusDesactive'"></div>
+        {{ data.status ? "Deshabilitar" : "Habilitar" }}
+      </button>
+    </div>
+  </ng-template>
+</p-overlayPanel>

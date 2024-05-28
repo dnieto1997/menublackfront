@@ -103,16 +103,6 @@ export class GroupComponent {
     );
   }
   openModal() {
-    /*     this.data = {
-      img: '',
-      code: '',
-      order: '',
-      name: '',
-      days: [],
-      hours: [],
-      observations: '',
-    }; */
-    // Reiniciar los días seleccionados
     this.day = [];
     this.days.forEach((day) => (day.selected = false));
     // Reiniciar las horas seleccionadas

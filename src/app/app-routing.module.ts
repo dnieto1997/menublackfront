@@ -11,6 +11,7 @@ import { GroupComponent } from './page/group/group.component';
 import { LineComponent } from './page/line/line.component';
 import { VariantesComponent } from './page/variantes/variantes.component';
 import { ProductoVariantesComponent } from './page/producto-variantes/producto-variantes.component';
+import { ProductoGroupsComponent } from './page/producto-groups/producto-groups.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,11 @@ const routes: Routes = [
   {
     path: 'banner',
     component: BannerComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'producto_groups',
+    component: ProductoGroupsComponent,
     canActivate: [AuthGuard],
   },
   /*  {

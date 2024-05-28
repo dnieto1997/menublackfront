@@ -39,6 +39,7 @@ import { GroupComponent } from './page/group/group.component';
 import { LineComponent } from './page/line/line.component';
 import { VariantesComponent } from './page/variantes/variantes.component';
 import { ProductoVariantesComponent } from './page/producto-variantes/producto-variantes.component';
+import { ProductoGroupsComponent } from './page/producto-groups/producto-groups.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { ProductoVariantesComponent } from './page/producto-variantes/producto-v
     GroupComponent,
     LineComponent,
     VariantesComponent,
-    ProductoVariantesComponent
+    ProductoVariantesComponent,
+    ProductoGroupsComponent
   ],
   imports: [
     BrowserModule,
