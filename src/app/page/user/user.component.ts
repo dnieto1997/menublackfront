@@ -120,7 +120,34 @@ export class UserComponent {
       }
     );
   }
-
+  eliminar(id: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this user?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.auth.eliminar(id, {}).subscribe(
+          (res: any) => {
+            Swal.fire({
+              title: 'Success',
+              text: res.message,
+              icon: 'success',
+            });
+            this.start();
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }
+    });
+  }
   toggleUserStatus(id: any, status: any) {
     this.auth.updateUser(id, { status }).subscribe(
       (res: any) => {

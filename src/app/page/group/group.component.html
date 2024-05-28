@@ -22,6 +22,7 @@
           <th class="text-center">Observations</th>
           <th class="text-center">Status</th>
           <th class="text-center">Editar</th>
+          <th class="text-center"></th>
         </tr>
       </thead>
       <tbody *ngIf="showTable">
@@ -60,6 +61,12 @@
             <td class="text-center">
               <button class="btn"  (click)="openEditDialog(item.id)">
                Edit
+              </button>
+            </td>
+
+            <td class="text-center">
+              <button class="btn-danger btn-sm"  (click)="eliminarGroup(item.id)">
+                <i class="ti ti-eraser"></i>
               </button>
             </td>
          

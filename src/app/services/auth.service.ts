@@ -31,6 +31,10 @@ export class AuthService {
     return this.httpService.put(`login/${postDate}`, postDate2);
   }
 
+  eliminar(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.delete(`login/${postDate}`, postDate2);
+  }
+
   createGroup(postDate: any): Observable<any> {
     return this.httpService.post(`group`, postDate);
   }
@@ -49,6 +53,10 @@ export class AuthService {
 
   updateGroup(postDate: any, postDate2: any): Observable<any> {
     return this.httpService.put(`group/${postDate}`, postDate2);
+  }
+
+  eliminarGroup(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.delete(`group/${postDate}`, postDate2);
   }
 
   findAllLine(postDate: any): Observable<any> {
@@ -71,6 +79,10 @@ export class AuthService {
     return this.httpService.put(`lines/${postDate}`, postDate2);
   }
 
+  eliminarLine(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.delete(`lines/${postDate}`, postDate2);
+  }
+
   getVariant(postDate: any): Observable<any> {
     return this.httpService.get(`variantes`, postDate);
   }
@@ -84,6 +96,10 @@ export class AuthService {
 
   updateVariantes(postDate: any, postDate2: any): Observable<any> {
     return this.httpService.put(`variantes/${postDate}`, postDate2);
+  }
+
+  eliminarVariantes(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.delete(`variantes/${postDate}`, postDate2);
   }
 
   getProductVariant(postDate: any): Observable<any> {
@@ -102,6 +118,13 @@ export class AuthService {
 
   updateProductVariantes(postDate: any, postDate2: any): Observable<any> {
     return this.httpService.put(`productos-variantes/${postDate}`, postDate2);
+  }
+
+  eliminarProductVariantes(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.delete(
+      `productos-variantes/${postDate}`,
+      postDate2
+    );
   }
 
   menu(postDate: any): Observable<any> {

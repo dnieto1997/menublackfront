@@ -193,6 +193,35 @@ export class LineComponent {
     );
   }
 
+  eliminarline(id: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this Line?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.auth.eliminarLine(id, {}).subscribe(
+          (res: any) => {
+            Swal.fire({
+              title: 'Success',
+              text: res.message,
+              icon: 'success',
+            });
+            this.findAll();
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }
+    });
+  }
+
   EditGroup(id: any) {
     if (typeof this.data2.days === 'string') {
       try {

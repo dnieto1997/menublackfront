@@ -124,7 +124,7 @@ export class ProductComponent {
     }
   }
   createProduct() {
-    this.loading = true;
+    this.loading = false;
     if (
       !this.data.name ||
       !this.data.code ||
@@ -332,5 +332,34 @@ export class ProductComponent {
           }
         }
       );
+  }
+
+  eliminarProduct() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this Product?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.productService.eliminarProduct(this.data.id, {}).subscribe(
+          (res: any) => {
+            Swal.fire({
+              title: 'Success',
+              text: res.message,
+              icon: 'success',
+            });
+            this.start();
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }
+    });
   }
 }

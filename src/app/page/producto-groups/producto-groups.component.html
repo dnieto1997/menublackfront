@@ -127,6 +127,9 @@
         <div [ngClass]="!data.status ? 'statusActive' : 'statusDesactive'"></div>
         {{ data.status ? "Deshabilitar" : "Habilitar" }}
       </button>
+      <button class="btn-list"  (click)="eliminarProductVariant()" >
+        <i class="ti ti-eraser"></i>Delete
+      </button>
     </div>
   </ng-template>
 </p-overlayPanel>

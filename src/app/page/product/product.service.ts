@@ -29,4 +29,8 @@ export class ProductService {
   updateProduct(id: any, data: any): Observable<any> {
     return this.httpService.patch(`products/${id}`, data);
   }
+
+  eliminarProduct(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.delete(`products/${postDate}`, postDate2);
+  }
 }

@@ -333,6 +333,35 @@ export class GroupComponent {
     // Lógica para cargar los datos del grupo seleccionado en el diálogo de edición
   }
 
+  eliminarGroup(id: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this Group?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.auth.eliminarGroup(id, {}).subscribe(
+          (res: any) => {
+            Swal.fire({
+              title: 'Success',
+              text: res.message,
+              icon: 'success',
+            });
+            this.findAll();
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }
+    });
+  }
+
   addHour2(hour: string) {
     // Si data2.hours no es un array o no está definido, inicialízalo como un array vacío
     if (!Array.isArray(this.data2.hours)) {

@@ -186,4 +186,33 @@ export class VariantesComponent {
         }
       );
   }
+
+  eliminarVariant() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this Variant?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.auth.eliminarVariantes(this.data.id, {}).subscribe(
+          (res: any) => {
+            Swal.fire({
+              title: 'Success',
+              text: res.message,
+              icon: 'success',
+            });
+            this.start();
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      }
+    });
+  }
 }
