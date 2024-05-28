@@ -148,7 +148,7 @@ export class ProductoGroupsComponent {
   createProduct() {
     this.display = true;
 
-    if (!this.data.name || !this.data.tipo) {
+    if (!this.data.name || !this.data.tipo || !this.data.product_variante) {
       Swal.fire({
         title: 'Warning',
         text: 'Please fill all required fields',
@@ -199,10 +199,10 @@ export class ProductoGroupsComponent {
 
   edit() {
     this.display = true;
-    if (!this.data.name || !this.data.tipo) {
+    if (!this.data.name || !this.data.tipo || !this.data.product_variante) {
       Swal.fire({
         title: 'Warning',
-        text: 'Empty Producto Id',
+        text: 'Please fill all required fields',
         icon: 'warning',
       });
     } else {
