@@ -22,4 +22,7 @@ export class BannerService {
   updateBanner(postDate: any, postDate2: any): Observable<any> {
     return this.httpService.put(`banner/${postDate}`, postDate2);
   }
+  eliminar(postDate: any, postDate2: any): Observable<any> {
+    return this.httpService.delete(`banner/${postDate}`, postDate2);
+  }
 }

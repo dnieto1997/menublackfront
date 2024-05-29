@@ -25,6 +25,7 @@
         <th>Code</th>
         <th>Group</th>
         <th>Line</th>
+        <th>Group Variant</th>
         <th>Stars</th>
         <th>Price</th>
         <th>New</th>
@@ -45,6 +46,7 @@
         <td class="text-uppercase">{{ item.code }}</td>
         <td class="text-uppercase">  {{ groupsbyuid(item.group)  }}</td>
         <td class="text-uppercase">  {{ linesByuid(item.lines)  }}</td>
+        <td class="text-uppercase">{{ VariantId(item.variantes_group) }}</td>
         <td class="text-uppercase">
           <span *ngFor="let img of obtenerImagenEstrellasConDiseno(item.stars)" class="estrella-container">
             <img [src]="img.src" [alt]="img.alt" class="estrella">
@@ -154,6 +156,43 @@
               </div>
             </ng-template>
           </p-dropdown>
+        </div>
+
+
+        <div class="col-12 mb-3">
+          <label for="" class="w-100 fw-bold mb-1">Product Variant</label>
+          <p-dropdown
+            name="Products_id"
+            [options]="variant_group"
+            [(ngModel)]="selectedVariantId"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Select Product Variant"
+            class="w-100"
+            [filter]="true"
+            filterBy="name"
+          >
+            <ng-template pTemplate="selectedItem" let-item>
+              <div class="flex align-items-center gap-2" *ngIf="selectedVariantId" style="font-size: 0.9em;">
+                <div>{{ item.name }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div class="flex align-items-center gap-2" style="font-size: 0.9em;">
+                <div>{{ item.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <button class="btn btn-primary mt-2" (click)="addVariant()">Agregar Variante</button>
+        </div>
+
+        <div class="col-12 mt-3">
+          <ul class="list-group selected-variants-container">
+            <li *ngFor="let variantId of selectedVariantIds; let i = index" class="list-group-item selected-variant-item">
+              {{ getVariantNameById(variantId) }}
+              <button class="btn btn-danger btn-sm" (click)="removeVariant(i)"><i class="ti ti-circle-minus"></i></button>
+            </li>
+          </ul>
         </div>
 
 

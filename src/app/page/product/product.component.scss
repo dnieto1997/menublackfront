@@ -54,7 +54,7 @@ input {
   padding: 0px 10px;
 }
 label {
-  font-size: 20px;
+  font-size: 18px;
   width: 100%;
   font-weight: bold;
   color: #1b1564;
@@ -209,3 +209,13 @@ label {
   margin-right: 2px; /* Espaciado entre las estrellas */
 }
 
+.selected-variants-container {
+  max-width: 300px; /* Ajusta este valor según tus necesidades */
+}
+
+.selected-variant-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+}

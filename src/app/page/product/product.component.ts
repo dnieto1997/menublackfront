@@ -18,6 +18,7 @@ export class ProductComponent {
   public list: any[] = [];
   public data: any = {};
   public line: any;
+  public variant_group: any;
   public group: any;
   public panelVisible: boolean = false;
   public name: string = '';
@@ -25,6 +26,9 @@ export class ProductComponent {
   public fileSelect?: string | ArrayBuffer | null = null;
   public text: string | undefined =
     '<p>Aquí tu contenido inicial para el editor.</p>';
+  public selectedVariantId: number | null = null;
+  public selectedVariantIds: number[] = [];
+  public availableVariants: any; // Array para almacenar los IDs seleccionados
 
   constructor(
     private productService: ProductService,
@@ -95,15 +99,99 @@ export class ProductComponent {
         }
       }
     );
+
+    this.auth.getProductVariant({}).subscribe(
+      (res: any) => {
+        this.variant_group = res;
+        this.availableVariants = [...this.variant_group];
+      },
+      (error: any) => {
+        this.loading = false;
+        if (error.status == 401) {
+          Swal.fire({
+            title: 'Expired Token',
+            text: 'Your session has expired. Please log in again.',
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Confirm',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.auth.close();
+            }
+          });
+        }
+      }
+    );
   }
+
   openModal(param?: boolean) {
     if (param) {
       this.isEdit = true;
+      // Verifica si this.data.variantes_group no está vacío
+      if (this.data.variantes_group && this.data.variantes_group.length > 0) {
+        // Convierte this.data.variantes_group a array si no lo es ya
+        this.data.variantes_group = this.stringToArray(
+          this.data.variantes_group
+        );
+        // Asigna los valores de this.data.variantes_group a this.selectedVariantIds
+        this.selectedVariantIds = [...this.data.variantes_group];
+      } else {
+        // Si this.data.variantes_group está vacío, no envíes nada
+        // Podrías querer asignar this.selectedVariantIds a un valor predeterminado o vacío aquí
+        this.selectedVariantIds = []; // O cualquier otro valor predeterminado que prefieras
+      }
     } else {
       this.isEdit = false;
       this.data = {};
+      this.selectedVariantIds = [];
     }
     this.display = true;
+  }
+
+  stringToArray(variants: string): number[] {
+    try {
+      return JSON.parse(variants);
+    } catch {
+      return [];
+    }
+  }
+
+  addVariant() {
+    if (
+      this.selectedVariantId !== null &&
+      !this.selectedVariantIds.includes(this.selectedVariantId)
+    ) {
+      this.selectedVariantIds.push(this.selectedVariantId);
+      this.removeFromAvailableVariants(this.selectedVariantId);
+      this.selectedVariantId = null;
+    }
+  }
+
+  removeVariant(index: number) {
+    const removedId = this.selectedVariantIds.splice(index, 1)[0];
+    this.addToAvailableVariants(removedId);
+  }
+
+  getVariantNameById(id: number): string {
+    const variant = this.variant_group.find((v: { id: number }) => v.id === id);
+    return variant ? variant.name : 'Unknown';
+  }
+
+  private removeFromAvailableVariants(id: number) {
+    const index = this.availableVariants.findIndex(
+      (v: { id: number }) => v.id === id
+    );
+    if (index !== -1) {
+      this.availableVariants.splice(index, 1);
+    }
+  }
+
+  private addToAvailableVariants(id: number) {
+    const variant = this.variant_group.find((v: { id: number }) => v.id === id);
+    if (variant) {
+      this.availableVariants.push(variant);
+      console.log(this.availableVariants);
+    }
   }
 
   groupsbyuid(groupId: number): string {
@@ -123,6 +211,35 @@ export class ProductComponent {
       return '../../../assets/noimage.jpg'; // Si la URL no es válida, devuelve la ruta de la imagen "No imagen"
     }
   }
+
+  VariantId(lineId: any): string {
+    // Verifica si lineId es un array. Si lo es, usa ese array directamente.
+    let ids: number[];
+    if (Array.isArray(lineId)) {
+      ids = lineId;
+    } else if (typeof lineId === 'string') {
+      // Si lineId es un string, elimine los corchetes y conviértalo en un array.
+      ids = lineId
+        .replace(/[\[\]]/g, '')
+        .split(',')
+        .map(Number);
+    } else {
+      // Si no es ni un array ni un string, devuelve un array vacío para evitar errores.
+      ids = [];
+    }
+
+    // Mapear cada ID a su respectivo nombre de variante
+    const variantNames = ids.map((id) => {
+      const variant = this.variant_group?.find(
+        (v: { id: number }) => v.id === id
+      );
+      return variant ? variant.name : '';
+    });
+
+    // Devolver una cadena con los nombres de las variantes separados por coma
+    return variantNames.join(', ');
+  }
+
   createProduct() {
     this.loading = false;
     if (
@@ -140,6 +257,7 @@ export class ProductComponent {
         icon: 'warning',
       });
     } else {
+      this.data.variantes_group = this.selectedVariantIds;
       const datas = {
         img: this.data.img,
         code: this.data.code,
@@ -150,6 +268,7 @@ export class ProductComponent {
         stars: this.data.stars,
         new: this.data.new,
         promotion: this.data.promotion,
+        variantes_group: this.data.variantes_group,
         observations: this.data.observation ? this.data.observation : ' ',
       };
 
@@ -176,6 +295,7 @@ export class ProductComponent {
       );
     }
   }
+
   showOverlayPanel(event: Event, item: any) {
     if (this.panelVisible) {
       this.overlayPanel.hide();
@@ -204,6 +324,7 @@ export class ProductComponent {
     // Actualiza el valor del input
     input.value = value;
   }
+
   edit() {
     if (
       !this.data.name ||
@@ -222,6 +343,7 @@ export class ProductComponent {
       });
     } else {
       this.loading = true;
+      this.data.variantes_group = this.selectedVariantIds;
 
       this.productService
         .updateProduct(this.data.id, {
@@ -234,6 +356,7 @@ export class ProductComponent {
           stars: this.data.stars,
           new: this.data.new,
           promotion: this.data.promotion,
+          variantes_group: this.data.variantes_group,
           observations: this.data.observation ? this.data.observation : ' ',
         })
         .subscribe(
