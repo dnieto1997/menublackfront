@@ -40,7 +40,7 @@ import { LineComponent } from './page/line/line.component';
 import { VariantesComponent } from './page/variantes/variantes.component';
 import { ProductoVariantesComponent } from './page/producto-variantes/producto-variantes.component';
 import { ProductoGroupsComponent } from './page/producto-groups/producto-groups.component';
-
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [
@@ -65,7 +65,7 @@ import { ProductoGroupsComponent } from './page/producto-groups/producto-groups.
     LineComponent,
     VariantesComponent,
     ProductoVariantesComponent,
-    ProductoGroupsComponent
+    ProductoGroupsComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +85,7 @@ import { ProductoGroupsComponent } from './page/producto-groups/producto-groups.
     TagModule,
     ToastModule,
     EditorModule,
+    RatingModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

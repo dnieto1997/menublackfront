@@ -28,7 +28,7 @@ export class ProductComponent {
     '<p>Aquí tu contenido inicial para el editor.</p>';
   public selectedVariantId: number | null = null;
   public selectedVariantIds: number[] = [];
-  public availableVariants: any; // Array para almacenar los IDs seleccionados
+  public availableVariants: any;
 
   constructor(
     private productService: ProductService,
@@ -208,7 +208,7 @@ export class ProductComponent {
     if (url.startsWith('https://')) {
       return url; // Si la URL comienza con "https://", es válida
     } else {
-      return '../../../assets/noimage.jpg'; // Si la URL no es válida, devuelve la ruta de la imagen "No imagen"
+      return '../../../assets/170.png'; // Si la URL no es válida, devuelve la ruta de la imagen "No imagen"
     }
   }
 
@@ -317,11 +317,11 @@ export class ProductComponent {
   validateNumberInput(event: any) {
     const input = event.target;
     let value = input.value;
-    // Reemplaza todo lo que no sea dígito o punto decimal por una cadena vacía
+
     value = value.replace(/[^0-9.]/g, '');
-    // Reemplaza los múltiples puntos decimales por uno solo
+
     value = value.replace(/(\..*)\./g, '$1');
-    // Actualiza el valor del input
+
     input.value = value;
   }
 
@@ -369,7 +369,7 @@ export class ProductComponent {
                 icon: 'success',
               }).then(() => {
                 this.start();
-                this.display = false; // Asegúrate de actualizar la página después de la confirmación
+                this.display = false;
               });
             }
           },

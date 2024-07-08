@@ -43,14 +43,16 @@
         
           </td>
         <td class="text-uppercase">{{ item.name }}</td>
-        <td class="text-uppercase">{{ item.code }}</td>
+        <td class="text-uppercase">{{ item.code }}</td> 
         <td class="text-uppercase">  {{ groupsbyuid(item.group)  }}</td>
         <td class="text-uppercase">  {{ linesByuid(item.lines)  }}</td>
         <td class="text-uppercase">{{ VariantId(item.variantes_group) }}</td>
-        <td class="text-uppercase">
-          <span *ngFor="let img of obtenerImagenEstrellasConDiseno(item.stars)" class="estrella-container">
+        <td >
+          <!--  <span *ngFor="let img of obtenerImagenEstrellasConDiseno(item.stars)">
             <img [src]="img.src" [alt]="img.alt" class="estrella">
-          </span>
+          </span>  -->
+
+  <p-rating [(ngModel)]="item.stars " [readonly]="true" [cancel]="false" />   
         </td>
         <td class="text-uppercase">{{ item.price| currency:'USD':'symbol':'1.0-0' }}</td>
         <td class="text-uppercase">{{ (item.new==true)?'SI':'NO' }}</td>

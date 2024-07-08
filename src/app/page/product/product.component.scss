@@ -204,9 +204,9 @@ label {
   height: auto; /* Altura automática para mantener la proporción */
 }
 .estrella {
-  width: 20px; /* Tamaño de la estrella */
+  width: 15px; /* Tamaño de la estrella */
   height: auto; /* Ajuste automático de la altura para mantener la proporción */
-  margin-right: 2px; /* Espaciado entre las estrellas */
+  margin-right: 1px; /* Espaciado entre las estrellas */
 }
 
 .selected-variants-container {
@@ -219,3 +219,4 @@ label {
   align-items: center;
   padding: 0.5em;
 }
+
